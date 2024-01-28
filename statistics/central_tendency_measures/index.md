@@ -2,9 +2,12 @@
 
 # central tendency measures
 
-- mean
-- median
-- mode
+- [mean](./mean/mean.md)
+- [median](./median.ipynb)
+- [mode](./mode.ipynb)
+- [skewness](./skewness/skewness.ipynb)
+- [standard deviation](./standard_deviation.ipynb)
+- [dispersion / CV](./dispersion.ipynb)
 
 ## 1. mean
 
