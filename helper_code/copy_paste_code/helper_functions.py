@@ -1,5 +1,3 @@
-# intended to be copy pasted into the python file
-
 import os
 import sys
 
@@ -16,7 +14,6 @@ def add_path_until_readme():
         sys.path.append(os.path.abspath(current_dir))
         return current_dir
 
-root_dir = add_path_until_readme()
-print('root_dir: ', root_dir)
-for file in os.listdir(root_dir):
-    print(file)
+# pull get helper code    
+add_path_until_readme()
+from helper_code.print_image import *

@@ -1,0 +1,1 @@
+- spending too much time organizing notes. Not getting any work done.
