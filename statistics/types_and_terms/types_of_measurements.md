@@ -1,3 +1,5 @@
+[<< types and terms](./index.md)
+
 # types of measurements
 
 - **spread**: range, variance, standard deviation, etc...  

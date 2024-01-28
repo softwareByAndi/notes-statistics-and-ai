@@ -1,3 +1,5 @@
+[<< types and terms](./index.md)
+
 ### types of variables
 
 - **population**: all data _(all people, etc...)_  

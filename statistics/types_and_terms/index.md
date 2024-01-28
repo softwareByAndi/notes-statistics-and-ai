@@ -1,3 +1,5 @@
+[<< home](../home.md)
+
 # statistical terms
 a rough referencial overview of statistical types & terms
 
