@@ -1,0 +1,88 @@
+### types of statistics
+- **descriptive**: quantitively describes or summarizes features of a collection of information
+    - for example: 
+        - a mean that describes the average height of a population
+        - a median that describes the middle height of a population
+        - a mode that describes the most common height of a population
+        - a standard deviation that describes the spread of heights in a population
+        - a variance that describes the spread of heights in a population
+        - a range that describes the difference between the tallest and shortest heights in a population
+        - a histogram that describes the distribution of heights in a population
+- **inferential**: describes and make inferences about the population
+        - for example, a hypothesis test that determines if a population mean is equal to a hypothesized value
+    - **predictive**: data that predicts the value of a population
+        - for example, a machine learning model that predicts the population of a city based on the number of people in a random sample of houses
+    - **prescriptive/recommendation**: recommends a course of action for the population
+        - for example, a machine learning model that prescribes a course of action for a population of patients based on their medical history
+        - synonyms for prescribe
+            - **recommend**
+            - **advise**
+            - **suggest**
+            - **propose**
+            - **advocate**
+        - prescriptive algorithms
+            - decision trees
+            - random forests
+            - neural networks
+            - support vector machines
+            - k-nearest neighbors
+            - naive bayes
+            - k-means
+            - clustering
+            - regression
+            - classification
+            - association rules
+            - apriori algorithm
+            - eclat algorithm
+            - FP-growth algorithm
+            - reinforcement learning
+            - deep learning
+            - natural language processing
+            - dimensionality reduction
+            - gradient boosting
+    - **causal**: determines the cause of an effect
+        - for example, an A/B test that determines the cause of an increase in sales
+        - causal analysis uses explanatory functions described below
+    - **explanatory**: explains the relationship between two or more variables
+        - for example, a regression model that **explains** the relationship between a person's height and weight
+        - other types of explanatory functions
+            - linear regression
+            - logistic regression
+            - polynomial regression
+            - multiple regression
+            - multivariate regression
+            - multinomial regression
+            - ordinal regression
+            - poisson regression
+            - cox regression
+            - survival analysis
+            - time series analysis
+        - non-regression explanatory functions
+            - chi-square test
+            - t-test
+            - ANOVA
+            - MANOVA
+            - MANCOVA
+            - factor analysis
+            - cluster analysis
+            - discriminant analysis
+            - principal component analysis
+            - correlation analysis
+            - path analysis
+            - structural equation modeling
+            - linear modeling
+            - estimating equations
+            - additive models
+            - mixed models
+- **exploratory**: explores the data to find patterns, trends, or relationships _(data visualization, etc...)_
+    - for example, a data visualization that **explores** the relationship between a person's height and weight
+    - **confirmatory**: confirms or rejects a hypothesis _(hypothesis testing, etc...)_
+        - for example, a hypothesis test that **confirms** the relationship between a person's height and weight
+- **time series**: data collected over time _(stock prices, etc...)_
+    - **panel**: data collected over time from the same group _(longitudinal study, etc...)_
+    - **pooled**: data collected over time from different groups _(census, etc...)_
+- **cross sectional**: data collected at a single point in time _(survey, etc...)_
+- **spatial**: data collected from different locations _(census, etc...)_
+    - **geospatial**: data collected from different locations with spatial coordinates _(GPS, etc...)_
+    - **non-geospatial**: data collected from different locations without spatial coordinates _(census, etc...)_
+    - **geostatistical**: data collected from different locations with spatial coordinates and spatial relationships _(GPS, etc...)_
