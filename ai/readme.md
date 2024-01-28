@@ -1,0 +1,1 @@
+catch all for ai related notes
