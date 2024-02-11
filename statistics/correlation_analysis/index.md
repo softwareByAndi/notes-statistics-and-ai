@@ -1,3 +1,5 @@
+[<< home](../home.md)
+
 # correlation anlaysis
 
 - [chi-square test](./chi_square.ipynb)

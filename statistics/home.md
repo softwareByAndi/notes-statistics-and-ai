@@ -1,8 +1,11 @@
 catch all for stats related notes
-- [types & terms](types_and_terms/index.md)
 - [central tendency measures](central_tendency_measures/index.md)
-- [visualizations](visualization/visualization.ipynb)
+- [correlation analysis](correlation_analysis/index.md)
 - [probability](probability/probability.ipynb)
+- [reference sheets](reference_sheets/reference_sheets.ipynb)
+- [shape](shape/index.md)
+- [types & terms](types_and_terms/index.md)
+- [visualizations](visualization/visualization.ipynb)
 
 # uncategorized notes
 
