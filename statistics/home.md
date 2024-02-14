@@ -5,9 +5,10 @@ catch all for stats related notes
 - [reference sheets](reference_sheets/reference_sheets.ipynb)
 - [shape](shape/index.md)
 - [types & terms](types_and_terms/index.md)
-- [visualizations](visualization/visualization.ipynb)
+- [visualizations](visualization/index.md)
 
 # uncategorized notes
+- [lecture notes](lecture_notes.ipynb)
 
 ### raw data --> cleaned_data --> information --> knowledge --> wisdom
 - **raw data**: unprocessed data

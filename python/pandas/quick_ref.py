@@ -1,8 +1,8 @@
 import re
 import pandas as pd
 
-input_data_path = '../test_data/test_data.csv'
-data_output_dir = '../test_data/25_best_practices/'
+input_data_path = '../../test_data/test_data.csv'
+data_output_dir = '../../test_data/25_best_practices/'
 def fix_column_names(name):
     name = re.sub(r'[\s\-/]', '_', name) # Replace whitespace & - characters with '_'d
     name = re.sub(r'[^\w\s]', '', name) # Remove all non-alphanumeric characters except '_'
