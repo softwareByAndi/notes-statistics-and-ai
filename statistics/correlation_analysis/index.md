@@ -1,6 +1,4 @@
-[<< home](../home.md)
-
-# correlation anlaysis
+[[Statistics]]
 
 - [chi-square test](./chi_square.ipynb)
     - Is a statistical test used to compare observed results with expected results. 

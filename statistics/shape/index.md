@@ -1,4 +1,4 @@
-[<< home](../home.md)
+[<< home](Statistics.md)
 
 # shape
 

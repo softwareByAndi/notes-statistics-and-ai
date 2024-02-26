@@ -1,0 +1,1 @@
+basically [[K-Means]], but uses the [[Median]] instead of the [[Mean]].

@@ -1,0 +1,194 @@
+{
+  "main": {
+    "id": "f5e0ad0c530ace12",
+    "type": "split",
+    "children": [
+      {
+        "id": "4161a8f41c6f0181",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a553c67be9ca6916",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Untitled.canvas",
+                "viewState": {
+                  "x": 0,
+                  "y": 0,
+                  "zoom": 0
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a1d6efe8a781ae73",
+    "type": "split",
+    "children": [
+      {
+        "id": "8b4b4e2aa1667b9f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "320448680e31ceef",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "11e5317bd2b5c35d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#research-topic  ",
+                "matchingCase": false,
+                "explainSearch": true,
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b254ddba6168f89b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "74f6237c3b4f257b",
+    "type": "split",
+    "children": [
+      {
+        "id": "650965642cfce909",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4379d25bb5ba40c9",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Untitled.canvas",
+                "collapseAll": true,
+                "extraContext": true,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "c17f1dbee894c83d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Untitled.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          },
+          {
+            "id": "fbe69d4352084d87",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "3b610d0a593f15cb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Untitled.canvas"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "workspaces:Manage workspace layouts": false
+    }
+  },
+  "active": "a553c67be9ca6916",
+  "lastOpenFiles": [
+    "Untitled.canvas",
+    "uncategorized_notes/Regression.md",
+    "statistics/terms/explanatory statistics.md",
+    "statistics/terms/Inferential Statistics.md",
+    "statistics/terms/_ Types of Statistics.md",
+    "uncategorized_notes/Linear Regression.md",
+    "statistics/terms/prescriptive and recommendation statistics.md",
+    "uncategorized_notes/_ AI Dictionary.md",
+    "statistics/terms/_ Statistical Dictionary.md",
+    "ai/dimensionality/Principal Component Analysis (PCA).md",
+    "statistics/Euclidean Distance.md",
+    "ai/clustering/Gaussian Mixture Models.md",
+    "ai/clustering/Stochastic Neighbor Embedding.md",
+    "ai/dimensionality/code/test.ipynb",
+    "uncategorized_notes/t-SNE.md",
+    "ai/clustering/Admixture.md",
+    "ai/dimensionality/PCA_via_SVD.md",
+    "helper_code/nbconvert .ipynb to .html.md",
+    "ai/dimensionality/code/PCA_SVD_example.html",
+    "ai/dimensionality/code/PCA_SVD_example.ipynb",
+    "ai/dimensionality/code/pca_example_1.ipynb",
+    "ai/dimensionality/code",
+    "_obsidan_templates/Default Note Template.md",
+    "README.md",
+    "_obsidan_templates",
+    "TOFIX.md",
+    "ai/Naive AI Algorithms.md",
+    "ai/linear_algebra/Spectral Decomposition Theorem.md",
+    "ai/linear_algebra",
+    "ai/clustering/Spectral Clustering.md",
+    "ai/clustering/Latent Dirichlet Allocation (LDA).md",
+    "ai/dimensionality",
+    "ai/clustering/Untitled",
+    "statistics/terms/_ Types of Variables.md",
+    "statistics/terms/_ Types of Measurements.md",
+    "ai/clustering",
+    "assets/images/img_overview_of_clustering_methods.png",
+    "statistics/assets/type_error_graph.png"
+  ]
+}

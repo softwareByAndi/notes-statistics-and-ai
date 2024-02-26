@@ -1,4 +1,4 @@
-[<< statistics home](../home.md)
+[<< statistics home](Statistics.md)
 
 # Data Visualization
 

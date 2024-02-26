@@ -1,1 +1,0 @@
-notes related to using python in stats & ai
