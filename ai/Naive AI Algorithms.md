@@ -3,4 +3,5 @@ Links: [[AI]]
 
 - [[K-Means]]
 - [[Naive Bays]]
+- [[Regression]]
 - 

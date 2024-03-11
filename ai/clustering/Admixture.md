@@ -1,5 +1,5 @@
 #artificial-intelligence #clustering 
-[[AI]] | [[Clustering]]
+[[Clustering]]
 
 #### TLDR
 represents data points as belonging to multiple clusters.

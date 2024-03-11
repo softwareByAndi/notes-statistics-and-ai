@@ -17,3 +17,7 @@ features are variables that are used to describe a data point.
 	- see [[Reducing Feature Dimensionality]]
 
 
+### see also:
+```dataview
+LIST FROM [[Datum Features]] SORT file.name ASC
+```

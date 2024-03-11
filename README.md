@@ -1,13 +1,18 @@
-Tags: #home #readme #toc
+---
+tags:
+  - "#home"
+  - "#readme"
+  - "#toc"
+links:
+---
+
 # notes-statistics-and-ai
 my reference notes for statistics and artificial intelligence. I makes sense to package them together
 
 ## TOC
-
-- [[Statistics]]
-- [[Python]]
-- [[AI]]
-
+```dataview
+LIST FROM [[README]] SORT file.name ASC
+```
 
 ## update - Obsidian
 

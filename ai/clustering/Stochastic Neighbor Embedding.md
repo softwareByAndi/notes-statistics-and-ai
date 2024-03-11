@@ -7,5 +7,7 @@ more accurately, it's a probabilistic approach to place samples from high-dimens
 - the goal is to find which embedding gives the best low-dimensional approximation of high-dimensional data
 - for a faster, linear version, see [[Principal Component Analysis (PCA)]]
 
-[[t-SNE]] uses [[Kullback-Leibler Divergence]] to [[Measurements of Distance|measure ''distance"]] between distributions
-- also see: [[T-Distributions]]
+### see also:
+```dataview
+LIST FROM [[Stochastic Neighbor Embedding]] SORT file.name ASC
+```

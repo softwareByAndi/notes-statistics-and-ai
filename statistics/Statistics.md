@@ -1,21 +1,28 @@
-Tags: #statistics #toc #head-page 
-Links: [[README|Root]]
+---
+tags:
+  - "#toc"
+links:
+  - "[[README]]"
+---
+a catch all for stats related notes
+```toc
+```
 
-catch all for stats related notes
-- [[_ Statistical Dictionary|Dictionary]]
-- [[_ Types of Statistics]]
-- [[_ Types of Variables]]
-- [[_ Types of Measurements]]
-- [[Central Tendency Measures]]
-- [correlation analysis](correlation_analysis/index.md)
-- [probability](probability/probability.ipynb)
-- [reference sheets](reference_sheets/reference_sheets.ipynb)
-- [[shape/index.md |shape]]
-- [visualizations](visualization/index.md)
+# TOC
 
-# uncategorized notes
-- [lecture notes](statistics/lecture_notes.ipynb)
+- [[_ Statistics Terms and Definitions|Statistics Terms & Definitions]] 
+```dataview
+list FROM #toc AND [[Statistics]] WHERE !contains(file.folder, "terms") SORT file.name ASC
+```
+- [[probability/probability.ipynb]] #cleanup
+- [[reference_sheets/reference_sheets.ipynb]] #cleanup
+- [[statistics/lecture_notes.ipynb]] #cleanup 
+```dataview
+list FROM [[Statistics]] and !#toc WHERE !contains(file.folder, "terms") SORT file.name ASC
+```
 
+# uncategorized notes 
+#cleanup
 ### raw data --> cleaned_data --> information --> knowledge --> wisdom
 - **raw data**: unprocessed data
 - **cleaned data**: raw data that has been cleaned & normalized

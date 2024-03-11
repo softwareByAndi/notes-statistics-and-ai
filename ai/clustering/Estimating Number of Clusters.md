@@ -1,5 +1,5 @@
 Tags: #artificial-intelligence #clustering 
-Links: [[AI]] | [[Sum of Squares]]
+Links: [[Clustering]] | [[Residual Sum of Squares - RSS]]
 
 
 ## [[ELBOW Method]]

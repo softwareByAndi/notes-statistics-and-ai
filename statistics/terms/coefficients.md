@@ -1,0 +1,1 @@
+coefficients are the trainable parameters that are applied to the inputs in order to produce the outputs.

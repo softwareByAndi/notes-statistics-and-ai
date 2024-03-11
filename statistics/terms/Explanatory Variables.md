@@ -1,0 +1,18 @@
+---
+tags: 
+links:
+  - "[[Statistics]]"
+  - "[[Datum Features]]"
+---
+explanatory variables are the factors or [[Datum Features|features]] you think might cause something to change. 
+-  *(aka **independent variables**)*
+
+For example, if you're looking at what affects grades in school, then the [[Datum Features|features]] of the dataset could be **grades, study time, attendance, and sleep hours.**
+
+The explanatory variables would be the **study time, attendance, and sleep hours** features, which would be tested to see if they have an effect on the other features **(grades)**
+
+
+### see also:
+```dataview
+LIST FROM [[Explanatory Variables]] SORT file.name ASC
+```

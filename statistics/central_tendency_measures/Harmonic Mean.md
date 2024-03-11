@@ -1,5 +1,5 @@
 Tags: #statistics 
-Tags: [[Statistics]] | [[Mean]] | [[Central Tendency Measures]]
+Tags: [[Mean]] | [[Central Tendency Measures]]
 
 Reciprocal of the arithmetic mean of reciprocals.
 - Used for average rates and speeds. 

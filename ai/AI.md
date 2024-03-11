@@ -1,8 +1,15 @@
-catch all for ai related notes
+---
+tags:
+  - "#toc"
+links:
+  - "[[README]]"
+---
+a catch all for ai related notes
 
-- [[Datum Features]]
+# links
+
 - [[Supervised v.s. Unsupervised Learning]]
-- [[Clustering]]
-- [[Naive AI Algorithms]]
 - [[Finding Global Optimums]]
-- 
+```dataview
+list from [[AI]] sort file.name ASC
+```

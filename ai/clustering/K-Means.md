@@ -1,5 +1,5 @@
 Tags: #artificial-intelligence #naive-ai #clustering
-Links: [[AI]] | [[Clustering]] | [[Naive AI Algorithms]] | [[Estimating Number of Clusters]]
+Links: [[Clustering]] | [[Naive AI Algorithms]] | [[Estimating Number of Clusters]]
 
 k means is a clustering algorithm used to find groups of clusters.
 
@@ -28,7 +28,7 @@ k means is a clustering algorithm used to find groups of clusters.
 4. assign each item to whichever centroid is closest to it
 5. move the position of each centroid to the center ([[Mean]]) of the items assigned to it
 6. repeat steps 3-5 until stable.
-	1. typically measured by minimizing [[Sum of Squares]]
+	1. typically measured by minimizing [[Residual Sum of Squares - RSS]]
 
 ### also see:
 - [[Soft Clustering]] can be used to provide a probability of belonging in any of the centroids

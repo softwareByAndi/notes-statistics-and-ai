@@ -5,3 +5,5 @@ Obsidian will allow me to spend less time organizing notes, and more time typing
 4. a global search will show related search results even including search results inside notes contents
 	- this is much more intuitive.
 5. I will no longer need to manually track links between pages, or bother with organizing file structures because this notes directory will now act more like a web browser instead of a collection of note files.
+
+see [[Advanced Obsidian Notes]]

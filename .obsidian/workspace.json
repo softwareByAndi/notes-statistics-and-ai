@@ -4,21 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "4161a8f41c6f0181",
+        "id": "e166ede22af9e1ef",
         "type": "tabs",
         "children": [
           {
-            "id": "a553c67be9ca6916",
+            "id": "824faf425fec913d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "Untitled.canvas",
-                "viewState": {
-                  "x": 0,
-                  "y": 0,
-                  "zoom": 0
-                }
+                "file": "journal_notes/2024-03-11.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -51,8 +48,8 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#research-topic  ",
-                "matchingCase": false,
+                "query": "",
+                "matchingCase": true,
                 "explainSearch": true,
                 "collapseAll": true,
                 "extraContext": false,
@@ -68,8 +65,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -89,11 +85,11 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Untitled.canvas",
+                "file": "journal_notes/2024-03-11.md",
                 "collapseAll": true,
-                "extraContext": true,
+                "extraContext": false,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
@@ -106,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Untitled.canvas",
+                "file": "journal_notes/2024-03-11.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -129,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Untitled.canvas"
+                "file": "journal_notes/2024-03-11.md"
               }
             }
           }
@@ -143,52 +139,61 @@
     "hiddenItems": {
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "workspaces:Manage workspace layouts": false
+      "workspaces:Manage workspace layouts": false,
+      "canvas:Create new canvas": false,
+      "command-palette:Open command palette": false
     }
   },
-  "active": "a553c67be9ca6916",
+  "active": "824faf425fec913d",
   "lastOpenFiles": [
-    "Untitled.canvas",
-    "uncategorized_notes/Regression.md",
+    "statistics/terms/Standardizing Data.md",
+    "statistics/terms/Normalizing Data.md",
+    "statistics/regression/linear_regression/feature selection in linear regression.md",
+    "statistics/regression/Regression.md",
+    "ai/clustering/Estimating Number of Clusters.md",
+    "ai/AI.md",
+    "ai/clustering/Clustering.md",
+    "ai/terms/Within Cluster Sum of Squares - WCSS.md",
+    "ai/dimensionality/Principal Component Analysis (PCA).md",
+    "statistics/terms/prescriptive and recommendation statistics.md",
+    "ai/clustering/Latent Dirichlet Allocation (LDA).md",
     "statistics/terms/explanatory statistics.md",
     "statistics/terms/Inferential Statistics.md",
-    "statistics/terms/_ Types of Statistics.md",
-    "uncategorized_notes/Linear Regression.md",
-    "statistics/terms/prescriptive and recommendation statistics.md",
-    "uncategorized_notes/_ AI Dictionary.md",
-    "statistics/terms/_ Statistical Dictionary.md",
-    "ai/dimensionality/Principal Component Analysis (PCA).md",
-    "statistics/Euclidean Distance.md",
-    "ai/clustering/Gaussian Mixture Models.md",
-    "ai/clustering/Stochastic Neighbor Embedding.md",
-    "ai/dimensionality/code/test.ipynb",
-    "uncategorized_notes/t-SNE.md",
-    "ai/clustering/Admixture.md",
-    "ai/dimensionality/PCA_via_SVD.md",
-    "helper_code/nbconvert .ipynb to .html.md",
-    "ai/dimensionality/code/PCA_SVD_example.html",
-    "ai/dimensionality/code/PCA_SVD_example.ipynb",
-    "ai/dimensionality/code/pca_example_1.ipynb",
-    "ai/dimensionality/code",
-    "_obsidan_templates/Default Note Template.md",
-    "README.md",
-    "_obsidan_templates",
-    "TOFIX.md",
+    "ai/clustering/K-Means.md",
     "ai/Naive AI Algorithms.md",
-    "ai/linear_algebra/Spectral Decomposition Theorem.md",
-    "ai/linear_algebra",
-    "ai/clustering/Spectral Clustering.md",
-    "ai/clustering/Latent Dirichlet Allocation (LDA).md",
-    "ai/dimensionality",
-    "ai/clustering/Untitled",
-    "statistics/terms/_ Types of Variables.md",
-    "statistics/terms/_ Types of Measurements.md",
-    "ai/clustering",
-    "assets/images/img_overview_of_clustering_methods.png",
-    "statistics/assets/type_error_graph.png"
+    "ai/clustering/K-Medoids.md",
+    "ai/clustering/Gaussian Mixture Models.md",
+    "ai/clustering/Clustering Penalty Evaluators.md",
+    "ai/clustering/Admixture.md",
+    "journal_notes/2024-03-11.md",
+    "journal_notes/2024-03-10.md",
+    "journal_notes/module - classification and hypothesis testing.md",
+    "journal_notes/module - regression and prediction.md",
+    "journal_notes/2024-03-09.md",
+    "journal_notes/2024-03-08.md",
+    "TOFIX.md",
+    "statistics/regression/uncategorized",
+    "statistics/regression/validation",
+    "ai/assets/img_overview_of_clustering_methods.png",
+    "assets/images/img_example_of_overfitting_in_regression.png",
+    "statistics/assets/img_regression_evaluation_equations_2.png",
+    "statistics/assets/img_regression_confidence_bands_example.png",
+    "statistics/assets/img_bias_variance_fit_example.png",
+    "statistics/assets/img_bias_variance_error_graph.png",
+    "statistics/assets/img_heteroskedasticity_example.webp",
+    "statistics/assets/img_std_error_covariance_matrix_example.png",
+    "statistics/assets/img_type_error_graph.png",
+    "statistics/assets/img_regression_evaluation_equations_1.png",
+    "statistics/regression/terms",
+    "statistics/regression/linear_regression",
+    "journal_notes",
+    "ai/assets",
+    "ai/terms",
+    "module_notes",
+    "statistics/regression",
+    "dictionary",
+    "Untitled.canvas"
   ]
 }

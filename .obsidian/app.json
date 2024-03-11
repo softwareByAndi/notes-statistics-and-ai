@@ -4,5 +4,7 @@
   "livePreview": true,
   "newFileLocation": "folder",
   "newFileFolderPath": "uncategorized_notes",
-  "promptDelete": false
+  "promptDelete": false,
+  "showInlineTitle": false,
+  "attachmentFolderPath": "assets/uncategorized"
 }

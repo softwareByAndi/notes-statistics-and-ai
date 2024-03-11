@@ -1,5 +1,5 @@
 #artificial-intelligence #clustering
-[[AI]] | [[Clustering]]
+[[Clustering]]
 
 ## tldr
 1. originally designed for topic modeling in text documents. 

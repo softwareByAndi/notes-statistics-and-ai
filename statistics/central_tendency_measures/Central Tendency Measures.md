@@ -1,10 +1,16 @@
-Tags: #statistics #central-tendency
-Tags: [[Statistics]]
-
+---
+tags:
+  - "#toc"
+links:
+  - "[[Statistics]]"
+---
+# TOC
 1. [[Mean]]
 2. [[Median]]
 3. [mode](./mode.ipynb) #TODO 
-4. [standard deviation](./standard_deviation.ipynb) #TODO
+4. [[standard_deviation.ipynb]] #TODO
+
+<hr>
 
 ## 1. [[Mean]]
 

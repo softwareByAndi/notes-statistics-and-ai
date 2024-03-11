@@ -1,5 +1,9 @@
-Tags: #artificial-intelligence #clustering #evaluators
-Links: [[AI]] | [[Clustering]] | [[Clustering Validation]]
-
+---
+tags:
+  - "#artificial-intelligence"
+links:
+  - "[[Clustering]]"
+  - "[[Clustering Validation]]"
+---
 - [[AIC]] 
 - [[BIC]] 
