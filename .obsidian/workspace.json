@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "journal_notes/2024-03-11.md",
+                "file": "uncategorized_notes/logistic regression.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "journal_notes/2024-03-11.md",
+                "file": "uncategorized_notes/logistic regression.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "journal_notes/2024-03-11.md",
+                "file": "uncategorized_notes/logistic regression.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "journal_notes/2024-03-11.md"
+                "file": "uncategorized_notes/logistic regression.md"
               }
             }
           }
@@ -148,6 +148,10 @@
   },
   "active": "824faf425fec913d",
   "lastOpenFiles": [
+    "img_sigmoid_function.png",
+    "uncategorized_notes/logistic regression.md",
+    "journal_notes/2024-03-11.md",
+    "journal_notes/2024-03-10.md",
     "statistics/terms/Standardizing Data.md",
     "statistics/terms/Normalizing Data.md",
     "statistics/regression/linear_regression/feature selection in linear regression.md",
@@ -167,13 +171,9 @@
     "ai/clustering/Gaussian Mixture Models.md",
     "ai/clustering/Clustering Penalty Evaluators.md",
     "ai/clustering/Admixture.md",
-    "journal_notes/2024-03-11.md",
-    "journal_notes/2024-03-10.md",
     "journal_notes/module - classification and hypothesis testing.md",
     "journal_notes/module - regression and prediction.md",
     "journal_notes/2024-03-09.md",
-    "journal_notes/2024-03-08.md",
-    "TOFIX.md",
     "statistics/regression/uncategorized",
     "statistics/regression/validation",
     "ai/assets/img_overview_of_clustering_methods.png",
@@ -185,7 +185,6 @@
     "statistics/assets/img_heteroskedasticity_example.webp",
     "statistics/assets/img_std_error_covariance_matrix_example.png",
     "statistics/assets/img_type_error_graph.png",
-    "statistics/assets/img_regression_evaluation_equations_1.png",
     "statistics/regression/terms",
     "statistics/regression/linear_regression",
     "journal_notes",
