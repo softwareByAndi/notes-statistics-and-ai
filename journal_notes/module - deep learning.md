@@ -1,0 +1,31 @@
+
+- [x] 1 T
+- [x] 2 T
+- [x] 3 T
+- [x] 4 T
+- [x] 5 T
+- [x] 6 W
+- [x] 7 W
+- [x] 8 W
+- [x] 9 W
+- [x] 10 W
+- [x] 11 Th
+- [x] 12 Th
+- [x] 13 Th
+- [x] 14 Th
+- [ ] 15 F
+- [ ] summary F
+- [ ] practice quiz F
+---
+- [ ] case study - scientist employee attrition
+- [ ] case study - audio MNIST digit recognition
+- [ ] notebook - number digit recognition using ANNs
+- [ ] notebook- number digit recognition using CNNs
+---
+- [ ] playground
+- [ ] reference material
+---
+- [ ] optional content - computer vision
+- [ ] optional content - overview
+- [ ] optional guided project - deep learning
+---

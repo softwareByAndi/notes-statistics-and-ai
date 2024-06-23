@@ -1,0 +1,23 @@
+
+- [ ] 1
+- [ ] 2
+- [ ] 3
+- [ ] 4
+- [ ] 5
+- [ ] 6
+- [ ] 7
+- [ ] 8
+- [ ] practice quiz
+- [ ] practice project
+---
+- [ ] quiz
+- [ ] discussion forum
+- [ ] project
+---
+- [ ] notebook - music recommendation system
+- [ ] reference materials
+- [ ] additional reading material
+---
+- [ ] optional content - recommendation systems
+- [ ] optional guided project - book recommendation
+---

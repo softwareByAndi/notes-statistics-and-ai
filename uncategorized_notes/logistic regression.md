@@ -16,3 +16,24 @@ the sigmoid function is a popular function for logistic regression
 2. Logistic regression requires the observations to be independent of each other. In other words, the observations should not come from repeated measurements or matched data.
 3. Logistic regression requires there to be little or no multicollinearity among the independent variables.  This means that the independent variables should not be too highly correlated with each other.
 
+
+# code examples
+- see [[hypothesis testing#notebook code snippets]]
+```python
+# Fitting logistic regression model
+lg = LogisticRegression()
+lg.fit(X_train,y_train)
+# Checking the performance on the training data
+y_pred_train = lg.predict(X_train)
+metrics_score(y_train, y_pred_train)
+```
+![[Pasted image 20240325052656.png]]
+![[Pasted image 20240325052717.png]] 
+``` python
+# Checking the performance on the test dataset
+y_pred_test = lg.predict(X_test)
+metrics_score(y_test, y_pred_test)
+```
+![[Pasted image 20240325052916.png]]
+![[Pasted image 20240325052939.png]]
+
