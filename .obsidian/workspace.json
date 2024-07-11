@@ -4,62 +4,35 @@
     "type": "split",
     "children": [
       {
-        "id": "4d6c910ae3e48662",
-        "type": "split",
+        "id": "e166ede22af9e1ef",
+        "type": "tabs",
         "children": [
           {
-            "id": "616ed76942982d27",
-            "type": "tabs",
-            "dimension": 44.81424148606811,
-            "children": [
-              {
-                "id": "8638f30260ccbfd7",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "journal_notes/module - deep learning.md",
-                    "mode": "source",
-                    "source": false
-                  }
-                }
-              },
-              {
-                "id": "831bbaa30ed5fd13",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "journal_notes/module - recommendation systems.md",
-                    "mode": "source",
-                    "source": false
-                  }
-                }
+            "id": "37d56403fd30ccdc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "journal_notes/module - classification and hypothesis testing.md",
+                "mode": "source",
+                "source": false
               }
-            ],
-            "currentTab": 1
+            }
           },
           {
-            "id": "e166ede22af9e1ef",
-            "type": "tabs",
-            "dimension": 55.185758513931894,
-            "children": [
-              {
-                "id": "37d56403fd30ccdc",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "ai/neural_networks/deep learning.md",
-                    "mode": "source",
-                    "source": false
-                  }
-                }
+            "id": "63dde1c729d1fb83",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "uncategorized_notes/Untitled.md",
+                "mode": "source",
+                "source": false
               }
-            ]
+            }
           }
         ],
-        "direction": "horizontal"
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -125,8 +98,8 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "journal_notes/module - recommendation systems.md",
-                "collapseAll": true,
+                "file": "uncategorized_notes/Untitled.md",
+                "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": true,
@@ -142,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "journal_notes/module - recommendation systems.md",
+                "file": "uncategorized_notes/Untitled.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -165,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "journal_notes/module - recommendation systems.md"
+                "file": "uncategorized_notes/Untitled.md"
               }
             }
           }
@@ -188,11 +161,19 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "831bbaa30ed5fd13",
+  "active": "63dde1c729d1fb83",
   "lastOpenFiles": [
-    "journal_notes/module - recommendation systems.md",
+    "uncategorized_notes/_ Uncategorized Notes.md",
+    "uncategorized_notes/likelihood ratio test.md",
+    "uncategorized_notes/Untitled.md",
+    "journal_notes/module - classification and hypothesis testing.md",
+    "ai/clustering/Clustering.md",
+    "ai/dimensionality/Datum Features.md",
+    "ai/dimensionality/Reducing Feature Dimensionality.md",
+    "ai/AI.md",
     "ai/neural_networks/deep learning.md",
     "journal_notes/module - deep learning.md",
+    "journal_notes/module - recommendation systems.md",
     "journal_notes/2024-04-09.md",
     "statistics/regression/uncategorized/regularization.md",
     "statistics/regression/uncategorized/loss function.md",
@@ -210,23 +191,15 @@
     "statistics/regression/uncategorized/bootstrap sampling.md",
     "statistics/hypothesis testing.md",
     "ai/clustering/K-Means.md",
-    "ai/clustering/Clustering.md",
-    "ai/AI.md",
     "README.md",
     "uncategorized_notes/random forest.md",
     "uncategorized_notes/decision trees.md",
     "uncategorized_notes/support vector machines.md",
     "uncategorized_notes/logistic regression.md",
     "uncategorized_notes/Accuracy vs. Precision v.s. Recall.md",
-    "journal_notes/2024-03-25.md",
-    "python/data_visualization/code samples.md",
     "assets/images/Pasted image 20240325052916.png",
     "assets/images/Pasted image 20240325052717.png",
     "assets/images/Pasted image 20240325052656.png",
-    "uncategorized_notes/ensemble learning.md",
-    "uncategorized_notes/likelihood ratio test.md",
-    "uncategorized_notes/using entropy to learn decision trees.md",
-    "uncategorized_notes/type errors.md",
     "module_notes/reference/Tree Pruning - Great Learning.pdf",
     "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
     "module_notes/reference/Decision Trees - Great Learning.pdf",
