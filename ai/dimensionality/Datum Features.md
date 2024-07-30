@@ -1,4 +1,4 @@
-Tags: #artificial-intelligence 
+Tags: #artificial-intelligence #definition 
 Links: [[AI]] | [[Reducing Feature Dimensionality]] | [[Correlation v.s. Covariance]]
 
 features are variables that are used to describe a data point.

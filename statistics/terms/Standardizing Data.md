@@ -1,6 +1,7 @@
 ---
 tags:
   - statistics
+  - "#definition"
 links:
   - "[[Statistics]]"
 ---

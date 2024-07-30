@@ -58,4 +58,3 @@ k means is a clustering algorithm used to find groups of clusters.
 
 1. sometimes difficult to identify and get out of a local optimum to find the [[Finding Global Optimums |global optimum]]. 
 	1. ![[Finding Global Optimums]]
-2. 

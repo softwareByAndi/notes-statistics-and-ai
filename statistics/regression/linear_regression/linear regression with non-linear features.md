@@ -1,5 +1,4 @@
 ---
-tags: 
 links:
   - "[[Linear Regression]]"
   - "[[Datum Features]]"

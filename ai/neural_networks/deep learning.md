@@ -6,7 +6,7 @@ links:
 ---
 # random and dis-jointed notes
 
-the goal is to data encoded as useful feature vectors
+the goal is to data encoded as useful [[feature vectors]]
 - e.g. category, sentiment or properties-of
 
 what's a good encoding for an image? regression on datapoints can draw some linear function to classify, but general data (such as images) is more difficult...

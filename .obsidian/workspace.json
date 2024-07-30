@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "journal_notes/module - classification and hypothesis testing.md",
-                "mode": "source",
+                "file": "ai/neural_networks/deep learning.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -25,14 +25,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "uncategorized_notes/Untitled.md",
+                "file": "ai/AI.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "uncategorized_notes/Untitled.md",
+                "file": "ai/neural_networks/deep learning.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "uncategorized_notes/Untitled.md",
+                "file": "ai/neural_networks/deep learning.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -138,16 +137,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "uncategorized_notes/Untitled.md"
+                "file": "ai/neural_networks/deep learning.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -161,47 +160,46 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "63dde1c729d1fb83",
+  "active": "37d56403fd30ccdc",
   "lastOpenFiles": [
-    "uncategorized_notes/_ Uncategorized Notes.md",
-    "uncategorized_notes/likelihood ratio test.md",
-    "uncategorized_notes/Untitled.md",
-    "journal_notes/module - classification and hypothesis testing.md",
-    "ai/clustering/Clustering.md",
-    "ai/dimensionality/Datum Features.md",
-    "ai/dimensionality/Reducing Feature Dimensionality.md",
-    "ai/AI.md",
-    "ai/neural_networks/deep learning.md",
+    "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
     "journal_notes/module - deep learning.md",
     "journal_notes/module - recommendation systems.md",
+    "ai/neural_networks/deep learning.md",
+    "ai/neural_networks/re-encoding of data.md",
+    "statistics/regression/uncategorized/ridge regression v.s. lasso regression.md",
+    "uncategorized_notes/polynomial regression.md",
+    "uncategorized_notes/loss function.md",
+    "uncategorized_notes/feature vectors.md",
+    "ai/clustering/K-Means.md",
+    "statistics/terms/Standardizing Data.md",
+    "statistics/regression/linear_regression/linear regression with non-linear features.md",
+    "statistics/terms/Normalizing Data.md",
+    "ai/dimensionality/Datum Features.md",
+    "uncategorized_notes/Categorical Data.md",
+    "journal_notes/module - classification and hypothesis testing.md",
+    "ai/AI.md",
+    "uncategorized_notes/Untitled.md",
+    "uncategorized_notes/_ Uncategorized Notes.md",
+    "uncategorized_notes/likelihood ratio test.md",
+    "ai/clustering/Clustering.md",
+    "ai/dimensionality/Reducing Feature Dimensionality.md",
     "journal_notes/2024-04-09.md",
     "statistics/regression/uncategorized/regularization.md",
     "statistics/regression/uncategorized/loss function.md",
     "Pasted image 20240411184114.png",
     "uncategorized_notes/softmax.md",
-    "ai/neural_networks/re-encoding of data.md",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",
     "Screenshot 2024-04-09 at 7.50.50 PM.png",
     "ai/neural_networks",
-    "Questions, Research Topics and TODO.md",
     "assets/images/Screenshot 2024-03-25 at 1.16.18 AM.png",
     "assets/images/Pasted image 20240325052939.png",
     "assets/images/Pasted image 20240325012946.png",
-    "statistics/regression/uncategorized/bootstrap sampling.md",
-    "statistics/hypothesis testing.md",
-    "ai/clustering/K-Means.md",
-    "README.md",
-    "uncategorized_notes/random forest.md",
-    "uncategorized_notes/decision trees.md",
-    "uncategorized_notes/support vector machines.md",
-    "uncategorized_notes/logistic regression.md",
-    "uncategorized_notes/Accuracy vs. Precision v.s. Recall.md",
     "assets/images/Pasted image 20240325052916.png",
     "assets/images/Pasted image 20240325052717.png",
     "assets/images/Pasted image 20240325052656.png",
     "module_notes/reference/Tree Pruning - Great Learning.pdf",
-    "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
     "module_notes/reference/Decision Trees - Great Learning.pdf",
     "module_notes/reference",
     "module_notes",
