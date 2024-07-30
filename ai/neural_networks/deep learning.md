@@ -49,6 +49,7 @@ see [[softmax]]
 
 ## loss functions
 
+loss functions measure the error in the prediction.
 - **regression** uses [[mean squared error (MSE)]]
 - **classification** uses [[negative log-likelihood]] / cross-entropy
 
