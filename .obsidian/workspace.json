@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/outline/_outline.md",
+                "file": "llm/modules/mod 0/_mod 0 - Prerequisites and Preparation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "_outline"
+              "title": "_mod 0 - Prerequisites and Preparation"
             }
           },
           {
@@ -41,12 +41,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/modules/mod 2/2.3 Tokenization - Breaking Text into Meaningful Units.md",
+                "file": "llm/CURRENT_OUTLINE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2.3 Tokenization - Breaking Text into Meaningful Units"
+              "title": "CURRENT_OUTLINE"
+            }
+          },
+          {
+            "id": "960a36342d3df715",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building?.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "_mod 1 - The Big Picture - What Are We Building?"
             }
           },
           {
@@ -60,7 +74,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -179,13 +193,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/modules/mod 2/2.3 Tokenization - Breaking Text into Meaningful Units.md",
+                "file": "llm/modules/mod 0/_mod 0 - Prerequisites and Preparation.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2.3 Tokenization - Breaking Text into Meaningful Units"
+              "title": "Outline of _mod 0 - Prerequisites and Preparation"
             }
           }
         ],
@@ -208,48 +222,47 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "b181792137f66eec",
+  "active": "388a366507d4cece",
   "lastOpenFiles": [
+    "llm/CURRENT_OUTLINE.md",
+    "llm/outline/learning_approach.md",
+    "llm/outline/_outline.md",
     "llm/modules/mod 2/_mod 2 - Language and Text - The Foundation.md",
-    "llm/modules/mod 2/2.10 Preview of Module 3 - Neural Networks for Language.md",
-    "llm/modules/mod 2/2.2 Character Encodings - The Digital Alphabet.md",
+    "compile_obsidian.py",
+    "llm/compile_obsidian.py",
+    "llm/compile_outline.py",
+    "llm/modules/mod 1/2.1 The Text Representation Challenge.md",
     "llm/modules/mod 2/2.1 The Text Representation Challenge.md",
-    "llm/modules/mod 2/2.9 Practice Exercises.md",
-    "llm/modules/mod 2/2.8 Key Takeaways from Module 2.md",
-    "llm/modules/mod 2/2.7 Beyond N-grams - The Path Forward.md",
+    "llm/modules/mod 2/2.2 Character Encodings - The Digital Alphabet.md",
+    "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building?.md",
+    "llm/CURRENT OUTLINE.md",
+    "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
     "llm/modules/mod 2/2.6 Hands-On Project - Building an N-gram Language Model.md",
+    "llm/modules/mod 2/2.7 Beyond N-grams - The Path Forward.md",
     "llm/modules/mod 2/2.5 Building Your First Language Model - N-gram Models.md",
     "llm/modules/mod 2/2.4 Statistical Patterns in Language.md",
     "llm/modules/mod 2/2.3 Tokenization - Breaking Text into Meaningful Units.md",
+    "llm/modules/mod 2/2.10 Preview of Module 3 - Neural Networks for Language.md",
+    "llm/modules/mod 2/2.9 Practice Exercises.md",
+    "llm/modules/mod 2/2.8 Key Takeaways from Module 2.md",
     "llm/modules/mod 2",
-    "llm/outline/_outline.md",
-    "llm/CURRENT OUTLINE.md",
     "llm/README.md",
-    "llm/outline/learning_approach.md",
     "llm/outline/introduction.md",
     "llm/outline/course structure.md",
-    "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building?.md",
     "llm/modules/mod 1/1.8 Preview of Module 2 - Text Representation.md",
     "llm/modules/mod 1/1.7 Key Takeaways from Module 1.md",
-    "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
     "llm/modules/mod 1/1.5 Understanding Model Scale.md",
     "llm/modules/mod 1/1.4 The Journey of a Prompt.md",
-    "llm/modules/mod 1/1.3 Key Components of Modern LLMs.md",
-    "llm/modules/mod 1/1.1 What is a Large Language Model.md",
-    "llm/modules/mod 1/1.2 The Evolution of Language Models.md",
     "llm/modules/mod 1",
     "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
     "llm/modules/math",
     "llm/modules/mod 0",
     "llm/modules",
     "llm/module 0",
-    "llm/outline",
-    "llm",
     "Pasted image 20240411184114.png",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",
     "Screenshot 2024-04-09 at 7.50.50 PM.png",
-    "ai/neural_networks",
     "assets/images/Screenshot 2024-03-25 at 1.16.18 AM.png",
     "assets/images/Pasted image 20240325052939.png",
     "assets/images/Pasted image 20240325012946.png",

@@ -6,17 +6,13 @@
 
 ---
 
-
-## The Full Course Map
+Each module builds upon the previous ones, creating a comprehensive understanding of the entire LLM development process from text representation to cutting-edge applications.
 
 - [[_mod 0 - Prerequisites and Preparation]]
 - [[_mod 1 - The Big Picture - What Are We Building?]]
+- [[_mod 2 - Language and Text - The Foundation]]
 
-**Module 2: Language and Text - The Foundation**
-
-- Text representation and processing
-- Statistical language patterns
-- Building a simple n-gram language model
+# future modules - not yet developed
 
 **Module 3: Neural Networks for Language**
 
@@ -65,7 +61,3 @@
 - Multimodal capabilities
 - Tool use and augmented models
 - Future directions in LLM research
-
-Each module builds upon the previous ones, creating a comprehensive understanding of the entire LLM development process from text representation to cutting-edge applications.
-
-Would you like me to continue with Module 2, explaining how computers represent and process text? Or would you prefer I elaborate on a specific aspect of Module 1 first?

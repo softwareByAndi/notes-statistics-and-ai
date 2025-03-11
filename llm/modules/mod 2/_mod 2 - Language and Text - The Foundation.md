@@ -2,7 +2,7 @@
 
 Welcome to Module 2 of our LLM crash course! In this module, we'll explore the fundamental question: how do computers understand and process text? Before we can build neural networks that work with language, we need to understand how to represent text in a format that machines can work with.
 
-- [[2.1 The Text Representation Challenge]]
+- [[llm/modules/mod 2/2.1 The Text Representation Challenge]]
 - [[2.2 Character Encodings - The Digital Alphabet]]
 - [[2.3 Tokenization - Breaking Text into Meaningful Units]]
 - [[2.4 Statistical Patterns in Language]]
