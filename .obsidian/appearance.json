@@ -1,6 +1,9 @@
 {
   "accentColor": "",
-  "cssTheme": "Everforest",
+  "cssTheme": "GitHub Theme",
   "showViewHeader": true,
-  "theme": "obsidian"
+  "theme": "obsidian",
+  "enabledCssSnippets": [
+    "andi_custom_styles"
+  ]
 }

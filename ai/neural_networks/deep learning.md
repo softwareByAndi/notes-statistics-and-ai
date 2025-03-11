@@ -7,7 +7,8 @@ links:
 # random and dis-jointed notes
 
 the goal is to data encoded as useful [[feature vectors]]
-- e.g. category, sentiment or properties-of
+- e.g. category, sentiment or properties-of [[hello world]]
+- 
 
 what's a good encoding for an image? regression on datapoints can draw some linear function to classify, but general data (such as images) is more difficult...
 - neural networks learn this encoding (+prediction) automatically.
@@ -23,7 +24,7 @@ specialized methods to encode
 3+ layers
 - input layer
 - 1+ hidden layers
-	- each of these layers basically [[re-encoding of data|re-encodes the data]]
+	- each of these layers basically [[re-encoding of data|re-encodes the data]] 
 	- increasing the # of nodes in a layer will allow the decision boundary more flexibility to make a shape that fits.
 		- note that this may lead to overfitting.
 - output layer

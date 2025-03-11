@@ -3,5 +3,6 @@
   "oz-image-plugin",
   "mathlive",
   "automatic-table-of-contents",
-  "github-sync"
+  "github-sync",
+  "vscode-editor"
 ]

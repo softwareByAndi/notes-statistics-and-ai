@@ -13,25 +13,54 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ai/neural_networks/deep learning.md",
+                "file": "llm/modules/mod 0/_mod 0 - Prerequisites and Preparation.md",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "_mod 0 - Prerequisites and Preparation"
             }
           },
           {
-            "id": "63dde1c729d1fb83",
+            "id": "388a366507d4cece",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ai/AI.md",
+                "file": "llm/outline/_outline.md",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "_outline"
+            }
+          },
+          {
+            "id": "b181792137f66eec",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "llm/modules/mod 2/2.3 Tokenization - Breaking Text into Meaningful Units.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2.3 Tokenization - Breaking Text into Meaningful Units"
+            }
+          },
+          {
+            "id": "c34776a3b77b3ac5",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -50,8 +79,11 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
-              }
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
@@ -60,13 +92,15 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#linear-algebra",
                 "matchingCase": true,
                 "explainSearch": true,
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
@@ -74,7 +108,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
         ]
@@ -97,7 +133,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ai/neural_networks/deep learning.md",
+                "file": "statistics/regression/Regression.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +141,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Regression"
             }
           },
           {
@@ -114,10 +152,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "ai/neural_networks/deep learning.md",
+                "file": "statistics/regression/Regression.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Regression"
             }
           },
           {
@@ -128,7 +168,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
@@ -137,8 +179,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "ai/neural_networks/deep learning.md"
-              }
+                "file": "llm/modules/mod 2/2.3 Tokenization - Breaking Text into Meaningful Units.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 2.3 Tokenization - Breaking Text into Meaningful Units"
             }
           }
         ],
@@ -150,6 +197,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "vscode-editor:Create Code File": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "daily-notes:Open today's daily note": false,
@@ -160,35 +208,44 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "37d56403fd30ccdc",
+  "active": "b181792137f66eec",
   "lastOpenFiles": [
+    "llm/modules/mod 2/_mod 2 - Language and Text - The Foundation.md",
+    "llm/modules/mod 2/2.10 Preview of Module 3 - Neural Networks for Language.md",
+    "llm/modules/mod 2/2.2 Character Encodings - The Digital Alphabet.md",
+    "llm/modules/mod 2/2.1 The Text Representation Challenge.md",
+    "llm/modules/mod 2/2.9 Practice Exercises.md",
+    "llm/modules/mod 2/2.8 Key Takeaways from Module 2.md",
+    "llm/modules/mod 2/2.7 Beyond N-grams - The Path Forward.md",
+    "llm/modules/mod 2/2.6 Hands-On Project - Building an N-gram Language Model.md",
+    "llm/modules/mod 2/2.5 Building Your First Language Model - N-gram Models.md",
+    "llm/modules/mod 2/2.4 Statistical Patterns in Language.md",
+    "llm/modules/mod 2/2.3 Tokenization - Breaking Text into Meaningful Units.md",
+    "llm/modules/mod 2",
+    "llm/outline/_outline.md",
+    "llm/CURRENT OUTLINE.md",
+    "llm/README.md",
+    "llm/outline/learning_approach.md",
+    "llm/outline/introduction.md",
+    "llm/outline/course structure.md",
+    "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building?.md",
+    "llm/modules/mod 1/1.8 Preview of Module 2 - Text Representation.md",
+    "llm/modules/mod 1/1.7 Key Takeaways from Module 1.md",
+    "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
+    "llm/modules/mod 1/1.5 Understanding Model Scale.md",
+    "llm/modules/mod 1/1.4 The Journey of a Prompt.md",
+    "llm/modules/mod 1/1.3 Key Components of Modern LLMs.md",
+    "llm/modules/mod 1/1.1 What is a Large Language Model.md",
+    "llm/modules/mod 1/1.2 The Evolution of Language Models.md",
+    "llm/modules/mod 1",
     "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
-    "journal_notes/module - deep learning.md",
-    "journal_notes/module - recommendation systems.md",
-    "ai/neural_networks/deep learning.md",
-    "ai/neural_networks/re-encoding of data.md",
-    "statistics/regression/uncategorized/ridge regression v.s. lasso regression.md",
-    "uncategorized_notes/polynomial regression.md",
-    "uncategorized_notes/loss function.md",
-    "uncategorized_notes/feature vectors.md",
-    "ai/clustering/K-Means.md",
-    "statistics/terms/Standardizing Data.md",
-    "statistics/regression/linear_regression/linear regression with non-linear features.md",
-    "statistics/terms/Normalizing Data.md",
-    "ai/dimensionality/Datum Features.md",
-    "uncategorized_notes/Categorical Data.md",
-    "journal_notes/module - classification and hypothesis testing.md",
-    "ai/AI.md",
-    "uncategorized_notes/Untitled.md",
-    "uncategorized_notes/_ Uncategorized Notes.md",
-    "uncategorized_notes/likelihood ratio test.md",
-    "ai/clustering/Clustering.md",
-    "ai/dimensionality/Reducing Feature Dimensionality.md",
-    "journal_notes/2024-04-09.md",
-    "statistics/regression/uncategorized/regularization.md",
-    "statistics/regression/uncategorized/loss function.md",
+    "llm/modules/math",
+    "llm/modules/mod 0",
+    "llm/modules",
+    "llm/module 0",
+    "llm/outline",
+    "llm",
     "Pasted image 20240411184114.png",
-    "uncategorized_notes/softmax.md",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",
     "Screenshot 2024-04-09 at 7.50.50 PM.png",
@@ -199,14 +256,6 @@
     "assets/images/Pasted image 20240325052916.png",
     "assets/images/Pasted image 20240325052717.png",
     "assets/images/Pasted image 20240325052656.png",
-    "module_notes/reference/Tree Pruning - Great Learning.pdf",
-    "module_notes/reference/Decision Trees - Great Learning.pdf",
-    "module_notes/reference",
-    "module_notes",
-    "journal_notes/24-03",
-    "journal_notes/24-02",
-    "statistics/regression/logistic_regression",
-    "statistics/regression/uncategorized",
     "Untitled.canvas"
   ]
 }

@@ -2,7 +2,7 @@
   "alwaysUpdateLinks": true,
   "showUnsupportedFiles": true,
   "livePreview": true,
-  "newFileLocation": "folder",
+  "newFileLocation": "current",
   "newFileFolderPath": "uncategorized_notes",
   "promptDelete": false,
   "showInlineTitle": false,
