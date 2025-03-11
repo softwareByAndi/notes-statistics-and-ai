@@ -1,7 +1,9 @@
 {
+  "remoteURL": "git@github.andi:softwareByAndi/notes-statistics-and-ai.git",
+  "gitLocation": "",
+  "syncinterval": 30,
+  "isSyncOnLoad": true,
   "ghUsername": "softwarebyandi",
-  "ghPersonalAccessToken": "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",
-  "ghRepoUrl": "github.com/softwarebyandi/notes-statistics-and-ai",
-  "gitLocation": "/usr/bin/git",
-  "syncinterval": 30
+  "ghPersonalAccessToken": "",
+  "ghRepoUrl": "github.com/softwarebyandi/notes-statistics-and-ai"
 }
