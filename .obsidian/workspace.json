@@ -29,7 +29,7 @@
               "state": {
                 "file": "llm/CURRENT_OUTLINE_4.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
               "title": "CURRENT_OUTLINE_4"

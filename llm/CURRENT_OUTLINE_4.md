@@ -1,4 +1,4 @@
-# Programming LLMs From Scratch: A Comprehensive Crash Course
+# outline
 
 - [[introduction]]
 - [[course structure]]
@@ -62,15 +62,17 @@ Each module builds upon the previous ones, creating a comprehensive understandin
 - Tool use and augmented models
 - Future directions in LLM research
 
-
 ---
+
+## introduction
 
 Welcome to this comprehensive crash course on programming Large Language Models (LLMs) from scratch. This course is designed with a unique approach - we'll start by understanding what we're ultimately building, then work backward to explore all the foundational elements needed to get there. This gives you the "why" before the "how," making your learning journey more purposeful and connected.
 
 Large Language Models represent one of the most significant technological breakthroughs of our time. These systems can understand language, generate text, translate content, write code, and even reason about complex problems. But how do they actually work? How can you build one yourself? This course will demystify the entire process, breaking down complex concepts into understandable pieces while maintaining the technical depth needed for true mastery.
 
-
 ---
+
+## course structure
 
 This course is organized as a set of interconnected modules that form a knowledge network:
 
@@ -83,8 +85,9 @@ This course is organized as a set of interconnected modules that form a knowledg
 
 Each module builds upon previous ones, with clear references to prerequisite knowledge. You can follow the course linearly, or navigate based on your specific interests or projects.
 
-
 ---
+
+## learning_approach
 
 Throughout this course, I'll follow these principles:
 
@@ -99,6 +102,8 @@ Now, let's begin with our course map and prerequisites before diving into our fi
 
 ---
 
+## mod 0 - Prerequisites and Preparation
+
 Before we start building language models, let's ensure you have the right foundation:
 - [[Knowledge Prerequisites]]
 - [[Recommended Setup]]
@@ -106,17 +111,17 @@ Before we start building language models, let's ensure you have the right founda
 
 Don't worry if you don't have extensive machine learning experience - we'll build that knowledge together from the ground up.
 
-
-
 ---
 
-#### Knowledge Prerequisites
+### Knowledge Prerequisites
 
 - **Programming**: You should be comfortable with Python programming
 - **Mathematics**: Basic algebra knowledge is required; we'll review other math concepts as needed
 - **Development Environment**: Access to a computer where you can run Python code
 
 ---
+
+### Recommended Setup
 
 - Python 3.8+ installed on your system
 - Basic familiarity with Jupyter notebooks
@@ -185,134 +190,86 @@ Don't worry if these concepts aren't completely familiar - we'll explain them in
 
 ---
 
-{
- "cells": [
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "[<< home](../home.md)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "# probability"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "- probability - chance or likelihood of something happening\n",
-    "- event - something that happens / the outcome of an experiment\n",
-    "- experiment - a process that is performed to observe possible outcomes\n",
-    "- sample space - the set of all outcomes of an experiment\n",
-    "\n",
-    "**note that most of this is generated from github copilot AI... it needs to be double checked**\n",
-    "\n",
-    "**equation:**  \n",
-    "- probability of an event = number of favorable outcomes / total number of possible outcomes\n",
-    "\n",
-    "### mutually exclusive events\n",
-    "- two events are mutually exclusive if they cannot occur at the same time\n",
-    "- the probability of two mutually exclusive events occurring at the same time is 0\n",
-    "\n",
-    "### independent events\n",
-    "- two events are independent if the occurrence of one event does not affect the probability of the other event\n",
-    "- the probability of two independent events occurring at the same time is the product of their individual probabilities\n",
-    "\n",
-    "### dependent events\n",
-    "- two events are dependent if the occurrence of one event affects the probability of the other event\n",
-    "- the probability of two dependent events occurring at the same time is the product of their individual probabilities\n",
-    "\n",
-    "### conditional probability: P(A|B)\n",
-    "the probability of an event occurring **given** that another event has already occurred\n",
-    "- **mutually exclusive events**: `P(A|B) = 0`\n",
-    "- **non-mutually exclusive events**: `P(A|B) = P(A and B) / P(B)`\n",
-    "    - We divide by P(B) because we are only considering the probability of A occurring given that B has already occurred. \n",
-    "    - We are not considering the probability of B occurring given that A has already occurred.\n",
-    "\n",
-    "### multiplication rule: P(A and B)\n",
-    "both occurring at the same time\n",
-    "- **mutually exclusive events**: `P(A and B) = 0`\n",
-    "- **non-mutually exclusive events**: `P(A and B) = P(A) * P(B|A)`\n",
-    "\n",
-    "### addition rule: P(A or B)\n",
-    "one or the other or both occurring\n",
-    "- **mutually exclusive events**: `P(A or B) = P(A) + P(B)`\n",
-    "- **non-mutually exclusive events**: `P(A or B) = P(A) + P(B) - P(A and B)`\n",
-    "    - We subtract P(A and B) because these entries are duplicates. \n",
-    "    - Entries that intersect are counted once from A and again from B, so we need to subtract one of them.\n",
-    "\n",
-    "### permutations\n",
-    "- the number of ways to arrange a set of objects in a specific order\n",
-    "- n objects taken r at a time is `n! / (n - r)!`\n",
-    "- n objects taken all at a time is `n!`\n",
-    "\n",
-    "### combinations\n",
-    "- the number of ways to select a subset of objects from a larger set of objects\n",
-    "- the number of combinations of n objects taken r at a time is `n! / (r! * (n - r)!)`\n",
-    "- the number of combinations of n objects taken all at a time is `1`\n",
-    "\n",
-    "### binomial probability\n",
-    "- the probability of exactly x successes in n trials\n",
-    "- `P(r) = (n! / (r! * (n - r)!)) * prob_success^r * prob_failure^(n - r)`\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "### bayes rule\n",
-    "- [see bayes rule](./bayes_rule.ipynb)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "### marginal probability / joint probability table\n",
-    "this is a table view that shows both marginal and joint probabilities for two events\n",
-    "- marginal probability: the probability of a single event occurring\n",
-    "- joint probability: the probability of two events occurring at the same time\n",
-    "- [see marginal and joint probability](./marginal_and_joint_probability.ipynb)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.11.4"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 2
-}
+#### probability.ipynb
 
+``` md
+[<< home](../home.md)
+
+# probability
+
+- probability - chance or likelihood of something happening
+- event - something that happens / the outcome of an experiment
+- experiment - a process that is performed to observe possible outcomes
+- sample space - the set of all outcomes of an experiment
+
+**note that most of this is generated from github copilot AI... it needs to be double checked**
+
+**equation:**  
+- probability of an event = number of favorable outcomes / total number of possible outcomes
+
+### mutually exclusive events
+- two events are mutually exclusive if they cannot occur at the same time
+- the probability of two mutually exclusive events occurring at the same time is 0
+
+### independent events
+- two events are independent if the occurrence of one event does not affect the probability of the other event
+- the probability of two independent events occurring at the same time is the product of their individual probabilities
+
+### dependent events
+- two events are dependent if the occurrence of one event affects the probability of the other event
+- the probability of two dependent events occurring at the same time is the product of their individual probabilities
+
+### conditional probability: P(A|B)
+the probability of an event occurring **given** that another event has already occurred
+- **mutually exclusive events**: `P(A|B) = 0`
+- **non-mutually exclusive events**: `P(A|B) = P(A and B) / P(B)`
+    - We divide by P(B) because we are only considering the probability of A occurring given that B has already occurred. 
+    - We are not considering the probability of B occurring given that A has already occurred.
+
+### multiplication rule: P(A and B)
+both occurring at the same time
+- **mutually exclusive events**: `P(A and B) = 0`
+- **non-mutually exclusive events**: `P(A and B) = P(A) * P(B|A)`
+
+### addition rule: P(A or B)
+one or the other or both occurring
+- **mutually exclusive events**: `P(A or B) = P(A) + P(B)`
+- **non-mutually exclusive events**: `P(A or B) = P(A) + P(B) - P(A and B)`
+    - We subtract P(A and B) because these entries are duplicates. 
+    - Entries that intersect are counted once from A and again from B, so we need to subtract one of them.
+
+### permutations
+- the number of ways to arrange a set of objects in a specific order
+- n objects taken r at a time is `n! / (n - r)!`
+- n objects taken all at a time is `n!`
+
+### combinations
+- the number of ways to select a subset of objects from a larger set of objects
+- the number of combinations of n objects taken r at a time is `n! / (r! * (n - r)!)`
+- the number of combinations of n objects taken all at a time is `1`
+
+### binomial probability
+- the probability of exactly x successes in n trials
+- `P(r) = (n! / (r! * (n - r)!)) * prob_success^r * prob_failure^(n - r)`
+
+
+### bayes rule
+- [see bayes rule](./bayes_rule.ipynb)
+
+### marginal probability / joint probability table
+this is a table view that shows both marginal and joint probabilities for two events
+- marginal probability: the probability of a single event occurring
+- joint probability: the probability of two events occurring at the same time
+- [see marginal and joint probability](./marginal_and_joint_probability.ipynb)
+
+
+
+
+```
 
 ---
 
-## Module 1: The Big Picture - What Are We Building
+## mod 1 - The Big Picture - What Are We Building
 
 Before diving into the technical details, let's understand what a Large Language Model actually is and what we're working toward building.
 
@@ -325,10 +282,9 @@ Before diving into the technical details, let's understand what a Large Language
 - [[1.7 Key Takeaways from Module 1]]
 - [[1.8 Preview of Module 2 - Text Representation]]
 
-
 ---
 
-### 1.1 What is a Large Language Model?
+### 1.1 What is a Large Language Model
 
 At its core, a Large Language Model is a system that learns patterns in language from vast amounts of text data, then uses those patterns to generate new text that's coherent, relevant, and sometimes surprisingly insightful.
 
@@ -410,7 +366,7 @@ While we won't be able to train truly massive models in this course, we'll under
 
 ---
 
-### 1.6 Hands-On Project: Using an Existing LLM via API
+### 1.6 Hands-On Project - Using an Existing LLM via API
 
 Let's get practical with our first project - using an existing LLM through an API. This helps us understand what we're ultimately building toward.
 
@@ -533,7 +489,7 @@ generate_json_for_article("Jeff Goldblum")
 
 ---
 
-### 1.8 Preview of Module 2: Text Representation
+### 1.8 Preview of Module 2 - Text Representation
 
 In our next module, we'll dive deeper into how computers represent text - the foundation of language modeling. We'll explore:
 
@@ -546,7 +502,7 @@ By the end of Module 2, you'll understand how to convert raw text into a format 
 
 ---
 
-# Module 2: Language and Text - The Foundation
+## mod 2 - Language and Text - The Foundation
 
 Welcome to Module 2 of our LLM crash course! In this module, we'll explore the fundamental question: how do computers understand and process text? Before we can build neural networks that work with language, we need to understand how to represent text in a format that machines can work with.
 
@@ -561,10 +517,9 @@ Welcome to Module 2 of our LLM crash course! In this module, we'll explore the f
 - [[2.9 Practice Exercises]]
 - [[2.10 Preview of Module 3 - Neural Networks for Language]]
 
-
 ---
 
-## 2.1 The Text Representation Challenge
+### 2.1 The Text Representation Challenge
 
 Computers don't inherently understand text the way humans do. While we see meaningful words and sentences, computers ultimately work with numbers. The first challenge in building language models is bridging this gap – converting human language into numerical representations that preserve meaning and can be manipulated mathematically.
 
@@ -583,7 +538,7 @@ Let's explore each of these steps in detail.
 
 ---
 
-## 2.2 Character Encodings: The Digital Alphabet
+### 2.2 Character Encodings - The Digital Alphabet
 
 At the most fundamental level, computers store everything as binary data – sequences of 0s and 1s. Character encodings provide the rules for converting between human-readable characters and their binary representations.
 
@@ -628,7 +583,7 @@ When building LLMs, we typically standardize on UTF-8 encoding for all text proc
 
 ---
 
-## 2.3 Tokenization: Breaking Text into Meaningful Units
+### 2.3 Tokenization - Breaking Text into Meaningful Units
 
 Once we have text in a consistent encoding, the next challenge is breaking it into meaningful units that our models can process. This process is called tokenization.
 
@@ -821,7 +776,7 @@ Notice how "tokenization" gets split into "token" and "ization" – this is the 
 
 ---
 
-## 2.4 Statistical Patterns in Language
+### 2.4 Statistical Patterns in Language
 
 Now that we can represent text as sequences of tokens, let's explore the statistical patterns that emerge in language. These patterns form the foundation of language modeling.
 
@@ -880,7 +835,7 @@ In simpler terms, perplexity is the inverse of the average probability the model
 
 ---
 
-## 2.5 Building Your First Language Model: N-gram Models
+### 2.5 Building Your First Language Model - N-gram Models
 
 With our understanding of tokens and language statistics, we can now build a simple but powerful language model: the n-gram model.
 
@@ -999,7 +954,7 @@ While these techniques improved n-gram models, their fundamental limitations led
 
 ---
 
-## 2.6 Hands-On Project: Building an N-gram Language Model
+### 2.6 Hands-On Project - Building an N-gram Language Model
 
 Now let's put everything together in a more comprehensive project. We'll build a trigram language model that includes smoothing to handle unseen n-grams.
 
@@ -1145,7 +1100,7 @@ This more advanced model includes several important features:
 
 ---
 
-## 2.7 Beyond N-grams: The Path Forward
+### 2.7 Beyond N-grams - The Path Forward
 
 While our n-gram model captures basic language patterns, it has fundamental limitations. Modern language models overcome these limitations through:
 
@@ -1158,7 +1113,7 @@ In Module 3, we'll dive into neural network approaches to language modeling, sta
 
 ---
 
-## 2.8 Key Takeaways from Module 2
+### 2.8 Key Takeaways from Module 2
 
 Let's summarize what we've learned in this module:
 
@@ -1174,7 +1129,7 @@ In our next module, we'll explore how neural networks revolutionized language mo
 
 ---
 
-## 2.9 Practice Exercises
+### 2.9 Practice Exercises
 
 To reinforce your learning from this module, try these exercises:
 
@@ -1188,7 +1143,7 @@ These exercises will help solidify your understanding of the foundational concep
 
 ---
 
-## 2.10 Preview of Module 3: Neural Networks for Language
+### 2.10 Preview of Module 3 - Neural Networks for Language
 
 In our next module, we'll explore how neural networks transformed language modeling. We'll cover:
 

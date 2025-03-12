@@ -29,7 +29,7 @@ def build_file_dict(directory):
    return file_dict
 
 
-def read_file(file_path):
+def parse_file(file_path):
     global lookup_file_by_link_name
     try:
         file_name = file_path.split('/')[-1].split('.md')[0]
@@ -76,13 +76,15 @@ def read_file(file_path):
                 'line': line
             })
 
+        # strip first header, as it will be replaced with file name
         content = content.strip()
         if (content[0] == '#'):
-            content = '\n'.join(content.split('/n')[1:]).strip()
+            content = '\n'.join(content.split('\n')[1:]).strip()
 
         return {
             'file_path': file_path,
-            'file_name': file_name,
+            'file_name': re.sub('^_', '', file_name),
+            'extension': file_path.split('.')[-1],
             'content': content,
             'links': link_positions
         }
@@ -90,6 +92,61 @@ def read_file(file_path):
     except FileNotFoundError:
         print(f"ERROR: File '{file_path}' not found")
         return None
+
+
+def wrap_non_md_file(file):
+    content = ''
+    if file['extension'] == 'ipynb':
+        data = json.loads(file['content'])
+        for cell in data['cells']:
+            if cell['cell_type'] == 'markdown':
+                content += ''.join(cell['source']) + '\n\n'
+            elif cell['cell_type'] == 'python':
+                code = f"``` python\n{''.join(cell['source'])}"
+                content += code + '\n\n'
+            else:
+                code = f"``` {cell['cell_type']}\n{''.join(cell['source'])}"
+                content += code + '\n\n'
+    else:
+        content = f"``` {file['extension']}\n{file[content]}\n```"
+    return content
+
+
+def adjust_headers(content, master_level):
+    """
+    Adjusts all markdown headers in the content to be properly nested under
+    the specified master level.
+    
+    Args:
+        content (str): Markdown content with headers
+        master_level (int): The top header level (1-6)
+    Returns:
+        str: Content with adjusted header levels
+    """
+    if not isinstance(master_level, int) or master_level < 1 or master_level > 6:
+        raise ValueError("Master level must be an integer between 1 and 6")
+    # Regex to find markdown headers (# to ######)
+    header_pattern = re.compile(r'^(#{1,6})\s+(.*?)$', re.MULTILINE)
+    
+    def adjust_header(match):
+        # Get the current header level and text
+        current_header = match.group(1)
+        header_text = match.group(2)
+        # Calculate the new header level
+        current_level = len(current_header)
+        new_level = master_level + current_level
+        # Cap at 6 hashtags (markdown only supports h1-h6)
+        new_level = min(new_level, 7)
+        # Create the new header
+        if new_level < 7:
+            new_header = f"{'#'*new_level} {header_text}"
+        else:
+            new_header = f"**{header_text}:**"
+        return new_header
+    # Replace all headers with adjusted levels
+    adjusted_content = header_pattern.sub(adjust_header, content)
+    return adjusted_content
+
 
 
 # Example usage
@@ -105,7 +162,7 @@ queue = []
 documents = []
 visited = {}
 
-head_doc = read_file(head_file_path)
+head_doc = parse_file(head_file_path)
 queue.append(head_doc)
 
 count = 100
@@ -133,7 +190,7 @@ for doc in queue:
             # print(f"  - ?? file:  {file_key}")
             linked_doc_path = lookup_file_by_link_name.get(file_key)
             # print(f"    doc_path: {linked_doc_path}")
-            linked_doc = read_file(linked_doc_path)
+            linked_doc = parse_file(linked_doc_path)
             # print(f"    >> queue: {linked_doc.get('file_path')}")
             linked_doc['parent_index'] = index
             linked_doc['link_data'] = link
@@ -149,15 +206,19 @@ print('-------')
 content = ''
 queue = []
 queue.append({
-    'level': 0,
+    'level': 1,
     'index': 0
 })
 while len(queue) > 0:
     record = queue.pop(0)
     level = record['level']
-    doc_index = record['doc_index']
+    doc_index = record['index']
     doc = documents[doc_index]
-    content += doc['content'] + '\n\n---\n\n'
+    doc_content = doc['content']
+    if doc['extension'] != 'md':
+        doc_content = wrap_non_md_file(doc)
+    doc_content = adjust_headers(level, doc_content)
+    content += f"{'#'*level} {doc['file_name']}\n\n{doc_content}\n\n---\n\n"
     children = sorted(doc['children'], key=lambda index: documents[index]['sort_index'])
     print(f"{doc['index']} - {children}")
     children.reverse()
