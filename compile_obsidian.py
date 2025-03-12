@@ -104,12 +104,13 @@ visited = {}
 head_doc = read_file(head_file_path)
 queue.append(head_doc)
 
-count = 10;
+count = 10
 for doc in queue:
-    count -= 1;
+    count -= 1
     if count < 0:
         print('test - count reach 10 iterations')
-        break;
+        break
+    
     file_path = doc['file_path']
     print('file_path: ', file_path)
     if not visited.get(file_path):
