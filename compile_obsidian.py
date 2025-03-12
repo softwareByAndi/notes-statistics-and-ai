@@ -76,6 +76,10 @@ def read_file(file_path):
                 'line': line
             })
 
+        content = content.strip()
+        if (content[0] == '#'):
+            content = '\n'.join(content.split('/n')[1:]).strip()
+
         return {
             'file_path': file_path,
             'file_name': file_name,
