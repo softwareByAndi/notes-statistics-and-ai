@@ -9,10 +9,10 @@
 Each module builds upon the previous ones, creating a comprehensive understanding of the entire LLM development process from text representation to cutting-edge applications.
 
 - [[_mod 0 - Prerequisites and Preparation]]
-- [[_mod 1 - The Big Picture - What Are We Building?]]
+- [[_mod 1 - The Big Picture - What Are We Building]]
 - [[_mod 2 - Language and Text - The Foundation]]
 
-# future modules - not yet developed
+## future modules - not yet developed
 
 **Module 3: Neural Networks for Language**
 

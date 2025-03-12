@@ -41,30 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building?.md",
+                "file": "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "_mod 1 - The Big Picture - What Are We Building?"
-            }
-          },
-          {
-            "id": "c34776a3b77b3ac5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "llm/CURRENT_OUTLINE_3.md",
-                "mode": "source",
-                "source": true
-              },
-              "icon": "lucide-file",
-              "title": "CURRENT_OUTLINE_3"
+              "title": "_mod 1 - The Big Picture - What Are We Building"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -183,13 +169,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/CURRENT_OUTLINE_3.md",
+                "file": "llm/CURRENT_OUTLINE_2.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of CURRENT_OUTLINE_3"
+              "title": "Outline of CURRENT_OUTLINE_2"
             }
           }
         ],
@@ -212,17 +198,18 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "c34776a3b77b3ac5",
+  "active": "b181792137f66eec",
   "lastOpenFiles": [
+    "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building.md",
+    "llm/outline/_outline.md",
+    "llm/CURRENT_OUTLINE_3.md",
     "compile_obsidian_3 copy.py",
     "llm/CURRENT_OUTLINE_2.md",
-    "llm/CURRENT_OUTLINE_3.md",
     "compile_obsidian_3.py",
     "llm/CURRENT_OUTLINE.md",
     "Untitled.md",
     "compile_obsidian_2.py",
     "llm/outline/course structure.md",
-    "llm/outline/_outline.md",
     "llm/modules/mod 0/_mod 0 - Prerequisites and Preparation.md",
     "llm/outline/learning_approach.md",
     "llm/modules/mod 2/_mod 2 - Language and Text - The Foundation.md",
@@ -232,7 +219,6 @@
     "llm/modules/mod 1/2.1 The Text Representation Challenge.md",
     "llm/modules/mod 2/2.1 The Text Representation Challenge.md",
     "llm/modules/mod 2/2.2 Character Encodings - The Digital Alphabet.md",
-    "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building?.md",
     "llm/CURRENT OUTLINE.md",
     "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
     "llm/modules/mod 2/2.6 Hands-On Project - Building an N-gram Language Model.md",
@@ -249,7 +235,6 @@
     "llm/modules/mod 1",
     "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
     "llm/modules/math",
-    "llm/modules/mod 0",
     "Pasted image 20240411184114.png",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",
