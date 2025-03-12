@@ -32,9 +32,9 @@ def build_file_dict(directory):
 def read_file(file_path):
     global lookup_file_by_link_name
     try:
+        file_name = file_path.split('/')[-1].split('.md')[0]
         with open(file_path, 'r', encoding='utf-8') as file:
             content = file.read()
-            file_name = file.name
         wiki_link_pattern = r'\[\[(.*?)\]\]'
         link_positions = []
         lines = []
