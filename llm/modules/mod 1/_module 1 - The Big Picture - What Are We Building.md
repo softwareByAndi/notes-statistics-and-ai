@@ -10,3 +10,4 @@ Before diving into the technical details, let's understand what a Large Language
 - [[1.6 Hands-On Project - Using an Existing LLM via API]]
 - [[1.7 Key Takeaways from Module 1]]
 - [[1.8 Preview of Module 2 - Text Representation]]
+

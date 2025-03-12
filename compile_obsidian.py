@@ -2,6 +2,12 @@ import os
 import re
 import json
 
+
+head_file_path = 'llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md'
+output_file = 'llm/CURRENT_OUTLINE.md'
+
+
+
 def build_file_dict(directory):
    file_dict = {}
    
@@ -88,7 +94,7 @@ def parse_file(file_path):
             'content': content,
             'links': link_positions
         }
-
+    
     except FileNotFoundError:
         print(f"ERROR: File '{file_path}' not found")
         return None
@@ -111,25 +117,49 @@ def wrap_non_md_file(file):
         content = f"``` {file['extension']}\n{file[content]}\n```"
     return content
 
-def normalize_headers(markdown_text):
-    header_pattern = re.compile(r'^(#{1,6})\s+(.*?)$', re.MULTILINE)
-    matches = []
-    by_level = {}
 
+def find_markdown_headers(markdown_text):
+    blocks = markdown_text.split('```')
+    # Step 2: Only apply the header pattern to non-code blocks
+    header_pattern = re.compile(r'^(#{1,6})\s+(.*?)$', re.MULTILINE)
+    headers = []
+    
+    i = 0
+    char_index = 0
+    content = ''
+    while i < len(blocks):
+        if i % 2 == 1:
+            content += f"``` {blocks[i].strip()} ```"
+            char_index = len(content) - 1
+        else:
+            content += blocks[i]
+            for match in re.finditer(header_pattern, blocks[i]):
+                level = len(match.group(1))
+                match_content = match.group(2)
+                start = match.start() + char_index
+                end = match.end() + char_index
+                length = end - start
+                headers.append({
+                    'level': level,
+                    'start': start, 
+                    'end': end,
+                    'length': length,
+                    'content': match_content
+                })
+        i += 1
+    return sorted(headers, key=lambda match: match['start'])
+
+
+def normalize_headers(markdown_text):
+    by_level = {}
+    matches = find_markdown_headers(markdown_text)
+    matches.reverse()
     # get matches
-    for match in re.finditer(header_pattern, markdown_text):
-        origin_level = len(match.group(1))
-        header_text = match.group(2)
-        current_match = {
-            'origin_level': origin_level,
-            'header_text': header_text,
-            'start_index': match.start()
-        }
-        matches.append(current_match)
+    for match in matches:
+        origin_level = match['level']
         if by_level.get(origin_level) is None:
             by_level[origin_level] = []
         by_level[origin_level].append(match)
-
     # normalize
     current_level = 1
     normalized_level_by_origin_level = {}
@@ -137,64 +167,50 @@ def normalize_headers(markdown_text):
         normalized_level_by_origin_level[i] = current_level
         current_level += 1
 
-    def update_header(match):
-        # Get the current header level and text
-        current_header = match.group(1)
-        header_text = match.group(2)
-        # Calculate the new header level
-        origin_level = len(current_header)
-        new_level = normalized_level_by_origin_level[origin_level]
-        # Cap at 6 hashtags (markdown only supports h1-h6)
+    for match in matches:
+        new_level = normalized_level_by_origin_level[match['level']]
         new_level = min(new_level, 7)
-        # Create the new header
         if new_level < 7:
-            new_header = f"{'#'*new_level} {header_text}"
+            new_header = f"{'#'*new_level} {match['content']}"
         else:
-            new_header = f"**{header_text}:**"
-        return new_header 
-
-    normalized_content = header_pattern.sub(update_header, markdown_text)
-    return normalized_content
+            new_header = f"**{match['content']}:**"
+        markdown_text = ''.join([
+            markdown_text[:match['start']],
+            new_header,
+            markdown_text[match['end']:]
+        ])
+    return markdown_text
 
 
 def adjust_headers(master_level, content):
     if not isinstance(master_level, int) or master_level < 1 or master_level > 6:
         raise ValueError("Master level must be an integer between 1 and 6")
-    # Regex to find markdown headers (# to ######)
-    header_pattern = re.compile(r'^(#{1,6})\s+(.*?)$', re.MULTILINE)
-    
-    def adjust_header(match):
-        # Get the current header level and text
-        current_header = match.group(1)
-        header_text = match.group(2)
-        # Calculate the new header level
-        current_level = len(current_header)
-        new_level = master_level + current_level
-        # Cap at 6 hashtags (markdown only supports h1-h6)
-        new_level = min(new_level, 7)
-        # Create the new header
-        if new_level < 7:
-            new_header = f"{'#'*new_level} {header_text}"
-        else:
-            new_header = f"**{header_text}:**"
-        return new_header
-    
-    # Replace all headers with adjusted levels
     normalized_content = normalize_headers(content)
-    adjusted_content = header_pattern.sub(adjust_header, normalized_content)
-    return adjusted_content
+    matches = find_markdown_headers(normalized_content)
+    matches.reverse()
+    for match in matches:
+        new_level = master_level + match['level']
+        new_level = min(new_level, 7)
+        if new_level < 7:
+            new_header = f"{'#' * new_level} {match['content']}"
+        else:
+            new_header = f"**{match['content']}:**"
+        normalized_content = ''.join([
+            normalized_content[:match['start']],
+            new_header,
+            normalized_content[match['end']:]
+        ])
+        origin_content = f"{'#' * match['level']} {match['content']}"
+        print(origin_content)
+    return normalized_content
 
 
 
 
-# Example usage
+
+
 directory_path = "./"
-head_file_path = 'llm/outline/_outline.md'
 lookup_file_by_link_name = build_file_dict(directory_path)
-
-# for key, path in lookup_file_by_link_name.items():
-#    if 'llm/' in path:
-#        print(f"{key}: {path}")
 
 queue = []
 documents = []
@@ -267,5 +283,5 @@ while len(queue) > 0:
         queue.insert(0, { 'level': level + 1, 'index': child_index })
 
 
-with open('llm/CURRENT_OUTLINE_4.md', 'w') as file:
+with open(output_file, 'w') as file:
     file.write(content)

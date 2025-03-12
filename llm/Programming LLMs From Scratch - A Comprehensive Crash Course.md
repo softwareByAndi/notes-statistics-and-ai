@@ -2,23 +2,18 @@
 
 - [[introduction]]
 - [[course structure]]
-- [[learning_approach]]
+- [[learning approach]]
 
 ---
 
 Each module builds upon the previous ones, creating a comprehensive understanding of the entire LLM development process from text representation to cutting-edge applications.
 
-- [[_mod 0 - Prerequisites and Preparation]]
-- [[_mod 1 - The Big Picture - What Are We Building]]
-- [[_mod 2 - Language and Text - The Foundation]]
+- [[_module 0 - Prerequisites and Preparation]]
+- [[_module 1 - The Big Picture - What Are We Building]]
+- [[_module 2 - Language and Text - The Foundation]]
+- [[_module 3 - Neural Networks for Language]]
 
 ## future modules - not yet developed
-
-**Module 3: Neural Networks for Language**
-
-- Word embeddings and vector representations
-- Recurrent neural networks for sequences
-- Building a character-level RNN language model
 
 **Module 4: The Transformer Revolution**
 

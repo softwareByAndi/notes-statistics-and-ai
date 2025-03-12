@@ -1,3 +1,8 @@
+
+course outline - [[Programming LLMs From Scratch - A Comprehensive Crash Course]]
+
+---
+
 these documents are a compilation of notes using Claude from anthropic to develop a course to teach how to build LLMs from scratch
 
 prompt

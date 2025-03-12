@@ -13,26 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/outline/_outline.md",
+                "file": "llm/modules/mod 3/_module 3 - Neural Networks for Language.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "_outline"
+              "title": "_module 3 - Neural Networks for Language"
             }
           },
           {
-            "id": "b181792137f66eec",
+            "id": "4177a8be28e47bcf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
+                "file": "llm/modules/mod 3/_module 3 - Neural Networks for Language.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1.6 Hands-On Project - Using an Existing LLM via API"
+              "title": "_module 3 - Neural Networks for Language"
             }
           },
           {
@@ -41,16 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building.md",
+                "file": "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "_mod 1 - The Big Picture - What Are We Building"
+              "title": "Programming LLMs From Scratch - A Comprehensive Crash Course"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -169,13 +169,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
+                "file": "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 1.6 Hands-On Project - Using an Existing LLM via API"
+              "title": "Outline of Programming LLMs From Scratch - A Comprehensive Crash Course"
             }
           }
         ],
@@ -198,43 +198,44 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "b181792137f66eec",
+  "active": "960a36342d3df715",
   "lastOpenFiles": [
+    "llm/CURRENT_OUTLINE.md",
+    "llm/modules/mod 0/_module 0 - Prerequisites and Preparation.md",
+    "llm/modules/mod 3/_module 3 - Neural Networks for Language.md",
+    "llm/modules/mod 1/_module 1 - The Big Picture - What Are We Building.md",
+    "llm/modules/mod 2/_module 2 - Language and Text - The Foundation.md",
+    "llm/modules/mod 3/3.1 From N-grams to Neural Networks.md",
+    "llm/modules/mod 3/3.2 Word Embeddings - Representing Words as Vectors.md",
+    "llm/modules/mod 3/3.12 Preview of Module 4 - The Transformer Revolution.md",
+    "llm/modules/mod 3/3.11 Practice Exercises.md",
+    "llm/modules/mod 3/3.10 Key Takeaways from Module 3.md",
+    "llm/modules/mod 3/3.9 Limitations of RNN-Based Models.md",
+    "llm/modules/mod 3/3.8 Evaluating Neural Language Models.md",
+    "llm/modules/mod 3/3.7 Complete Implementation - Training and Using a Character-Level LSTM.md",
+    "llm/modules/mod 3/3.6 Building a Character-Level Language Model.md",
+    "llm/modules/mod 3/3.5 Advanced Recurrent Architectures.md",
+    "llm/modules/mod 3/3.4 Recurrent Neural Networks - Processing Sequences.md",
+    "llm/modules/mod 3/3.3 Feed-Forward Neural Networks for Language.md",
+    "llm/modules/mod 3",
+    "llm/modules/mod 2/2.10 Preview of Module 3 - Neural Networks for Language.md",
+    "llm/CURRENT_OUTLINE_2.md",
     "llm/CURRENT_OUTLINE_4.md",
+    "llm/README.md",
+    "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
+    "llm/prelims/learning approach.md",
+    "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
     "test2.py",
     "test copy.py",
-    "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
-    "llm/outline/_outline.md",
     "llm/modules/mod 0/Recommended Setup.md",
     "llm/modules/math/Quick Mathematics Review.md",
-    "llm/modules/mod 0/_mod 0 - Prerequisites and Preparation.md",
-    "llm/modules/mod 0/Knowledge Prerequisites.md",
     "test.py",
-    "llm/CURRENT_OUTLINE_3.md",
-    "llm/CURRENT_OUTLINE_2.md",
-    "llm/modules/mod 1/_mod 1 - The Big Picture - What Are We Building.md",
     "compile_obsidian_3 copy.py",
     "compile_obsidian_3.py",
-    "llm/CURRENT_OUTLINE.md",
-    "Untitled.md",
     "compile_obsidian_2.py",
-    "llm/outline/course structure.md",
-    "llm/outline/learning_approach.md",
-    "llm/modules/mod 2/_mod 2 - Language and Text - The Foundation.md",
     "compile_obsidian.py",
     "llm/compile_obsidian.py",
     "llm/compile_outline.py",
-    "llm/modules/mod 1/2.1 The Text Representation Challenge.md",
-    "llm/modules/mod 2/2.1 The Text Representation Challenge.md",
-    "llm/modules/mod 2/2.2 Character Encodings - The Digital Alphabet.md",
-    "llm/CURRENT OUTLINE.md",
-    "llm/modules/mod 2/2.6 Hands-On Project - Building an N-gram Language Model.md",
-    "llm/modules/mod 2/2.7 Beyond N-grams - The Path Forward.md",
-    "llm/modules/mod 2/2.5 Building Your First Language Model - N-gram Models.md",
-    "llm/modules/mod 2/2.4 Statistical Patterns in Language.md",
-    "llm/modules/mod 2/2.3 Tokenization - Breaking Text into Meaningful Units.md",
-    "llm/modules/mod 2/2.10 Preview of Module 3 - Neural Networks for Language.md",
-    "llm/modules/mod 2",
     "Pasted image 20240411184114.png",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",

@@ -122,7 +122,7 @@ def find_markdown_headers(markdown_text):
     while i < len(blocks):
         if i % 2 == 1:
             content += f"``` {blocks[i].strip()} ```"
-            char_index = len(content)
+            char_index = len(content) - 1
         else:
             content += blocks[i]
             for match in re.finditer(header_pattern, blocks[i]):
@@ -139,26 +139,19 @@ def find_markdown_headers(markdown_text):
                     'content': match_content
                 })
         i += 1
-    return headers
+    return sorted(headers, key=lambda match: match['start'])
 
 
 def normalize_headers(markdown_text):
     by_level = {}
     matches = find_markdown_headers(markdown_text)
-    matches = sorted(matches, key=lambda match: match['start'], reverse=True)
-
+    matches.reverse()
     # get matches
     for match in matches:
-        print(match)
         origin_level = match['level']
-        header_text = match['content']
         if by_level.get(origin_level) is None:
             by_level[origin_level] = []
         by_level[origin_level].append(match)
-
-    print(json.dumps(by_level, indent=2))
-    print('\n-------\n')
-
     # normalize
     current_level = 1
     normalized_level_by_origin_level = {}
@@ -170,39 +163,24 @@ def normalize_headers(markdown_text):
         new_level = normalized_level_by_origin_level[match['level']]
         new_level = min(new_level, 7)
         if new_level < 7:
-            new_header = f"<<{'#'*new_level} {match['content']}>>"
+            new_header = f"{'#'*new_level} {match['content']}"
         else:
             new_header = f"**{match['content']}:**"
-
         markdown_text = ''.join([
             markdown_text[:match['start']],
             new_header,
-            markdown_text[match['end']-1:]
+            markdown_text[match['end']:]
         ])
-
-        origin_content = f"{'#' * match['level']} {match['content']}"
-        print(origin_content)
-
     return markdown_text
 
 
 def adjust_headers(master_level, content):
     if not isinstance(master_level, int) or master_level < 1 or master_level > 6:
         raise ValueError("Master level must be an integer between 1 and 6")
-    
     normalized_content = normalize_headers(content)
-    
-    print('\n---------\n')
-
     matches = find_markdown_headers(normalized_content)
-    matches = sorted(
-        matches, 
-        key=lambda match: match['start'], 
-        reverse=True
-    )
+    matches.reverse()
     for match in matches:
-        print(match)
-
         new_level = master_level + match['level']
         new_level = min(new_level, 7)
         if new_level < 7:
@@ -212,11 +190,10 @@ def adjust_headers(master_level, content):
         normalized_content = ''.join([
             normalized_content[:match['start']],
             new_header,
-            normalized_content[match['end']-1:]
+            normalized_content[match['end']:]
         ])
         origin_content = f"{'#' * match['level']} {match['content']}"
         print(origin_content)
-    
     return normalized_content
 
 
@@ -228,9 +205,8 @@ def adjust_headers(master_level, content):
 directory_path = "./"
 head_file_path = 'llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md'
 data = parse_file(head_file_path)['content']
-norm_content = normalize_headers(data)
-print(norm_content)
+# norm_content = normalize_headers(data)
+# print(norm_content)
 
-# print('\n\n\n\n')
-
-# adj_content = adjust_headers(2, data)
+adj_content = adjust_headers(3, data)
+print(adj_content)
