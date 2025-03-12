@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/modules/mod 5/5.3 Training Dynamics of Large Models.md",
+                "file": "llm/modules/mod 5/5.1 The Scaling Revolution in AI.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "5.3 Training Dynamics of Large Models"
+              "title": "5.1 The Scaling Revolution in AI"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "llm/modules/mod 5/5.3 Training Dynamics of Large Models.md",
+                "file": "llm/modules/mod 5/5.1 The Scaling Revolution in AI.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 5.3 Training Dynamics of Large Models"
+              "title": "Backlinks for 5.1 The Scaling Revolution in AI"
             }
           },
           {
@@ -140,13 +140,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/modules/mod 5/5.3 Training Dynamics of Large Models.md",
+                "file": "llm/modules/mod 5/5.1 The Scaling Revolution in AI.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 5.3 Training Dynamics of Large Models"
+              "title": "Outline of 5.1 The Scaling Revolution in AI"
             }
           }
         ],
@@ -171,9 +171,10 @@
   },
   "active": "4177a8be28e47bcf",
   "lastOpenFiles": [
+    "llm/modules/mod 5/_Module 5 - Scaling Up - From Models to LLMs.md",
+    "llm/modules/mod 5/5.3 Training Dynamics of Large Models.md",
     "llm/CURRENT_OUTLINE.md",
     "llm/modules/mod 5/5.6 Data Preparation and Management at Scale.md",
-    "llm/modules/mod 5/_Module 5 - Scaling Up - From Models to LLMs.md",
     "llm/modules/mod 1/_Module 1 - The Big Picture - What Are We Building.md",
     "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
     "llm/modules/mod 0/_Module 0 - Prerequisites and Preparation.md",
@@ -192,7 +193,6 @@
     "llm/modules/mod 5/5.7 Hands-On Project - Training a Mid-Scale Language Model.md",
     "llm/modules/mod 5/5.5 Scaling Infrastructure and Distributed Training.md",
     "llm/modules/mod 5/5.4 Efficient Parameter Use and Model Architectures.md",
-    "llm/modules/mod 5/5.3 Training Dynamics of Large Models.md",
     "llm/modules/mod 5/5.2 Pre-training Objectives and Techniques.md",
     "llm/modules/mod 5",
     "llm/modules/mod 4/4.11 Preview of Module 5 - Scaling Up - From Models to LLMs.md",
