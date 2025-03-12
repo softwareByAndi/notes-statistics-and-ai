@@ -12,7 +12,6 @@ While we'll explain mathematical concepts as we encounter them, here's a brief r
 For example, a vector might represent a word in our language model, while a matrix might represent a transformation we apply to that word.
 
 #### Probability Basics
-[[probability.ipynb]]
 - **Random variables**: Values determined by chance
 - **Probability distributions**: How likely different outcomes are
 - **Conditional probability**: The likelihood of an event given another event occurred

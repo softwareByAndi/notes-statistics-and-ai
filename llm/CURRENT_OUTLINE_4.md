@@ -12,7 +12,7 @@ Each module builds upon the previous ones, creating a comprehensive understandin
 - [[_mod 1 - The Big Picture - What Are We Building]]
 - [[_mod 2 - Language and Text - The Foundation]]
 
-### future modules - not yet developed
+## future modules - not yet developed
 
 **Module 3: Neural Networks for Language**
 
@@ -127,35 +127,27 @@ Don't worry if you don't have extensive machine learning experience - we'll buil
 - Basic familiarity with Jupyter notebooks
 - Understanding of pip for package installation
 
-###### Development Environment Setup
+#### Development Environment Setup
 
 Let's set up your working environment:
 
 1. **Install Python**: If you haven't already, download and install Python 3.8 or newer
 2. **Create a virtual environment**: This keeps your project dependencies separate
-    
-    ```bash
-    python -m venv llm-coursesource llm-course/bin/activate  # On Windows: llm-course\Scripts\activate
-    ```
-    
+``` bash
+python -m venv llm-coursesource llm-course/bin/activate  # On Windows: llm-course\Scripts\activate
+```
 3. **Install basic libraries**:
-    
-    ```bash
-    pip install numpy pandas matplotlib jupyter torch transformers
-    ```
-    
+``` bash
+pip install numpy pandas matplotlib jupyter torch transformers
+```
 4. **Create a project folder**:
-    
-    ```bash
-    mkdir llm-from-scratchcd llm-from-scratch
-    ```
-    
+``` bash
+mkdir llm-from-scratchcd llm-from-scratch
+```
 5. **Start Jupyter**:
-    
-    ```bash
-    jupyter notebook
-    ```
-    
+``` bash
+jupyter notebook
+```
 
 This will give you a solid starting point to work through the course examples and projects.
 
@@ -165,7 +157,7 @@ This will give you a solid starting point to work through the course examples an
 
 While we'll explain mathematical concepts as we encounter them, here's a brief refresher on some key areas that will appear throughout the course:
 
-**Linear Algebra Essentials:**
+#### Linear Algebra Essentials
 #linear-algebra 
 
 - **Vectors**: Ordered lists of numbers with magnitude and direction
@@ -174,96 +166,18 @@ While we'll explain mathematical concepts as we encounter them, here's a brief r
 
 For example, a vector might represent a word in our language model, while a matrix might represent a transformation we apply to that word.
 
-**Probability Basics:**
-[[probability.ipynb]]
+#### Probability Basics
 - **Random variables**: Values determined by chance
 - **Probability distributions**: How likely different outcomes are
 - **Conditional probability**: The likelihood of an event given another event occurred
 
 Language models fundamentally work with probabilities - "what word is most likely to come next?"
 
-**Calculus Foundations:**
+#### Calculus Foundations
 - **Derivatives**: Rate of change (how quickly a function's output changes)
 - **Gradients**: Direction of steepest increase (critical for training neural networks)
 
 Don't worry if these concepts aren't completely familiar - we'll explain them in context as needed.
-
----
-
-#### probability.ipynb
-
-[<< home](../home.md)
-
-##### probability
-
-- probability - chance or likelihood of something happening
-- event - something that happens / the outcome of an experiment
-- experiment - a process that is performed to observe possible outcomes
-- sample space - the set of all outcomes of an experiment
-
-**note that most of this is generated from github copilot AI... it needs to be double checked**
-
-**equation:**  
-- probability of an event = number of favorable outcomes / total number of possible outcomes
-
-**mutually exclusive events:**
-- two events are mutually exclusive if they cannot occur at the same time
-- the probability of two mutually exclusive events occurring at the same time is 0
-
-**independent events:**
-- two events are independent if the occurrence of one event does not affect the probability of the other event
-- the probability of two independent events occurring at the same time is the product of their individual probabilities
-
-**dependent events:**
-- two events are dependent if the occurrence of one event affects the probability of the other event
-- the probability of two dependent events occurring at the same time is the product of their individual probabilities
-
-**conditional probability: P(A|B):**
-the probability of an event occurring **given** that another event has already occurred
-- **mutually exclusive events**: `P(A|B) = 0`
-- **non-mutually exclusive events**: `P(A|B) = P(A and B) / P(B)`
-    - We divide by P(B) because we are only considering the probability of A occurring given that B has already occurred. 
-    - We are not considering the probability of B occurring given that A has already occurred.
-
-**multiplication rule: P(A and B):**
-both occurring at the same time
-- **mutually exclusive events**: `P(A and B) = 0`
-- **non-mutually exclusive events**: `P(A and B) = P(A) * P(B|A)`
-
-**addition rule: P(A or B):**
-one or the other or both occurring
-- **mutually exclusive events**: `P(A or B) = P(A) + P(B)`
-- **non-mutually exclusive events**: `P(A or B) = P(A) + P(B) - P(A and B)`
-    - We subtract P(A and B) because these entries are duplicates. 
-    - Entries that intersect are counted once from A and again from B, so we need to subtract one of them.
-
-**permutations:**
-- the number of ways to arrange a set of objects in a specific order
-- n objects taken r at a time is `n! / (n - r)!`
-- n objects taken all at a time is `n!`
-
-**combinations:**
-- the number of ways to select a subset of objects from a larger set of objects
-- the number of combinations of n objects taken r at a time is `n! / (r! * (n - r)!)`
-- the number of combinations of n objects taken all at a time is `1`
-
-**binomial probability:**
-- the probability of exactly x successes in n trials
-- `P(r) = (n! / (r! * (n - r)!)) * prob_success^r * prob_failure^(n - r)`
-
-
-**bayes rule:**
-- [see bayes rule](./bayes_rule.ipynb)
-
-**marginal probability / joint probability table:**
-this is a table view that shows both marginal and joint probabilities for two events
-- marginal probability: the probability of a single event occurring
-- joint probability: the probability of two events occurring at the same time
-- [see marginal and joint probability](./marginal_and_joint_probability.ipynb)
-
-
-
-
 
 ---
 
@@ -391,7 +305,8 @@ print(message.to_json())
 This gives us a taste of what's possible with LLMs, and sets our target for what we'll build toward throughout this course.
 
 
-**example - summarize and classify wiki articles:**
+##### example - summarize and classify wiki articles
+
 ``` python
 from claude_models import Models
 import anthropic
@@ -521,7 +436,7 @@ Welcome to Module 2 of our LLM crash course! In this module, we'll explore the f
 
 Computers don't inherently understand text the way humans do. While we see meaningful words and sentences, computers ultimately work with numbers. The first challenge in building language models is bridging this gap – converting human language into numerical representations that preserve meaning and can be manipulated mathematically.
 
-###### From Human Language to Machine Numbers
+#### From Human Language to Machine Numbers
 
 Think about how you're reading these words right now. Your brain processes visual symbols (letters), combines them into words, and extracts meaning based on your prior knowledge of language. Computers need a similar pipeline, but built explicitly through code.
 
@@ -540,7 +455,7 @@ Let's explore each of these steps in detail.
 
 At the most fundamental level, computers store everything as binary data – sequences of 0s and 1s. Character encodings provide the rules for converting between human-readable characters and their binary representations.
 
-###### ASCII: The Original Digital Alphabet
+#### ASCII: The Original Digital Alphabet
 
 The American Standard Code for Information Interchange (ASCII) was one of the first widespread character encodings. It uses 7 bits to represent 128 different characters:
 
@@ -552,7 +467,7 @@ For example, the letter 'A' is represented as the decimal number 65, which in bi
 
 While ASCII worked well for English text, it couldn't represent the vast diversity of characters used in other languages. This limitation led to the development of more comprehensive encodings.
 
-###### Unicode and UTF-8: A Global Digital Alphabet
+#### Unicode and UTF-8: A Global Digital Alphabet
 
 Unicode was created to solve the limitations of ASCII by assigning a unique number (code point) to virtually every character used in all the world's writing systems. The most common implementation of Unicode is UTF-8, which uses a variable number of bytes to represent different characters:
 
@@ -568,7 +483,7 @@ For example:
 
 UTF-8 has become the dominant encoding for text on the internet because it efficiently handles multiple languages while maintaining backward compatibility with ASCII.
 
-###### Why Character Encodings Matter for LLMs
+#### Why Character Encodings Matter for LLMs
 
 Understanding character encodings is important for several reasons:
 
@@ -585,7 +500,7 @@ When building LLMs, we typically standardize on UTF-8 encoding for all text proc
 
 Once we have text in a consistent encoding, the next challenge is breaking it into meaningful units that our models can process. This process is called tokenization.
 
-###### Why We Need Tokenization
+##### Why We Need Tokenization
 
 Consider this sentence: "The cat sat on the mat."
 
@@ -597,11 +512,11 @@ We could process this text in several ways:
 
 Each approach has different trade-offs in terms of vocabulary size, meaning preservation, and computational efficiency.
 
-###### Tokenization Strategies
+##### Tokenization Strategies
 
 There are three main approaches to tokenization:
 
-**1. Character-Level Tokenization:**
+###### 1. Character-Level Tokenization
 
 In character-level tokenization, each character becomes a token. This approach has:
 
@@ -617,7 +532,7 @@ In character-level tokenization, each character becomes a token. This approach h
 - Limited semantic information in each token
 - Computationally expensive for long texts
 
-**2. Word-Level Tokenization:**
+###### 2. Word-Level Tokenization
 
 Word-level tokenization splits text at word boundaries (usually spaces and punctuation). This approach has:
 
@@ -654,7 +569,7 @@ print(tokens)
 #### Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'simple', 'tokenizer', '.']
 ```
 
-**3. Subword Tokenization:**
+###### 3. Subword Tokenization
 
 Subword tokenization is a hybrid approach that breaks common words into single tokens but splits rare or complex words into meaningful subword pieces. This offers the best of both worlds:
 
@@ -677,7 +592,7 @@ Modern LLMs primarily use subword tokenization methods like:
 - **WordPiece**: Used by BERT
 - **SentencePiece**: Used by T5 and many multilingual models
 
-###### Building a Vocabulary with Byte-Pair Encoding (BPE)
+##### Building a Vocabulary with Byte-Pair Encoding (BPE)
 
 Let's understand how BPE works as it's one of the most common subword tokenization methods:
 
@@ -741,7 +656,7 @@ print(f"Tokenized: {tokenized}")
 
 In a real BPE implementation, you would train on millions of documents to build a robust vocabulary, then use that vocabulary to tokenize new text.
 
-###### Modern Tokenization in Practice
+##### Modern Tokenization in Practice
 
 Modern LLMs use sophisticated tokenizers that handle:
 
@@ -778,7 +693,7 @@ Notice how "tokenization" gets split into "token" and "ization" – this is the 
 
 Now that we can represent text as sequences of tokens, let's explore the statistical patterns that emerge in language. These patterns form the foundation of language modeling.
 
-###### Frequency Distributions: The Building Blocks
+#### Frequency Distributions: The Building Blocks
 
 The most basic statistical property of language is the frequency of different tokens. Some words appear much more often than others, following what's known as Zipf's Law.
 
@@ -790,7 +705,7 @@ Zipf's Law states that the frequency of a word is inversely proportional to its 
 
 In English, words like "the," "of," and "and" typically top the frequency list, while technical or specialized terms appear much less frequently.
 
-###### N-grams: Capturing Local Patterns
+#### N-grams: Capturing Local Patterns
 
 While individual token frequencies tell us something about language, the real patterns emerge when we look at sequences of tokens that appear together. These sequences are called n-grams:
 
@@ -801,7 +716,7 @@ While individual token frequencies tell us something about language, the real pa
 
 By analyzing the frequencies of n-grams in a large corpus, we can start to capture the statistical structure of language. For example, after seeing "the cat" in English text, "sat" is more likely to follow than "elephant."
 
-###### Conditional Probability in Language
+#### Conditional Probability in Language
 
 The key insight that drives language models is conditional probability: given a sequence of words, what word is likely to come next?
 
@@ -814,7 +729,7 @@ For example:
 
 These conditional probabilities form the basis of statistical language modeling.
 
-###### Measuring Language Model Quality: Perplexity
+#### Measuring Language Model Quality: Perplexity
 
 How do we know if our language model is capturing these patterns effectively? The standard metric is called perplexity.
 
@@ -837,7 +752,7 @@ In simpler terms, perplexity is the inverse of the average probability the model
 
 With our understanding of tokens and language statistics, we can now build a simple but powerful language model: the n-gram model.
 
-###### How N-gram Models Work
+##### How N-gram Models Work
 
 An n-gram language model predicts the next word based solely on the previous n-1 words. The core idea is:
 
@@ -851,7 +766,7 @@ For example, a trigram (3-gram) model would:
 - Count how often "the cat" appears followed by any word
 - Calculate P("sat" | "the cat") = count("the cat sat") / count("the cat")
 
-###### Implementing a Simple Bigram Model
+##### Implementing a Simple Bigram Model
 
 Let's implement a basic bigram (2-gram) language model in Python:
 
@@ -933,7 +848,7 @@ This simple model demonstrates the core concepts behind language modeling:
 2. Using those patterns to predict what comes next
 3. Generating new text by repeatedly predicting the next word
 
-###### Limitations of N-gram Models
+##### Limitations of N-gram Models
 
 While n-gram models are easy to understand and implement, they have several important limitations:
 

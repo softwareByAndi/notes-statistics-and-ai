@@ -111,18 +111,53 @@ def wrap_non_md_file(file):
         content = f"``` {file['extension']}\n{file[content]}\n```"
     return content
 
+def normalize_headers(markdown_text):
+    header_pattern = re.compile(r'^(#{1,6})\s+(.*?)$', re.MULTILINE)
+    matches = []
+    by_level = {}
+
+    # get matches
+    for match in re.finditer(header_pattern, markdown_text):
+        origin_level = len(match.group(1))
+        header_text = match.group(2)
+        current_match = {
+            'origin_level': origin_level,
+            'header_text': header_text,
+            'start_index': match.start()
+        }
+        matches.append(current_match)
+        if by_level.get(origin_level) is None:
+            by_level[origin_level] = []
+        by_level[origin_level].append(match)
+
+    # normalize
+    current_level = 1
+    normalized_level_by_origin_level = {}
+    for i in sorted(by_level.keys()):
+        normalized_level_by_origin_level[i] = current_level
+        current_level += 1
+
+    def update_header(match):
+        # Get the current header level and text
+        current_header = match.group(1)
+        header_text = match.group(2)
+        # Calculate the new header level
+        origin_level = len(current_header)
+        new_level = normalized_level_by_origin_level[origin_level]
+        # Cap at 6 hashtags (markdown only supports h1-h6)
+        new_level = min(new_level, 7)
+        # Create the new header
+        if new_level < 7:
+            new_header = f"{'#'*new_level} {header_text}"
+        else:
+            new_header = f"**{header_text}:**"
+        return new_header 
+
+    normalized_content = header_pattern.sub(update_header, markdown_text)
+    return normalized_content
+
 
 def adjust_headers(master_level, content):
-    """
-    Adjusts all markdown headers in the content to be properly nested under
-    the specified master level.
-    
-    Args:
-        content (str): Markdown content with headers
-        master_level (int): The top header level (1-6)
-    Returns:
-        str: Content with adjusted header levels
-    """
     if not isinstance(master_level, int) or master_level < 1 or master_level > 6:
         raise ValueError("Master level must be an integer between 1 and 6")
     # Regex to find markdown headers (# to ######)
@@ -143,9 +178,12 @@ def adjust_headers(master_level, content):
         else:
             new_header = f"**{header_text}:**"
         return new_header
+    
     # Replace all headers with adjusted levels
-    adjusted_content = header_pattern.sub(adjust_header, content)
+    normalized_content = normalize_headers(content)
+    adjusted_content = header_pattern.sub(adjust_header, normalized_content)
     return adjusted_content
+
 
 
 
@@ -165,11 +203,11 @@ visited = {}
 head_doc = parse_file(head_file_path)
 queue.append(head_doc)
 
-count = 100
+count = 100 # prevent run-away recursion
 for doc in queue:
     count -= 1
     if count < 0:
-        print('test - count reach 10 iterations')
+        print('test - count reach 1000 iterations')
         break
     
     file_path = doc['file_path']
@@ -223,7 +261,7 @@ while len(queue) > 0:
         doc_content = wrap_non_md_file(doc)
     doc_content = adjust_headers(level, doc_content)
     content += f"{'#'*level} {doc['file_name']}\n\n{doc_content}\n\n---\n\n"
-    
+
     children.reverse()
     for child_index in children:
         queue.insert(0, { 'level': level + 1, 'index': child_index })

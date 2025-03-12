@@ -1,4 +1,6 @@
+import os
 import re
+import json
 
 def normalize_headers(markdown_text):
     header_pattern = re.compile(r'^(#{1,6})\s+(.*?)$', re.MULTILINE)
@@ -26,22 +28,7 @@ def normalize_headers(markdown_text):
         normalized_level_by_origin_level[i] = current_level
         current_level += 1
 
-    # # secondary normalize pass
-    # prev_match = None
-    # sorted_matches = sorted(lambda match: match['start_index'], matches)
-    # i = 0
-    # while i < len(sorted_matches):
-    #     prev_match = None if i == 0 else sorted_matches[i-1]
-    #     match = sorted_matches[i]
-    #     next_match = sorted_matches[i+1]
-    #     norm_level = normalized_level_by_origin_level[match['origin_level']]
-    #     match['norm_level'] = norm_level
-    #     if prev_match:
-    #         if norm_level > prev_match['norm_level'] + 1:
-    #             match['adj_level'] = prev_match['norm_level'] + 1
-    #         if norm_level < prev_match['norm_level']:
-
-    def adjust_header(match):
+    def update_header(match):
         # Get the current header level and text
         current_header = match.group(1)
         header_text = match.group(2)
@@ -55,38 +42,7 @@ def normalize_headers(markdown_text):
             new_header = f"{'#'*new_level} {header_text}"
         else:
             new_header = f"**{header_text}:**"
-        return new_header 
+        return new_header
 
-    normalized_content = header_pattern.sub(adjust_header, markdown_text)
+    normalized_content = header_pattern.sub(update_header, markdown_text)
     return normalized_content
-
-
-
-# Test with example
-markdown = """
-## a
-#### b
-### c
-###### d
-### e 
-"""
-
-print(normalize_headers(markdown))
-
-
-
-"""
-## a
-#### b
-### c
-###### d
-### e
-"""
-
-"""
-# a
-## b
-## c
-### d
-## e 
-"""
