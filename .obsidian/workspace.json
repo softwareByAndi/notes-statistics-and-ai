@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
+                "file": "llm/CURRENT_OUTLINE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Programming LLMs From Scratch - A Comprehensive Crash Course"
+              "title": "CURRENT_OUTLINE"
             }
           }
         ],
@@ -169,13 +169,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
+                "file": "llm/CURRENT_OUTLINE.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Programming LLMs From Scratch - A Comprehensive Crash Course"
+              "title": "Outline of CURRENT_OUTLINE"
             }
           }
         ],
@@ -200,6 +200,7 @@
   },
   "active": "960a36342d3df715",
   "lastOpenFiles": [
+    "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
     "llm/CURRENT_OUTLINE.md",
     "llm/modules/mod 0/_module 0 - Prerequisites and Preparation.md",
     "llm/modules/mod 3/_module 3 - Neural Networks for Language.md",
@@ -222,7 +223,6 @@
     "llm/CURRENT_OUTLINE_2.md",
     "llm/CURRENT_OUTLINE_4.md",
     "llm/README.md",
-    "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
     "llm/prelims/learning approach.md",
     "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
     "test2.py",
