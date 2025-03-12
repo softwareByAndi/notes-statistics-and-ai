@@ -1,6 +1,11 @@
 
 course outline - [[Programming LLMs From Scratch - A Comprehensive Crash Course]]
 
+compile course outline to pass into Claude Project as a single file
+
+``` bash
+python compile-llm-notes.py
+```
 ---
 
 these documents are a compilation of notes using Claude from anthropic to develop a course to teach how to build LLMs from scratch

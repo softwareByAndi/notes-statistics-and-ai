@@ -3316,7 +3316,8 @@ def create_mlm_inputs_and_labels(input_ids, tokenizer, mask_probability=0.15):
 
 This approach forces the model to understand bidirectional context, as it needs to consider both left and right context to predict masked tokens.
 
-###### Hybrid ApproachesMany modern models use hybrid or novel pre-training objectives:
+###### Hybrid Approaches
+Many modern models use hybrid or novel pre-training objectives:
 
 1. **Span-based masking**: Masking consecutive spans of tokens rather than individual tokens (e.g., T5)
 2. **Prefix Language Modeling**: Combining autoregressive prediction with bidirectional attention (e.g., Prefix LM)
@@ -3324,7 +3325,8 @@ This approach forces the model to understand bidirectional context, as it needs 
 
 Each approach comes with its own trade-offs in terms of efficiency, downstream performance, and alignment with specific use cases.
 
-###### Curriculum Learning for Pre-trainingRather than training on random data, curriculum learning involves structuring the training process from easier to harder examples. For LLMs, this might mean:
+###### Curriculum Learning for Pre-training
+Rather than training on random data, curriculum learning involves structuring the training process from easier to harder examples. For LLMs, this might mean:
 
 1. Starting with shorter, simpler texts
 2. Gradually introducing longer, more complex content
@@ -3352,59 +3354,62 @@ Large models present unique optimization challenges:
 To address these challenges, several advanced techniques have become standard:
 
 1. **AdamW optimizer**: A variant of Adam with improved weight decay handling
-    
-    ```python
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=1e-4,
-        betas=(0.9, 0.999),
-        eps=1e-8,
-        weight_decay=0.01
-    )
-    ```
-    
+```python
+optimizer = torch.optim.AdamW(
+	model.parameters(),
+	lr=1e-4,
+	betas=(0.9, 0.999),
+	eps=1e-8,
+	weight_decay=0.01
+)
+```
+
 2. **Learning rate schedules**: Warmup followed by decay is crucial for stable training
-    
-    ```python
-    def get_cosine_schedule_with_warmup(optimizer, num_warmup_steps, num_training_steps):
-        def lr_lambda(current_step):
-            if current_step < num_warmup_steps:
-                return float(current_step) / float(max(1, num_warmup_steps))
-            progress = float(current_step - num_warmup_steps) / float(max(1, num_training_steps - num_warmup_steps))
-            return max(0.0, 0.5 * (1.0 + math.cos(math.pi * progress)))
-        
-        return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
-    ```
-    
+```python
+def get_cosine_schedule_with_warmup(optimizer, num_warmup_steps, num_training_steps):
+	def lr_lambda(current_step):
+		if current_step < num_warmup_steps:
+			return float(current_step) / float(max(1, num_warmup_steps))
+		progress = float(current_step - num_warmup_steps) / float(max(1, num_training_steps - num_warmup_steps))
+		return max(0.0, 0.5 * (1.0 + math.cos(math.pi * progress)))
+	
+	return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+```
+
 3. **Gradient clipping**: Prevents exploding gradients by limiting their magnitude
-    
-    ```python
-    torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-    ```
-    
+```python
+torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+```
+
 4. **Layer normalization placement**: "Pre-LN" (applying normalization before attention and FFN blocks) improves stability
-	```python
-    # Pre-LN architecture (more stable for training)
-    normalized_x = self.layer_norm(x)
-    attention_output = self.attention(normalized_x) + x  # Residual connection
- # The Challenges of Batch Size and Learning RateLearning Rate
+```python
+# Pre-LN architecture (more stable for training)
+normalized_x = self.layer_norm(x)
+attention_output = self.attention(normalized_x) + x  # Residual connection
+```
 
-One of the most important hyperparameter relationships is between batch size and learning rate. As we scale to larger models and distributed training, batch sizes often increase dramatically.
 
-The relationship can be approximated as:
-
-	```
+###**The Challenges of Batch Size and Learning Ratene of the most important hyper-parameter relationships is between batch size and learning rate. As we scale to larger models and distributed training, batch sizes often increase dramatically.:**he relationship can be approximated as:
+```
 learning_rate ∝ sqrt(batch_size)
 ```
 
-This means if you increase your batch size by 4x, you should roughly double your learning rate. However, this relationship breaks down at extremely large batch sizes, necessitating more care# Loss Scaling for Mixed Precision Trainingsion Training
+This means if you increase your batch size by 4x, you should roughly double your learning rate. However, this relationship breaks down at extremely large batch sizes, necessitating more careful tuning.
 
-Training in mixed precision (using float16 for most operations) is essential for efficiency with large models, but introduces numerical stability challenges. Loss scaling helps address this:#### Example of manual loss scalingl#### Forward pass in float16s in float16
+###**Loss Scaling for Mixed Precision Trainingraining in mixed precision (using float16 for most operations) is essential for efficiency with large models, but introduces numerical stability challenges. Loss scaling helps address this::**``python
+# Example of manual loss scaling
+# Forward pass in float16
 outputs = model(inputs)
-loss = criterion(outputs#### Scale the loss to prevent underflow in gradientsin gradients
+loss = criterion(outputs, targets)
+
+# Scale the loss to prevent underflow in gradients
 scale = 128.0
-scaled_loss = lo#### Backward pass with scaled loss scaled loss
-scaled_loss.#### Unscale gradients before optimizer steptimizer step
+scaled_loss = loss * scale
+
+# Backward pass with scaled loss
+scaled_loss.backward()
+
+# Unscale gradients before optimizer step
 for param in model.parameters():
     if param.grad is not None:
         param.grad.data = param.grad.data / scale
@@ -3417,7 +3422,9 @@ Modern frameworks like PyTorch's AMP (Automatic Mixed Precision) handle this aut
 ```python
 from torch.cuda.amp import autocast, GradScaler
 
-scaler = #### Training loop Training loop
+scaler = GradScaler()
+
+# Training loop
 for inputs, targets in dataloader:
     # Forward pass with autocasting to float16 where appropriate
     with autocast():
@@ -3483,7 +3490,9 @@ class AlbertTransformer(nn.Module):
         return hidden_states
 ```
 
-###### Mixture of ExpertsFor extremely large models, Mixture of Experts (MoE) architectures have gained popularity. These models use "expert" neural networks (usually feed-forward networks) and a routing mechanism to send different inputs to different experts:
+###### Mixture of Experts
+
+For extremely large models, Mixture of Experts (MoE) architectures have gained popularity. These models use "expert" neural networks (usually feed-forward networks) and a routing mechanism to send different inputs to different experts:
 
 ```python
 class MixtureOfExperts(nn.Module):
@@ -3557,45 +3566,42 @@ Once models grow beyond what fits on a single GPU, distributed training becomes 
 There are two primary approaches to distributed training:
 
 1. **Data Parallelism**: Each device has a complete copy of the model but works on different data batches
-    
-    ```python
-    # Basic PyTorch DistributedDataParallel example
-    model = YourModel()
-    model = nn.parallel.DistributedDataParallel(model, device_ids=[local_rank])
-    ```
+```python
+# Basic PyTorch DistributedDataParallel example
+model = YourModel()
+model = nn.parallel.DistributedDataParallel(model, device_ids=[local_rank])
+```
     
 2. **Model Parallelism**: The model itself is split across multiple devices
-    
-    ```python
-    # Simplified tensor parallelism example (actual implementation is more complex)
-    class ShardedLinear(nn.Module):
-        def __init__(self, in_features, out_features, devices):
-            super().__init__()
-            self.devices = devices
-            self.num_devices = len(devices)
-            
-            # Split output dimension across devices
-            self.shards = nn.ModuleList([
-                nn.Linear(in_features, out_features // self.num_devices).to(devices[i])
-                for i in range(self.num_devices)
-            ])
-            
-        def forward(self, x):
-            # Send input to all devices
-            outputs = []
-            for i, shard in enumerate(self.shards):
-                x_i = x.to(self.devices[i])
-                outputs.append(shard(x_i))
-                
-            # Gather and concatenate results
-            outputs = [output.to(self.devices[0]) for output in outputs]
-            return torch.cat(outputs, dim=-1)
-    ```
-    
+```python
+# Simplified tensor parallelism example (actual implementation is more complex)
+class ShardedLinear(nn.Module):
+	def __init__(self, in_features, out_features, devices):
+		super().__init__()
+		self.devices = devices
+		self.num_devices = len(devices)
+		
+		# Split output dimension across devices
+		self.shards = nn.ModuleList([
+			nn.Linear(in_features, out_features // self.num_devices).to(devices[i])
+			for i in range(self.num_devices)
+		])
+		
+	def forward(self, x):
+		# Send input to all devices
+		outputs = []
+		for i, shard in enumerate(self.shards):
+			x_i = x.to(self.devices[i])
+			outputs.append(shard(x_i))
+			
+		# Gather and concatenate results
+		outputs = [output.to(self.devices[0]) for output in outputs]
+		return torch.cat(outputs, dim=-1)
+```
 
-In practice, modern frameworks implement more sophisticated approa# Pipeline Parallelismllelism
+In practice, modern frameworks implement more sophisticated approaches:
 
-Pipeline parallelism splits the model across devices by layer, with each device responsible for a set of consecutive layers:
+###### Pipeline ParallelismPipeline parallelism splits the model across devices by layer, with each device responsible for a set of consecutive layers:
 
 ```python
 # Conceptual implementation of pipeline parallelism
@@ -3616,11 +3622,11 @@ def pipeline_forward(model_shards, input_batch, num_microbatches):
         outputs.append(x)
     
     # Combine outputs
-    return torch.cat(outputs, dim=0)# Tensor Parallelismlelism
+    return torch.cat(outputs, dim=0)
+```
 
-Tensor parallelism splits individual operations across devices. For example, a large matrix multiplication might be split such that each device computes only a portion:
-
-```#### Very simplified example of tensor parallelism for a self-attention layern layer
+######## Tensor ParallelismTensor parallelism splits individual operations across devices. For example, a large matrix multiplication might be split such that each device computes only a portion:```python
+# Very simplified example of tensor parallelism for a self-attention layer
 class DistributedSelfAttention(nn.Module):
     def __init__(self, hidden_size, num_heads, world_size):
         super().__init__()
@@ -3652,11 +3658,10 @@ class DistributedSelfAttention(nn.Module):
         output = torch.zeros_like(hidden_states)
         dist.all_reduce(local_output, op=dist.ReduceOp.SUM)
         
-        return #### DeepSpeed and Megatron-LMon-LMLMon-LM
+        return output
+```
 
-In practice, libraries like DeepSpeed (Microsoft) and Megatron-LM (NVIDIA) provide optimized implementations of these techniques:
-
-```python
+###**DeepSpeed and Megatron-LMn practice, libraries like DeepSpeed (Microsoft) and Megatron-LM (NVIDIA) provide optimized implementations of these techniques::**``python
 # Using DeepSpeed for training
 import deepspeed
 
@@ -3692,61 +3697,57 @@ Training massive models requires not just computational infrastructure but also 
 High-quality training data is crucial for LLMs. Several considerations include:
 
 1. **Deduplication**: Removing duplicated content to prevent memorization
-    
-    ```python
-    def simple_deduplication(texts):
-        seen = set()
-        unique_texts = []
-        for text in texts:
-            text_hash = hash(text)
-            if text_hash not in seen:
-                seen.add(text_hash)
-                unique_texts.append(text)
-        return unique_texts
-    ```
-    
-2. **Content filtering**: Removing harmful, toxic, or low-quality content
-    
-    ```python
-    def basic_content_filter(text):
-        # Remove texts with too many special characters
-        if sum(not c.isalnum() and not c.isspace() for c in text) / len(text) > 0.3:
-            return False
-        
-        # Filter based on length (too short texts are often not useful)
-        if len(text.split()) < 10:
-            return False
-        
-        # More sophisticated filtering would use ML models for toxicity, etc.
-        return True
-    ```
-    
-3. **Balancing**: Ensuring representation of different domains and styles
-    
-    ```python
-    def create_balanced_dataset(texts_by_domain, target_proportions):
-        total_size = sum(len(texts) for texts in texts_by_domain.values())
-        balanced_dataset = []
-        
-        for domain, target_proportion in target_proportions.items():
-            texts = texts_by_domain[domain]
-            target_count = int(total_size * target_proportion)
-            
-            if len(texts) <= target_count:
-                # Use all texts from this domain
-                balanced_dataset.extend(texts)
-            else:
-                # Sample to achieve target proportion
-                sampled_texts = random.sample(texts, target_count)
-                balanced_dataset.extend(sampled_texts)
-                
-        random.shuffle(balanced_dataset)
-        return balanced_dataset
-    # Efficient Data Loadingta Loading
-
-With terabyte-scale datasets, efficient data loading becomes critical:
-
 ```python
+def simple_deduplication(texts):
+	seen = set()
+	unique_texts = []
+	for text in texts:
+		text_hash = hash(text)
+		if text_hash not in seen:
+			seen.add(text_hash)
+			unique_texts.append(text)
+	return unique_texts
+```
+
+2. **Content filtering**: Removing harmful, toxic, or low-quality content
+```python
+def basic_content_filter(text):
+	# Remove texts with too many special characters
+	if sum(not c.isalnum() and not c.isspace() for c in text) / len(text) > 0.3:
+		return False
+	
+	# Filter based on length (too short texts are often not useful)
+	if len(text.split()) < 10:
+		return False
+	
+	# More sophisticated filtering would use ML models for toxicity, etc.
+	return True
+```
+
+3. **Balancing**: Ensuring representation of different domains and styles
+```python
+def create_balanced_dataset(texts_by_domain, target_proportions):
+	total_size = sum(len(texts) for texts in texts_by_domain.values())
+	balanced_dataset = []
+	
+	for domain, target_proportion in target_proportions.items():
+		texts = texts_by_domain[domain]
+		target_count = int(total_size * target_proportion)
+		
+		if len(texts) <= target_count:
+			# Use all texts from this domain
+			balanced_dataset.extend(texts)
+		else:
+			# Sample to achieve target proportion
+			sampled_texts = random.sample(texts, target_count)
+			balanced_dataset.extend(sampled_texts)
+			
+	random.shuffle(balanced_dataset)
+	return balanced_dataset
+```
+
+
+######## Efficient Data LoadingWith terabyte-scale datasets, efficient data loading becomes critical:```python
 class StreamingDataset(torch.utils.data.IterableDataset):
     """Dataset that streams data from disk instead of loading everything to memory."""
     def __init__(self, file_paths, tokenizer, max_length=1024):
@@ -3782,11 +3783,10 @@ class StreamingDataset(torch.utils.data.IterableDataset):
                     for i in range(0, len(tokens), self.max_length):
                         chunk = tokens[i:i + self.max_length]
                         if len(chunk) == self.max_length:  # Only yield full-length chunks
-                            yield torch.tensor(chu# WebDataset and Efficient Formatst Formats
+                            yield torch.tensor(chunk)
+```
 
-For even larger datasets, specialized formats like WebDataset provide optimal I/O performance:
-
-```python
+###**WebDataset and Efficient Formatsor even larger datasets, specialized formats like WebDataset provide optimal I/O performance::**``python
 import webdataset as wds
 
 # Create a WebDataset pipeline
