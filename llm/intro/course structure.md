@@ -1,3 +1,5 @@
+## course structure
+
 This course is organized as a set of interconnected modules that form a knowledge network:
 
 1. **End-to-End Overview**: Understanding what we're building and why

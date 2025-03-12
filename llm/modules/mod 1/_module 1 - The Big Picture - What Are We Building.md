@@ -1,4 +1,4 @@
-## Module 1: The Big Picture - What Are We Building
+# Module 1: The Big Picture - What Are We Building
 
 Before diving into the technical details, let's understand what a Large Language Model actually is and what we're working toward building.
 

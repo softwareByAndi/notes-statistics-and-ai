@@ -1,3 +1,5 @@
+# Module 0: Prerequisites and Preparation
+
 Before we start building language models, let's ensure you have the right foundation:
 - [[Knowledge Prerequisites]]
 - [[Recommended Setup]]
