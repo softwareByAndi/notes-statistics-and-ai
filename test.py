@@ -1,20 +1,54 @@
 import re
 
-def normalize_headers(markdown_text):
+def find_markdown_headers(markdown_text):
+    # Step 1: Split the text into code blocks and non-code blocks
+    parts = []
+    in_code_block = False
+    current_part = ""
+    
+    for line in markdown_text.split('\n'):
+        if line.strip().startswith('```'):
+            # Add the current part to our list
+            parts.append((current_part, in_code_block))
+            current_part = line + '\n'
+            in_code_block = not in_code_block
+        else:
+            current_part += line + '\n'
+    
+    # Add the final part
+    parts.append((current_part, in_code_block))
+    
+    # Step 2: Only apply the header pattern to non-code blocks
     header_pattern = re.compile(r'^(#{1,6})\s+(.*?)$', re.MULTILINE)
-    matches = []
+    headers = []
+    
+    for text, is_code_block in parts:
+        if not is_code_block:
+            for match in header_pattern.finditer(text):
+                level = len(match.group(1))
+                content = match.group(2)
+                start = match.start()
+                end = match.end()
+                length = end - start
+                headers.append({
+                    'level': level,
+                    'start': start, 
+                    'end': end, 
+                    'length': length, 
+                    'content': content
+                })
+    return headers
+
+def normalize_headers(markdown_text):
     by_level = {}
+    matches = find_markdown_headers(markdown_text)
+    matches = sorted(matches, key=lambda match: match['start'], reverse=True)
+    matches.reverse()
 
     # get matches
-    for match in re.finditer(header_pattern, markdown_text):
-        origin_level = len(match.group(1))
-        header_text = match.group(2)
-        current_match = {
-            'origin_level': origin_level,
-            'header_text': header_text,
-            'start_index': match.start()
-        }
-        matches.append(current_match)
+    for match in matches:
+        origin_level = len(match['level'])
+        header_text = match['content']
         if by_level.get(origin_level) is None:
             by_level[origin_level] = []
         by_level[origin_level].append(match)
@@ -26,28 +60,9 @@ def normalize_headers(markdown_text):
         normalized_level_by_origin_level[i] = current_level
         current_level += 1
 
-    # # secondary normalize pass
-    # prev_match = None
-    # sorted_matches = sorted(lambda match: match['start_index'], matches)
-    # i = 0
-    # while i < len(sorted_matches):
-    #     prev_match = None if i == 0 else sorted_matches[i-1]
-    #     match = sorted_matches[i]
-    #     next_match = sorted_matches[i+1]
-    #     norm_level = normalized_level_by_origin_level[match['origin_level']]
-    #     match['norm_level'] = norm_level
-    #     if prev_match:
-    #         if norm_level > prev_match['norm_level'] + 1:
-    #             match['adj_level'] = prev_match['norm_level'] + 1
-    #         if norm_level < prev_match['norm_level']:
-
-    def adjust_header(match):
-        # Get the current header level and text
-        current_header = match.group(1)
-        header_text = match.group(2)
-        # Calculate the new header level
-        origin_level = len(current_header)
-        new_level = normalized_level_by_origin_level[origin_level]
+    for match in matches:
+        header_text = match['content']
+        new_level = normalized_level_by_origin_level[match['level']]
         # Cap at 6 hashtags (markdown only supports h1-h6)
         new_level = min(new_level, 7)
         # Create the new header
@@ -55,10 +70,9 @@ def normalize_headers(markdown_text):
             new_header = f"{'#'*new_level} {header_text}"
         else:
             new_header = f"**{header_text}:**"
-        return new_header 
+        markdown_text[match['start']:match['end']] = new_header
 
-    normalized_content = header_pattern.sub(adjust_header, markdown_text)
-    return normalized_content
+    return markdown_text
 
 
 
