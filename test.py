@@ -43,10 +43,10 @@ def normalize_headers(markdown_text):
     by_level = {}
     matches = find_markdown_headers(markdown_text)
     matches = sorted(matches, key=lambda match: match['start'], reverse=True)
-    matches.reverse()
 
     # get matches
     for match in matches:
+        print(match)
         origin_level = match['level']
         header_text = match['content']
         if by_level.get(origin_level) is None:
@@ -70,7 +70,9 @@ def normalize_headers(markdown_text):
             new_header = f"{'#'*new_level} {header_text}"
         else:
             new_header = f"**{header_text}:**"
-        markdown_text[match['start']:match['end']] = new_header
+        origin_content = f"{'#' * match['level']} {header_text}"
+        print(origin_content)
+        markdown_text = markdown_text[:match['start']] + new_header + markdown_text[match['end']:]
 
     return markdown_text
 
