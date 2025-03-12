@@ -181,7 +181,7 @@ Don't worry if these concepts aren't completely familiar - we'll explain them in
 
 ---
 
-## mod 1 - The Big Picture - What Are We Building
+fd## mod 1 - The Big Picture - What Are We Building
 
 Before diving into the technical details, let's understand what a Large Language Model actually is and what we're working toward building.
 

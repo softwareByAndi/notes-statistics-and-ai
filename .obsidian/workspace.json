@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/CURRENT_OUTLINE_4.md",
+                "file": "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CURRENT_OUTLINE_4"
+              "title": "1.6 Hands-On Project - Using an Existing LLM via API"
             }
           },
           {
@@ -169,13 +169,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/CURRENT_OUTLINE_4.md",
+                "file": "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of CURRENT_OUTLINE_4"
+              "title": "Outline of 1.6 Hands-On Project - Using an Existing LLM via API"
             }
           }
         ],
@@ -200,10 +200,10 @@
   },
   "active": "b181792137f66eec",
   "lastOpenFiles": [
+    "llm/CURRENT_OUTLINE_4.md",
     "test2.py",
     "test copy.py",
     "llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md",
-    "llm/CURRENT_OUTLINE_4.md",
     "llm/outline/_outline.md",
     "llm/modules/mod 0/Recommended Setup.md",
     "llm/modules/math/Quick Mathematics Review.md",
@@ -235,7 +235,6 @@
     "llm/modules/mod 2/2.3 Tokenization - Breaking Text into Meaningful Units.md",
     "llm/modules/mod 2/2.10 Preview of Module 3 - Neural Networks for Language.md",
     "llm/modules/mod 2",
-    "llm/modules/mod 1",
     "Pasted image 20240411184114.png",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",
