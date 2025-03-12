@@ -1,12 +1,78 @@
 # Programming LLMs From Scratch: A Comprehensive Crash Course
 
-- ## introduction
+- [introduction](#introduction)
+- [course structure](#course-structure)
+- [learning_approach](#learning_approach)
+
+---
+
+Each module builds upon the previous ones, creating a comprehensive understanding of the entire LLM development process from text representation to cutting-edge applications.
+
+- [_mod 0 - Prerequisites and Preparation](#mod-0---prerequisites-and-preparation)
+- [_mod 1 - The Big Picture - What Are We Building?](#mod-1---the-big-picture---what-are-we-building-)
+- [_mod 2 - Language and Text - The Foundation](#mod-2---language-and-text---the-foundation)
+
+# future modules - not yet developed
+
+**Module 3: Neural Networks for Language**
+
+- Word embeddings and vector representations
+- Recurrent neural networks for sequences
+- Building a character-level RNN language model
+
+**Module 4: The Transformer Revolution**
+
+- Attention mechanisms explained
+- The complete transformer architecture
+- Building a simple transformer for next-word prediction
+
+**Module 5: Scaling Up - From Models to LLMs**
+
+- Training dynamics of large models
+- Pre-training objectives and techniques
+- Building and training a small-scale transformer
+
+**Module 6: Transfer Learning and Fine-tuning**
+
+- Utilizing pre-trained models
+- Fine-tuning strategies and techniques
+- Advanced fine-tuning with parameter-efficient methods
+
+**Module 7: Prompt Engineering and In-context Learning**
+
+- The art and science of effective prompting
+- Few-shot and zero-shot techniques
+- Building prompt-based applications
+
+**Module 8: Alignment and Safety**
+
+- Addressing biases in language models
+- Reinforcement Learning from Human Feedback (RLHF)
+- Techniques for responsible AI development
+
+**Module 9: Deployment and Production**
+
+- Model optimization and quantization
+- Inference systems and scaling
+- Building production-ready LLM applications
+
+**Module 10: Cutting-Edge Applications and Research**
+
+- Multimodal capabilities
+- Tool use and augmented models
+- Future directions in LLM research
+
+
+<a id="introduction-2"></a>
+# introduction
 
 Welcome to this comprehensive crash course on programming Large Language Models (LLMs) from scratch. This course is designed with a unique approach - we'll start by understanding what we're ultimately building, then work backward to explore all the foundational elements needed to get there. This gives you the "why" before the "how," making your learning journey more purposeful and connected.
 
 Large Language Models represent one of the most significant technological breakthroughs of our time. These systems can understand language, generate text, translate content, write code, and even reason about complex problems. But how do they actually work? How can you build one yourself? This course will demystify the entire process, breaking down complex concepts into understandable pieces while maintaining the technical depth needed for true mastery.
 
-- ## course structure
+
+<a id="course-structure-2"></a>
+# course structure
 
 This course is organized as a set of interconnected modules that form a knowledge network:
 
@@ -19,7 +85,9 @@ This course is organized as a set of interconnected modules that form a knowledg
 
 Each module builds upon previous ones, with clear references to prerequisite knowledge. You can follow the course linearly, or navigate based on your specific interests or projects.
 
-- ## learning_approach
+
+<a id="learning_approach-2"></a>
+# learning_approach
 
 Throughout this course, I'll follow these principles:
 
@@ -32,25 +100,19 @@ Throughout this course, I'll follow these principles:
 
 Now, let's begin with our course map and prerequisites before diving into our first module.
 
----
-
-Each module builds upon the previous ones, creating a comprehensive understanding of the entire LLM development process from text representation to cutting-edge applications.
-
-- ## mod 0 - Prerequisites and Preparation
-
-Before we start building language models, let's ensure you have the right foundation:
-- #### Knowledge Prerequisites
+<a id="knowledge-prerequisites-2"></a>
+#### Knowledge Prerequisites
 
 - **Programming**: You should be comfortable with Python programming
 - **Mathematics**: Basic algebra knowledge is required; we'll review other math concepts as needed
 - **Development Environment**: Access to a computer where you can run Python code
-- ### Recommended Setup
 
+<a id="recommended-setup-2"></a>
 - Python 3.8+ installed on your system
 - Basic familiarity with Jupyter notebooks
 - Understanding of pip for package installation
 
-##### Development Environment Setup
+### Development Environment Setup
 
 Let's set up your working environment:
 
@@ -81,11 +143,13 @@ Let's set up your working environment:
     
 
 This will give you a solid starting point to work through the course examples and projects.
-- ###### Quick Mathematics Review
+
+<a id="quick-mathematics-review-2"></a>
+### Quick Mathematics Review
 
 While we'll explain mathematical concepts as we encounter them, here's a brief refresher on some key areas that will appear throughout the course:
 
-####### Linear Algebra Essentials
+#### Linear Algebra Essentials
 #linear-algebra 
 
 - **Vectors**: Ordered lists of numbers with magnitude and direction
@@ -94,7 +158,7 @@ While we'll explain mathematical concepts as we encounter them, here's a brief r
 
 For example, a vector might represent a word in our language model, while a matrix might represent a transformation we apply to that word.
 
-####### Probability Basics
+#### Probability Basics
 probability.ipynb
 - **Random variables**: Values determined by chance
 - **Probability distributions**: How likely different outcomes are
@@ -102,27 +166,35 @@ probability.ipynb
 
 Language models fundamentally work with probabilities - "what word is most likely to come next?"
 
-####### Calculus Foundations
+#### Calculus Foundations
 - **Derivatives**: Rate of change (how quickly a function's output changes)
 - **Gradients**: Direction of steepest increase (critical for training neural networks)
 
 Don't worry if these concepts aren't completely familiar - we'll explain them in context as needed.
 
+<a id="mod-0---prerequisites-and-preparation-2"></a>
+# mod 0 - Prerequisites and Preparation
+
+Before we start building language models, let's ensure you have the right foundation:
+- [Knowledge Prerequisites](#knowledge-prerequisites)
+- [Recommended Setup](#recommended-setup)
+- [Quick Mathematics Review](#quick-mathematics-review)
+
 Don't worry if you don't have extensive machine learning experience - we'll build that knowledge together from the ground up.
 
 
-- ######## Module 1: The Big Picture - What Are We Building
 
-Before diving into the technical details, let's understand what a Large Language Model actually is and what we're working toward building.
-
-- ######### 1.1 What is a Large Language Model?
+<a id="1-1-what-is-a-large-language-model-2"></a>
+### 1.1 What is a Large Language Model?
 
 At its core, a Large Language Model is a system that learns patterns in language from vast amounts of text data, then uses those patterns to generate new text that's coherent, relevant, and sometimes surprisingly insightful.
 
 **Simple Definition**: A Large Language Model is a computer program that predicts what words should come next in a sequence, based on patterns it learned from reading billions of documents.
 
 Imagine having read every book, article, and website ever published, and developing an intuition for how language works. LLMs attempt to capture that intuition mathematically.
-- ######### 1.2 The Evolution of Language Models
+
+<a id="1-2-the-evolution-of-language-models-2"></a>
+### 1.2 The Evolution of Language Models
 
 Language models have evolved dramatically over time:
 
@@ -147,7 +219,9 @@ Language models have evolved dramatically over time:
     - Continued improvements in architecture and training
 
 We'll work through this evolution throughout the course, building our understanding layer by layer.
-- ######### 1.3 Key Components of Modern LLMs
+
+<a id="1-3-key-components-of-modern-llms-2"></a>
+### 1.3 Key Components of Modern LLMs
 
 A modern Large Language Model system consists of several critical components:
 
@@ -159,7 +233,9 @@ A modern Large Language Model system consists of several critical components:
 6. **Application Layer**: Integrating the model into useful tools
 
 Each of these components involves fascinating engineering and research challenges that we'll explore in detail.
-- ######### 1.4 The Journey of a Prompt
+
+<a id="1-4-the-journey-of-a-prompt-2"></a>
+### 1.4 The Journey of a Prompt
 
 To understand how LLMs work, let's follow what happens when you provide a prompt:
 
@@ -173,7 +249,9 @@ To understand how LLMs work, let's follow what happens when you provide a prompt
 8. **Detokenization**: Tokens are converted back to readable text
 
 This process happens incredibly quickly, with modern models generating thousands of tokens per second on appropriate hardware.
-- ######### 1.5 Understanding Model Scale
+
+<a id="1-5-understanding-model-scale-2"></a>
+### 1.5 Understanding Model Scale
 
 Modern LLMs are defined by their scale:
 
@@ -182,7 +260,9 @@ Modern LLMs are defined by their scale:
 - **Compute Resources**: The computational power used for training (thousands of GPUs for weeks or months)
 
 While we won't be able to train truly massive models in this course, we'll understand the principles that enable scaling and build smaller models that demonstrate the core concepts.
-- ########### 1.6 Hands-On Project: Using an Existing LLM via API
+
+<a id="1-6-hands-on-project---using-an-existing-llm-via-api-2"></a>
+### 1.6 Hands-On Project: Using an Existing LLM via API
 
 Let's get practical with our first project - using an existing LLM through an API. This helps us understand what we're ultimately building toward.
 
@@ -209,7 +289,7 @@ print(message.to_json())
 This gives us a taste of what's possible with LLMs, and sets our target for what we'll build toward throughout this course.
 
 
-############ example - summarize and classify wiki articles
+#### example - summarize and classify wiki articles
 ``` python
 from claude_models import Models
 import anthropic
@@ -288,10 +368,12 @@ def generate_json_for_article(subject):
     else:
         print("No text classification found in the response.")
 
-######### generate_json_for_article("Transformer (deep learning architecture)")
+# generate_json_for_article("Transformer (deep learning architecture)")
 generate_json_for_article("Jeff Goldblum")
 ```
-- ############# 1.7 Key Takeaways from Module 1
+
+<a id="1-7-key-takeaways-from-module-1-2"></a>
+### 1.7 Key Takeaways from Module 1
 
 - LLMs are pattern recognition systems trained on vast text data
 - They evolved from simple statistical models to complex neural networks
@@ -299,7 +381,9 @@ generate_json_for_article("Jeff Goldblum")
 - The scale of models has grown exponentially in recent years
 - LLMs convert text to numbers, process those numbers, and convert back to text
 - Using existing LLMs via APIs provides a reference point for our learning
-- ############# 1.8 Preview of Module 2: Text Representation
+
+<a id="1-8-preview-of-module-2---text-representation-2"></a>
+### 1.8 Preview of Module 2: Text Representation
 
 In our next module, we'll dive deeper into how computers represent text - the foundation of language modeling. We'll explore:
 
@@ -309,16 +393,45 @@ In our next module, we'll dive deeper into how computers represent text - the fo
 - Statistical patterns in language and how to measure them
 
 By the end of Module 2, you'll understand how to convert raw text into a format that neural networks can process, setting the stage for our exploration of neural language models.
-- ############# Module 2: Language and Text - The Foundation
 
-Welcome to Module 2 of our LLM crash course! In this module, we'll explore the fundamental question: how do computers understand and process text? Before we can build neural networks that work with language, we need to understand how to represent text in a format that machines can work with.
+<a id="mod-1---the-big-picture---what-are-we-building--2"></a>
+## Module 1: The Big Picture - What Are We Building
 
-- llm/modules/mod 2/2.1 The Text Representation Challenge
-- ############## 2.2 Character Encodings: The Digital Alphabet
+Before diving into the technical details, let's understand what a Large Language Model actually is and what we're working toward building.
+
+- [1.1 What is a Large Language Model](#1-1-what-is-a-large-language-model)
+- [1.2 The Evolution of Language Models](#1-2-the-evolution-of-language-models)
+- [1.3 Key Components of Modern LLMs](#1-3-key-components-of-modern-llms)
+- [1.4 The Journey of a Prompt](#1-4-the-journey-of-a-prompt)
+- [1.5 Understanding Model Scale](#1-5-understanding-model-scale)
+- [1.6 Hands-On Project - Using an Existing LLM via API](#1-6-hands-on-project---using-an-existing-llm-via-api)
+- [1.7 Key Takeaways from Module 1](#1-7-key-takeaways-from-module-1)
+- [1.8 Preview of Module 2 - Text Representation](#1-8-preview-of-module-2---text-representation)
+
+<a id="2-1-the-text-representation-challenge-2"></a>
+## 2.1 The Text Representation Challenge
+
+Computers don't inherently understand text the way humans do. While we see meaningful words and sentences, computers ultimately work with numbers. The first challenge in building language models is bridging this gap – converting human language into numerical representations that preserve meaning and can be manipulated mathematically.
+
+### From Human Language to Machine Numbers
+
+Think about how you're reading these words right now. Your brain processes visual symbols (letters), combines them into words, and extracts meaning based on your prior knowledge of language. Computers need a similar pipeline, but built explicitly through code.
+
+The journey from raw text to a format usable by language models involves several transformations:
+
+1. **Character encoding**: Converting raw characters to binary
+2. **Tokenization**: Breaking text into meaningful units
+3. **Numerical representation**: Converting tokens to vectors
+4. **Statistical processing**: Capturing patterns and relationships
+
+Let's explore each of these steps in detail.
+
+<a id="2-2-character-encodings---the-digital-alphabet-2"></a>
+## 2.2 Character Encodings: The Digital Alphabet
 
 At the most fundamental level, computers store everything as binary data – sequences of 0s and 1s. Character encodings provide the rules for converting between human-readable characters and their binary representations.
 
-############### ASCII: The Original Digital Alphabet
+### ASCII: The Original Digital Alphabet
 
 The American Standard Code for Information Interchange (ASCII) was one of the first widespread character encodings. It uses 7 bits to represent 128 different characters:
 
@@ -330,7 +443,7 @@ For example, the letter 'A' is represented as the decimal number 65, which in bi
 
 While ASCII worked well for English text, it couldn't represent the vast diversity of characters used in other languages. This limitation led to the development of more comprehensive encodings.
 
-############### Unicode and UTF-8: A Global Digital Alphabet
+### Unicode and UTF-8: A Global Digital Alphabet
 
 Unicode was created to solve the limitations of ASCII by assigning a unique number (code point) to virtually every character used in all the world's writing systems. The most common implementation of Unicode is UTF-8, which uses a variable number of bytes to represent different characters:
 
@@ -346,7 +459,7 @@ For example:
 
 UTF-8 has become the dominant encoding for text on the internet because it efficiently handles multiple languages while maintaining backward compatibility with ASCII.
 
-############### Why Character Encodings Matter for LLMs
+### Why Character Encodings Matter for LLMs
 
 Understanding character encodings is important for several reasons:
 
@@ -356,11 +469,13 @@ Understanding character encodings is important for several reasons:
 4. **Compatibility**: Ensuring our models work with existing text systems
 
 When building LLMs, we typically standardize on UTF-8 encoding for all text processing, ensuring our models can handle content in any language.
-- ################# 2.3 Tokenization: Breaking Text into Meaningful Units
+
+<a id="2-3-tokenization---breaking-text-into-meaningful-units-2"></a>
+## 2.3 Tokenization: Breaking Text into Meaningful Units
 
 Once we have text in a consistent encoding, the next challenge is breaking it into meaningful units that our models can process. This process is called tokenization.
 
-################## Why We Need Tokenization
+### Why We Need Tokenization
 
 Consider this sentence: "The cat sat on the mat."
 
@@ -372,11 +487,11 @@ We could process this text in several ways:
 
 Each approach has different trade-offs in terms of vocabulary size, meaning preservation, and computational efficiency.
 
-################## Tokenization Strategies
+### Tokenization Strategies
 
 There are three main approaches to tokenization:
 
-################### 1. Character-Level Tokenization
+#### 1. Character-Level Tokenization
 
 In character-level tokenization, each character becomes a token. This approach has:
 
@@ -392,7 +507,7 @@ In character-level tokenization, each character becomes a token. This approach h
 - Limited semantic information in each token
 - Computationally expensive for long texts
 
-################### 2. Word-Level Tokenization
+#### 2. Word-Level Tokenization
 
 Word-level tokenization splits text at word boundaries (usually spaces and punctuation). This approach has:
 
@@ -426,10 +541,10 @@ def simple_word_tokenize(text):
 sample_text = "Hello, world! This is a simple tokenizer."
 tokens = simple_word_tokenize(sample_text)
 print(tokens)
-################ Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'simple', 'tokenizer', '.']
+# Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'simple', 'tokenizer', '.']
 ```
 
-################### 3. Subword Tokenization
+#### 3. Subword Tokenization
 
 Subword tokenization is a hybrid approach that breaks common words into single tokens but splits rare or complex words into meaningful subword pieces. This offers the best of both worlds:
 
@@ -452,7 +567,7 @@ Modern LLMs primarily use subword tokenization methods like:
 - **WordPiece**: Used by BERT
 - **SentencePiece**: Used by T5 and many multilingual models
 
-################## Building a Vocabulary with Byte-Pair Encoding (BPE)
+### Building a Vocabulary with Byte-Pair Encoding (BPE)
 
 Let's understand how BPE works as it's one of the most common subword tokenization methods:
 
@@ -507,7 +622,7 @@ def train_bpe(text, num_merges):
         
     return vocab, tokens
 
-################ Example usage
+# Example usage
 text = "low lower lowest lowering lowered"
 vocab, tokenized = train_bpe(text, 10)
 print(f"Vocabulary: {vocab}")
@@ -516,7 +631,7 @@ print(f"Tokenized: {tokenized}")
 
 In a real BPE implementation, you would train on millions of documents to build a robust vocabulary, then use that vocabulary to tokenize new text.
 
-################## Modern Tokenization in Practice
+### Modern Tokenization in Practice
 
 Modern LLMs use sophisticated tokenizers that handle:
 
@@ -546,11 +661,13 @@ Decoded tokens: ['Hello', ',', ' world', '!', ' This', ' is', ' GPT', '-', '2', 
 ```
 
 Notice how "tokenization" gets split into "token" and "ization" – this is the subword nature of BPE at work!
-- #################### 2.4 Statistical Patterns in Language
+
+<a id="2-4-statistical-patterns-in-language-2"></a>
+## 2.4 Statistical Patterns in Language
 
 Now that we can represent text as sequences of tokens, let's explore the statistical patterns that emerge in language. These patterns form the foundation of language modeling.
 
-##################### Frequency Distributions: The Building Blocks
+### Frequency Distributions: The Building Blocks
 
 The most basic statistical property of language is the frequency of different tokens. Some words appear much more often than others, following what's known as Zipf's Law.
 
@@ -562,7 +679,7 @@ Zipf's Law states that the frequency of a word is inversely proportional to its 
 
 In English, words like "the," "of," and "and" typically top the frequency list, while technical or specialized terms appear much less frequently.
 
-##################### N-grams: Capturing Local Patterns
+### N-grams: Capturing Local Patterns
 
 While individual token frequencies tell us something about language, the real patterns emerge when we look at sequences of tokens that appear together. These sequences are called n-grams:
 
@@ -573,7 +690,7 @@ While individual token frequencies tell us something about language, the real pa
 
 By analyzing the frequencies of n-grams in a large corpus, we can start to capture the statistical structure of language. For example, after seeing "the cat" in English text, "sat" is more likely to follow than "elephant."
 
-##################### Conditional Probability in Language
+### Conditional Probability in Language
 
 The key insight that drives language models is conditional probability: given a sequence of words, what word is likely to come next?
 
@@ -586,7 +703,7 @@ For example:
 
 These conditional probabilities form the basis of statistical language modeling.
 
-##################### Measuring Language Model Quality: Perplexity
+### Measuring Language Model Quality: Perplexity
 
 How do we know if our language model is capturing these patterns effectively? The standard metric is called perplexity.
 
@@ -602,11 +719,13 @@ Where:
 - P(w_i | w_1, ..., w_{i-1}) is the probability our model assigns to word w_i given all previous words
 
 In simpler terms, perplexity is the inverse of the average probability the model assigns to each word in the test data, raised to the power of how many words there are. A perfect model would have a perplexity of 1.
-- ####################### 2.5 Building Your First Language Model: N-gram Models
+
+<a id="2-5-building-your-first-language-model---n-gram-models-2"></a>
+## 2.5 Building Your First Language Model: N-gram Models
 
 With our understanding of tokens and language statistics, we can now build a simple but powerful language model: the n-gram model.
 
-######################## How N-gram Models Work
+### How N-gram Models Work
 
 An n-gram language model predicts the next word based solely on the previous n-1 words. The core idea is:
 
@@ -620,7 +739,7 @@ For example, a trigram (3-gram) model would:
 - Count how often "the cat" appears followed by any word
 - Calculate P("sat" | "the cat") = count("the cat sat") / count("the cat")
 
-######################## Implementing a Simple Bigram Model
+### Implementing a Simple Bigram Model
 
 Let's implement a basic bigram (2-gram) language model in Python:
 
@@ -682,7 +801,7 @@ class BigramLanguageModel:
             
         return " ".join(text)
 
-###################### Example usage
+# Example usage
 corpus = """
 The cat sat on the mat. The dog chased the cat.
 The cat ran up the tree. The dog barked at the cat.
@@ -692,7 +811,7 @@ The bird flew over the tree. The cat watched the bird.
 model = BigramLanguageModel()
 model.train(corpus)
 
-###################### Generate text
+# Generate text
 print(model.generate_text("The", 10))
 ```
 
@@ -702,7 +821,7 @@ This simple model demonstrates the core concepts behind language modeling:
 2. Using those patterns to predict what comes next
 3. Generating new text by repeatedly predicting the next word
 
-######################## Limitations of N-gram Models
+### Limitations of N-gram Models
 
 While n-gram models are easy to understand and implement, they have several important limitations:
 
@@ -718,7 +837,9 @@ To address these limitations, researchers developed techniques like:
 - **Interpolation**: Combining predictions from multiple n-gram models
 
 While these techniques improved n-gram models, their fundamental limitations led to the development of neural network-based approaches, which we'll explore in Module 3.
-- ########################## 2.6 Hands-On Project: Building an N-gram Language Model
+
+<a id="2-6-hands-on-project---building-an-n-gram-language-model-2"></a>
+## 2.6 Hands-On Project: Building an N-gram Language Model
 
 Now let's put everything together in a more comprehensive project. We'll build a trigram language model that includes smoothing to handle unseen n-grams.
 
@@ -832,7 +953,7 @@ class NgramLanguageModel:
         perplexity = 2 ** log_prob_sum
         return perplexity
 
-######################### Example usage
+# Example usage
 training_corpus = """
 The quick brown fox jumps over the lazy dog. A fox is a wild animal.
 Dogs are domestic animals. The lazy dog sleeps all day.
@@ -844,12 +965,12 @@ test_corpus = "The quick fox jumps. Dogs sleep all day."
 model = NgramLanguageModel(n=3, smoothing=0.1)
 model.train(training_corpus)
 
-######################### Generate some text
+# Generate some text
 print("Generated text:")
 for _ in range(3):
     print(model.generate_text())
 
-######################### Calculate perplexity
+# Calculate perplexity
 perplexity = model.calculate_perplexity(test_corpus)
 print(f"Perplexity on test corpus: {perplexity:.2f}")
 ```
@@ -861,7 +982,9 @@ This more advanced model includes several important features:
 - Context backoff for unseen contexts
 - Special tokens for sequence starts and ends
 - Perplexity calculation for model evaluation
-- ########################## 2.7 Beyond N-grams: The Path Forward
+
+<a id="2-7-beyond-n-grams---the-path-forward-2"></a>
+## 2.7 Beyond N-grams: The Path Forward
 
 While our n-gram model captures basic language patterns, it has fundamental limitations. Modern language models overcome these limitations through:
 
@@ -871,7 +994,9 @@ While our n-gram model captures basic language patterns, it has fundamental limi
 4. **Transfer learning**: Pre-training on vast text datasets before fine-tuning for specific tasks
 
 In Module 3, we'll dive into neural network approaches to language modeling, starting with word embeddings and recurrent neural networks. These techniques lay the groundwork for the transformer revolution that powers modern LLMs.
-- ########################## 2.8 Key Takeaways from Module 2
+
+<a id="2-8-key-takeaways-from-module-2-2"></a>
+## 2.8 Key Takeaways from Module 2
 
 Let's summarize what we've learned in this module:
 
@@ -884,7 +1009,9 @@ Let's summarize what we've learned in this module:
 7. While n-gram models are simple and interpretable, they have significant limitations that neural approaches address
 
 In our next module, we'll explore how neural networks revolutionized language modeling by overcoming many of the limitations of traditional statistical approaches.
-- ########################## 2.9 Practice Exercises
+
+<a id="2-9-practice-exercises-2"></a>
+## 2.9 Practice Exercises
 
 To reinforce your learning from this module, try these exercises:
 
@@ -895,7 +1022,9 @@ To reinforce your learning from this module, try these exercises:
 5. Analyze the frequency distribution of words in a large text corpus and verify Zipf's Law
 
 These exercises will help solidify your understanding of the foundational concepts before we move on to neural approaches in Module 3.
-- ########################## 2.10 Preview of Module 3: Neural Networks for Language
+
+<a id="2-10-preview-of-module-3---neural-networks-for-language-2"></a>
+## 2.10 Preview of Module 3: Neural Networks for Language
 
 In our next module, we'll explore how neural networks transformed language modeling. We'll cover:
 
@@ -909,53 +1038,18 @@ These neural approaches address many limitations of n-gram models and set the st
 
 Would you like me to explain any part of this module in more detail before we move on to Module 3?
 
+<a id="mod-2---language-and-text---the-foundation-2"></a>
+# Module 2: Language and Text - The Foundation
 
-# future modules - not yet developed
+Welcome to Module 2 of our LLM crash course! In this module, we'll explore the fundamental question: how do computers understand and process text? Before we can build neural networks that work with language, we need to understand how to represent text in a format that machines can work with.
 
-**Module 3: Neural Networks for Language**
-
-- Word embeddings and vector representations
-- Recurrent neural networks for sequences
-- Building a character-level RNN language model
-
-**Module 4: The Transformer Revolution**
-
-- Attention mechanisms explained
-- The complete transformer architecture
-- Building a simple transformer for next-word prediction
-
-**Module 5: Scaling Up - From Models to LLMs**
-
-- Training dynamics of large models
-- Pre-training objectives and techniques
-- Building and training a small-scale transformer
-
-**Module 6: Transfer Learning and Fine-tuning**
-
-- Utilizing pre-trained models
-- Fine-tuning strategies and techniques
-- Advanced fine-tuning with parameter-efficient methods
-
-**Module 7: Prompt Engineering and In-context Learning**
-
-- The art and science of effective prompting
-- Few-shot and zero-shot techniques
-- Building prompt-based applications
-
-**Module 8: Alignment and Safety**
-
-- Addressing biases in language models
-- Reinforcement Learning from Human Feedback (RLHF)
-- Techniques for responsible AI development
-
-**Module 9: Deployment and Production**
-
-- Model optimization and quantization
-- Inference systems and scaling
-- Building production-ready LLM applications
-
-**Module 10: Cutting-Edge Applications and Research**
-
-- Multimodal capabilities
-- Tool use and augmented models
-- Future directions in LLM research
+- [llm/modules/mod 2/2.1 The Text Representation Challenge](#2-1-the-text-representation-challenge)
+- [2.2 Character Encodings - The Digital Alphabet](#2-2-character-encodings---the-digital-alphabet)
+- [2.3 Tokenization - Breaking Text into Meaningful Units](#2-3-tokenization---breaking-text-into-meaningful-units)
+- [2.4 Statistical Patterns in Language](#2-4-statistical-patterns-in-language)
+- [2.5 Building Your First Language Model - N-gram Models](#2-5-building-your-first-language-model---n-gram-models)
+- [2.6 Hands-On Project - Building an N-gram Language Model](#2-6-hands-on-project---building-an-n-gram-language-model)
+- [2.7 Beyond N-grams - The Path Forward](#2-7-beyond-n-grams---the-path-forward)
+- [2.8 Key Takeaways from Module 2](#2-8-key-takeaways-from-module-2)
+- [2.9 Practice Exercises](#2-9-practice-exercises)
+- [2.10 Preview of Module 3 - Neural Networks for Language](#2-10-preview-of-module-3---neural-networks-for-language)

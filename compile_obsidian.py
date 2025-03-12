@@ -2,219 +2,193 @@ import os
 import re
 import sys
 from pathlib import Path
+import string
 
 class ObsidianCompiler:
     def __init__(self, head_file_path, output_file="compiled_course.md"):
-        # Store the head file path directly
-        self.head_file_path = Path(head_file_path)
-        # Determine the vault path from the head file
-        self.vault_path = self.find_vault_root(self.head_file_path)
+        self.head_file_path = Path(head_file_path).resolve()
         self.output_file = output_file
-        self.visited_files = set()  # Track files we've already processed
-        self.compiled_content = ""  # Store the compiled content as a single string
-        self.link_pattern = re.compile(r'\[\[(.*?)\]\]')  # Pattern to find Obsidian links
         
-        # Track current header level context
-        self.current_level = 0
-
-    def find_vault_root(self, file_path):
-        """Try to determine the vault root from the head file path"""
-        # For now, we'll use the parent directory of the parent directory
-        return file_path.parent.parent
-    
-    def compile_vault(self):
-        """Start the compilation process from the head file"""
+        # Find vault root - go up until we find a .obsidian folder or use parent dir
+        vault_path = self.head_file_path.parent
+        while not (vault_path / ".obsidian").exists() and vault_path != vault_path.parent:
+            vault_path = vault_path.parent
+        self.vault_path = vault_path
+        
+        # Track processed files and references
+        self.processed_files = {}  # Maps file path to its processed content
+        self.file_references = {}  # Counts references to each file
+        self.linked_content = []   # Content to append at the end
+        
+        # Regular expression patterns
+        self.link_pattern = re.compile(r'\[\[(.*?)\]\]')
+        self.header_pattern = re.compile(r'^(#+)\s+(.*?)$', re.MULTILINE)
+        
+    def compile_document(self):
+        """Main method to compile the document"""
         print(f"Starting compilation from {self.head_file_path}")
+        print(f"Vault root detected at {self.vault_path}")
         
         if not self.head_file_path.exists():
             print(f"Error: Head file not found at {self.head_file_path}")
             return False
         
-        # Process the head file first
-        processed_content = self.process_file(self.head_file_path)
-        self.compiled_content = processed_content
+        # First pass: Process the main document and collect links
+        main_content = self.process_main_document(self.head_file_path)
         
-        # Write the compiled content to the output file
+        # Combine main content with linked content
+        full_content = main_content
+        if self.linked_content:
+            full_content += "\n\n## Linked Content\n\n"
+            full_content += "\n\n".join(self.linked_content)
+        
+        # Write output
         with open(self.output_file, 'w', encoding='utf-8') as f:
-            f.write(self.compiled_content)
+            f.write(full_content)
         
         print(f"Compilation complete! Output written to {self.output_file}")
+        print(f"Processed {len(self.processed_files)} unique files")
         return True
     
-    def process_file(self, file_path, parent_level=0):
-        """Process a Markdown file and replace any links with the file contents"""
-        # Convert to Path object if it's not already
-        file_path = Path(file_path)
-        
-        # Skip if we've already processed this file
-        if str(file_path) in self.visited_files:
-            return ""
-        
-        # Mark as visited
-        self.visited_files.add(str(file_path))
-        print(f"Processing: {file_path}")
-        
+    def process_main_document(self, file_path):
+        """Process the main document and prepare linked content"""
         try:
-            # Read the file content
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            # Extract and remove frontmatter if present (between --- and ---)
+            # Remove frontmatter
             content = re.sub(r'^---\n.*?\n---\n', '', content, flags=re.DOTALL)
             
-            # Check if the file starts with a header, if not, add one
-            content = self.ensure_has_header(content, file_path)
+            # Ensure file has a header
+            content = self.ensure_header(content, file_path)
             
-            # Adjust header levels based on parent level
-            content = self.adjust_header_levels(content, parent_level)
-            
-            # Process links and replace them with file contents
-            # We use a while loop because the pattern of links might change after each replacement
-            while True:
-                match = self.link_pattern.search(content)
-                if not match:
-                    break
-                
-                # Get the link text
-                link_text = match.group(1)
-                original_link = match.group(0)  # The full [[link]] text
-                
-                # Remove any #section or |alias parts from the link
-                if '#' in link_text:
-                    link_text = link_text.split('#')[0]
-                if '|' in link_text:
-                    link_text = link_text.split('|')[0]
-                
-                # Find the linked file
-                linked_file = self.find_file(link_text.strip())
-                
-                if linked_file and str(linked_file) not in self.visited_files:
-                    # Find the current max header level up to the link position
-                    max_level = self.find_max_header_level_up_to(content, match.start())
-                    
-                    # Process the linked file
-                    linked_content = self.process_file(linked_file, parent_level=max_level)
-                    
-                    # Replace the link with the content
-                    content = content.replace(original_link, linked_content, 1)
-                else:
-                    # If file not found or already visited, just remove the link brackets
-                    clean_text = link_text
-                    if '|' in link_text:
-                        clean_text = link_text.split('|')[1]  # Use the alias if present
-                    content = content.replace(original_link, clean_text, 1)
+            # Replace links with anchors and collect linked content
+            content = self.replace_links_with_anchors(content)
             
             return content
             
         except Exception as e:
-            print(f"Error processing {file_path}: {e}")
-            return f"[Error processing {file_path}: {e}]"
+            print(f"Error processing main document {file_path}: {str(e)}")
+            return f"[Error processing main document: {str(e)}]"
     
-    def ensure_has_header(self, content, file_path):
-        """Ensure the content starts with a header, using filename if needed"""
-        # Check if content starts with a header
-        header_pattern = re.compile(r'^#+\s+.*$', re.MULTILINE)
-        has_header = header_pattern.match(content.lstrip())
-        
-        if not has_header:
-            # Get the file name without extension
-            file_name = file_path.stem
+    def replace_links_with_anchors(self, content):
+        """Replace Obsidian links with Markdown links to anchors"""
+        def replace_link(match):
+            link_text = match.group(1)
+            display_text = link_text
             
-            # If the filename starts with an underscore, remove it
+            # Handle aliases
+            if '|' in link_text:
+                link_text, display_text = link_text.split('|', 1)
+            
+            # Remove section references
+            if '#' in link_text:
+                link_text = link_text.split('#', 1)[0]
+            
+            # Find the linked file
+            linked_file = self.find_file(link_text.strip())
+            if not linked_file:
+                # If file not found, just remove the brackets
+                return display_text
+            
+            # Create a unique anchor ID for this reference
+            anchor_id = self.create_anchor_id(linked_file)
+            
+            # Process the linked file content if not already processed
+            if str(linked_file) not in self.processed_files:
+                linked_content = self.process_linked_file(linked_file)
+                self.linked_content.append(linked_content)
+                self.processed_files[str(linked_file)] = linked_content
+            
+            # Return a markdown link to the anchor
+            return f"[{display_text}](#{anchor_id})"
+        
+        # Replace all links
+        return self.link_pattern.sub(replace_link, content)
+    
+    def process_linked_file(self, file_path):
+        """Process a linked file and prepare it for appending"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Remove frontmatter
+            content = re.sub(r'^---\n.*?\n---\n', '', content, flags=re.DOTALL)
+            
+            # Ensure file has a header
+            content = self.ensure_header(content, file_path)
+            
+            # Create anchor for this content
+            anchor_id = self.create_anchor_id(file_path)
+            anchor_tag = f'<a id="{anchor_id}"></a>'
+            
+            # Process links in this file recursively
+            content = self.replace_links_with_anchors(content)
+            
+            # Add the anchor tag before the content
+            return f"{anchor_tag}\n{content}"
+            
+        except Exception as e:
+            print(f"Error processing linked file {file_path}: {str(e)}")
+            return f"<a id=\"{self.create_anchor_id(file_path)}\"></a>\n[Error processing {file_path.name}: {str(e)}]"
+    
+    def create_anchor_id(self, file_path):
+        """Create a unique anchor ID for a file reference"""
+        # Get the file name without extension
+        file_name = file_path.stem
+        if file_name.startswith('_'):
+            file_name = file_name[1:]
+        
+        # Convert to a valid ID (lowercase, no spaces or special chars)
+        anchor_base = re.sub(r'[^\w-]', '-', file_name.lower())
+        
+        # Count references to this file
+        str_path = str(file_path)
+        if str_path in self.file_references:
+            self.file_references[str_path] += 1
+            return f"{anchor_base}-{self.file_references[str_path]}"
+        else:
+            self.file_references[str_path] = 1
+            return anchor_base
+    
+    def ensure_header(self, content, file_path):
+        """Ensure the content has a header, adding one if needed"""
+        # Check if content has a header
+        if not self.header_pattern.search(content.lstrip()):
+            # Get file name (without extension and leading underscore)
+            file_name = file_path.stem
             if file_name.startswith('_'):
                 file_name = file_name[1:]
-                
-            # Add a header to the beginning of the content
+            
+            # Add a header at the beginning
             content = f"# {file_name}\n\n{content}"
-            print(f"Added header '{file_name}' to file without header")
         
         return content
     
     def find_file(self, link_text):
-        """Find a file in the vault based on its link text"""
-        # Case 1: If link is a full path
+        """Find a file based on link text"""
+        # Try as a relative path first
         if '/' in link_text:
-            # Try direct path resolution
+            # This is a path-like link
             full_path = self.vault_path / f"{link_text}.md"
             if full_path.exists():
                 return full_path
         
-        # Case 2: If link is just a filename (exact match search)
-        else:
-            # Search for exact filename match across the vault
-            matches = list(self.vault_path.glob(f"**/{link_text}.md"))
-            if matches:
-                return matches[0]  # Return the first match if multiple are found
+        # Try to find by exact filename match
+        # First check in current directory
+        current_dir = self.head_file_path.parent
+        current_file = current_dir / f"{link_text}.md"
+        if current_file.exists():
+            return current_file
             
-            # Also check if the file exists in the same directory as the current file
-            current_dir = self.head_file_path.parent
-            possible_file = current_dir / f"{link_text}.md"
-            if possible_file.exists():
-                return possible_file
-        
-        # If we can't find the file, print a warning
+        # Then search the whole vault
+        matches = list(self.vault_path.rglob(f"{link_text}.md"))
+        if matches:
+            return matches[0]  # Return the first match
+            
+        # If we get here, file wasn't found
         print(f"Warning: Could not find file for link '{link_text}'")
         return None
-
-    def adjust_header_levels(self, content, parent_level):
-        """Adjust header levels in content based on parent level"""
-        lines = content.split('\n')
-        adjusted_lines = []
-        
-        # Get the current minimum header level in this content
-        header_pattern = re.compile(r'^(#+)\s')
-        header_levels = []
-        
-        for line in lines:
-            match = header_pattern.match(line)
-            if match:
-                level = len(match.group(1))
-                header_levels.append(level)
-        
-        # Determine how to adjust headers
-        min_level = min(header_levels) if header_levels else 0
-        level_adjustment = max(0, parent_level + 1 - min_level)
-        
-        # Now adjust each line
-        for line in lines:
-            match = header_pattern.match(line)
-            if match:
-                # Get current header level
-                current_hashes = match.group(1)
-                current_level = len(current_hashes)
-                
-                # Calculate new level
-                new_level = current_level + level_adjustment
-                
-                # Replace header with adjusted level
-                new_header = '#' * new_level
-                line = line.replace(current_hashes, new_header, 1)
-                
-            adjusted_lines.append(line)
-        
-        return '\n'.join(adjusted_lines)
-    
-    def find_max_header_level(self, content):
-        """Find the maximum header level in the content"""
-        max_level = 0
-        header_pattern = re.compile(r'^(#+)\s', re.MULTILINE)
-        
-        for match in header_pattern.finditer(content):
-            level = len(match.group(1))
-            max_level = max(max_level, level)
-        
-        return max_level
-    
-    def find_max_header_level_up_to(self, content, position):
-        """Find the maximum header level in content up to a specific position"""
-        max_level = 0
-        header_pattern = re.compile(r'^(#+)\s', re.MULTILINE)
-        
-        for match in header_pattern.finditer(content[:position]):
-            level = len(match.group(1))
-            max_level = max(max_level, level)
-        
-        return max_level
 
 def main():
     if len(sys.argv) < 2:
@@ -225,10 +199,11 @@ def main():
     output_file = sys.argv[2] if len(sys.argv) > 2 else "compiled_course.md"
     
     compiler = ObsidianCompiler(head_file_path, output_file)
-    compiler.compile_vault()
+    compiler.compile_document()
 
 if __name__ == "__main__":
     main()
+
     
 """
 python compile_obsidian.py /path/to/llm/outline/_outline.md compiled_course.md
