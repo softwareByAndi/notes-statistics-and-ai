@@ -214,14 +214,16 @@ while len(queue) > 0:
     level = record['level']
     doc_index = record['index']
     doc = documents[doc_index]
+    
+    children = sorted(doc['children'], key=lambda index: documents[index]['sort_index'])
+    print(f"{doc['index']} - ({level}) - {children}")
+
     doc_content = doc['content']
     if doc['extension'] != 'md':
         doc_content = wrap_non_md_file(doc)
-    print(level)
     doc_content = adjust_headers(level, doc_content)
     content += f"{'#'*level} {doc['file_name']}\n\n{doc_content}\n\n---\n\n"
-    children = sorted(doc['children'], key=lambda index: documents[index]['sort_index'])
-    print(f"{doc['index']} - {children}")
+    
     children.reverse()
     for child_index in children:
         queue.insert(0, { 'level': level + 1, 'index': child_index })

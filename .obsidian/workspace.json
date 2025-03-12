@@ -200,6 +200,7 @@
   },
   "active": "b181792137f66eec",
   "lastOpenFiles": [
+    "test.py",
     "llm/CURRENT_OUTLINE_3.md",
     "llm/CURRENT_OUTLINE_4.md",
     "llm/CURRENT_OUTLINE_2.md",
@@ -232,7 +233,6 @@
     "llm/modules/mod 2/2.8 Key Takeaways from Module 2.md",
     "llm/modules/mod 2",
     "llm/README.md",
-    "llm/outline/introduction.md",
     "llm/modules/mod 1",
     "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
     "llm/modules/math",
