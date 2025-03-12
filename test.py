@@ -47,7 +47,7 @@ def normalize_headers(markdown_text):
 
     # get matches
     for match in matches:
-        origin_level = len(match['level'])
+        origin_level = match['level']
         header_text = match['content']
         if by_level.get(origin_level) is None:
             by_level[origin_level] = []
