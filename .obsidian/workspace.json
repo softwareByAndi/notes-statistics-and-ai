@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/CURRENT_OUTLINE_2.md",
+                "file": "llm/CURRENT_OUTLINE_3.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "CURRENT_OUTLINE_2"
+              "title": "CURRENT_OUTLINE_3"
             }
           }
         ],
@@ -183,13 +183,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/CURRENT_OUTLINE_2.md",
+                "file": "llm/CURRENT_OUTLINE_3.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of CURRENT_OUTLINE_2"
+              "title": "Outline of CURRENT_OUTLINE_3"
             }
           }
         ],
@@ -214,8 +214,11 @@
   },
   "active": "c34776a3b77b3ac5",
   "lastOpenFiles": [
-    "llm/CURRENT_OUTLINE.md",
+    "compile_obsidian_3 copy.py",
     "llm/CURRENT_OUTLINE_2.md",
+    "llm/CURRENT_OUTLINE_3.md",
+    "compile_obsidian_3.py",
+    "llm/CURRENT_OUTLINE.md",
     "Untitled.md",
     "compile_obsidian_2.py",
     "llm/outline/course structure.md",
@@ -243,13 +246,10 @@
     "llm/modules/mod 2",
     "llm/README.md",
     "llm/outline/introduction.md",
-    "llm/modules/mod 1/1.8 Preview of Module 2 - Text Representation.md",
-    "llm/modules/mod 1/1.7 Key Takeaways from Module 1.md",
     "llm/modules/mod 1",
     "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
     "llm/modules/math",
     "llm/modules/mod 0",
-    "llm/modules",
     "Pasted image 20240411184114.png",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",
