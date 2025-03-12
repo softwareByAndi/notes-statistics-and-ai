@@ -17,12 +17,12 @@ def build_file_dict(directory):
                
            # If key already exists, use the path as key
            if key in file_dict:
-               file_dict[full_path] = full_path
+               file_dict[full_path.split('.md')[0]] = full_path
                
                # Also update the previous entry with the same key
                old_path = file_dict[key]
                del file_dict[key]
-               file_dict[old_path] = old_path
+               file_dict[old_path.split('.md')[0]] = old_path
            else:
                file_dict[key] = full_path
 
@@ -39,18 +39,18 @@ def read_file(file_path):
         link_positions = []
         lines = []
 
+        char_index = 0
         line_index = 0
         for line in content.split('\n'):
-            end_index = line_index + len(line)
+            end_index = char_index + len(line)
             lines.append({
-                'start_index': line_index,
+                'start_index': char_index,
                 'end_index': end_index,
-                'content': line
+                'content': line,
+                'line_index': line_index
             })
-            line_index += len(line) + 1
-
-        for line in lines:
-            print(line)
+            char_index += len(line) + 1
+            line_index += 1
     
         for match in re.finditer(wiki_link_pattern, content):
             is_list_item = False
@@ -93,8 +93,42 @@ directory_path = "./"
 head_file_path = 'llm/outline/_outline.md'
 lookup_file_by_link_name = build_file_dict(directory_path)
 
-# for key, path in lookup_file_by_link_name.items():
-#    print(f"{key}: {path}")
+for key, path in lookup_file_by_link_name.items():
+   if 'llm/' in path:
+       print(f"{key}: {path}")
 
-file = read_file(head_file_path)
-print(json.dumps(file, indent=2))
+queue = []
+documents = []
+visited = {}
+
+head_doc = read_file(head_file_path)
+queue.append(head_doc)
+
+count = 10;
+for doc in queue:
+    count -= 1;
+    if count < 0:
+        print('test - count reach 10 iterations')
+        break;
+    file_path = doc['file_path']
+    print('file_path: ', file_path)
+    if not visited.get(file_path):
+        index = len(documents)
+        doc['index'] = index
+        parent_index = doc.get('parent_index')
+        if parent_index:
+            parent = documents[parent_index]
+
+        visited[file_path] = doc
+        documents.append(doc)
+        for link in doc['links']:
+            file_key = link['file_key']
+            print(f"  - searching for file: '{file_key}'")
+            linked_doc_path = lookup_file_by_link_name.get(file_key)
+            print(f"    doc_path: '{linked_doc_path}'")
+            linked_doc = read_file(linked_doc_path)
+            print(f"    adding to queue: {linked_doc.get('file_path')}")
+            linked_doc['parent_index'] = index
+            linked_doc['link_data'] = link
+            linked_doc['sort_index'] = link['line']['line_index']
+            queue.append(linked_doc)
