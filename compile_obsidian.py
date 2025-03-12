@@ -93,9 +93,9 @@ directory_path = "./"
 head_file_path = 'llm/outline/_outline.md'
 lookup_file_by_link_name = build_file_dict(directory_path)
 
-for key, path in lookup_file_by_link_name.items():
-   if 'llm/' in path:
-       print(f"{key}: {path}")
+# for key, path in lookup_file_by_link_name.items():
+#    if 'llm/' in path:
+#        print(f"{key}: {path}")
 
 queue = []
 documents = []
@@ -104,7 +104,7 @@ visited = {}
 head_doc = read_file(head_file_path)
 queue.append(head_doc)
 
-count = 10
+count = 100
 for doc in queue:
     count -= 1
     if count < 0:
@@ -112,24 +112,54 @@ for doc in queue:
         break
     
     file_path = doc['file_path']
-    print('file_path: ', file_path)
+    # print('file_path: ', file_path)
     if not visited.get(file_path):
         index = len(documents)
         doc['index'] = index
+        doc['children'] = []
         parent_index = doc.get('parent_index')
-        if parent_index:
+        if parent_index is not None:
             parent = documents[parent_index]
+            parent['children'].append(index)
 
         visited[file_path] = doc
         documents.append(doc)
         for link in doc['links']:
             file_key = link['file_key']
-            print(f"  - searching for file: '{file_key}'")
+            # print(f"  - ?? file:  {file_key}")
             linked_doc_path = lookup_file_by_link_name.get(file_key)
-            print(f"    doc_path: '{linked_doc_path}'")
+            # print(f"    doc_path: {linked_doc_path}")
             linked_doc = read_file(linked_doc_path)
-            print(f"    adding to queue: {linked_doc.get('file_path')}")
+            # print(f"    >> queue: {linked_doc.get('file_path')}")
             linked_doc['parent_index'] = index
             linked_doc['link_data'] = link
             linked_doc['sort_index'] = link['line']['line_index']
             queue.append(linked_doc)
+
+
+for doc in documents:
+    print(f"{doc.get('index')} - {doc.get('children')} - {doc.get('file_name')}")
+
+print('-------')
+
+content = ''
+queue = []
+queue.append({
+    'level': 0,
+    'index': 0
+})
+while len(queue) > 0:
+    record = queue.pop(0)
+    level = record['level']
+    doc_index = record['doc_index']
+    doc = documents[doc_index]
+    content += doc['content'] + '\n\n---\n\n'
+    children = sorted(doc['children'], key=lambda index: documents[index]['sort_index'])
+    print(f"{doc['index']} - {children}")
+    children.reverse()
+    for child_index in children:
+        queue.insert(0, { 'level': level + 1, 'index': child_index })
+
+
+with open('llm/CURRENT_OUTLINE_4.md', 'w') as file:
+    file.write(content)
