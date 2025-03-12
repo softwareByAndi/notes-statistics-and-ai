@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/CURRENT_OUTLINE.md",
+                "file": "llm/CURRENT_OUTLINE_2.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CURRENT_OUTLINE"
+              "title": "CURRENT_OUTLINE_2"
             }
           },
           {
@@ -55,16 +55,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Untitled.md",
+                "file": "llm/CURRENT_OUTLINE_2.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "Untitled"
+              "title": "CURRENT_OUTLINE_2"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -183,13 +183,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/CURRENT_OUTLINE.md",
+                "file": "llm/CURRENT_OUTLINE_2.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of CURRENT_OUTLINE"
+              "title": "Outline of CURRENT_OUTLINE_2"
             }
           }
         ],
@@ -212,11 +212,13 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "b181792137f66eec",
+  "active": "c34776a3b77b3ac5",
   "lastOpenFiles": [
-    "llm/outline/course structure.md",
     "llm/CURRENT_OUTLINE.md",
+    "llm/CURRENT_OUTLINE_2.md",
     "Untitled.md",
+    "compile_obsidian_2.py",
+    "llm/outline/course structure.md",
     "llm/outline/_outline.md",
     "llm/modules/mod 0/_mod 0 - Prerequisites and Preparation.md",
     "llm/outline/learning_approach.md",
@@ -243,13 +245,11 @@
     "llm/outline/introduction.md",
     "llm/modules/mod 1/1.8 Preview of Module 2 - Text Representation.md",
     "llm/modules/mod 1/1.7 Key Takeaways from Module 1.md",
-    "llm/modules/mod 1/1.5 Understanding Model Scale.md",
     "llm/modules/mod 1",
     "module_notes/reference/Construction of Decision Trees - Great Learning.pdf",
     "llm/modules/math",
     "llm/modules/mod 0",
     "llm/modules",
-    "llm/module 0",
     "Pasted image 20240411184114.png",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",
