@@ -34,6 +34,9 @@ def read_file(file_path):
             content = file.read()
         wiki_link_pattern = r'\[\[(.*?)\]\]'
         matches = re.findall(wiki_link_pattern, content, re.DOTALL)
+        for match in matches:
+            print(match);
+
     except FileNotFoundError:
         print(f"ERROR: File '{file_path}' not found")
         return None
@@ -42,8 +45,9 @@ def read_file(file_path):
 # Example usage
 directory_path = "./"
 head_file_path = 'llm/outline/_outline.md'
-lookup_file_by_link_name = build_file_dict(directory_path)
+# lookup_file_by_link_name = build_file_dict(directory_path)
 
 # for key, path in lookup_file_by_link_name.items():
 #    print(f"{key}: {path}")
 
+read_file(head_file_path)
