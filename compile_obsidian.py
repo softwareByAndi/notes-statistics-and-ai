@@ -112,7 +112,7 @@ def wrap_non_md_file(file):
     return content
 
 
-def adjust_headers(content, master_level):
+def adjust_headers(master_level, content):
     """
     Adjusts all markdown headers in the content to be properly nested under
     the specified master level.
@@ -217,6 +217,7 @@ while len(queue) > 0:
     doc_content = doc['content']
     if doc['extension'] != 'md':
         doc_content = wrap_non_md_file(doc)
+    print(level)
     doc_content = adjust_headers(level, doc_content)
     content += f"{'#'*level} {doc['file_name']}\n\n{doc_content}\n\n---\n\n"
     children = sorted(doc['children'], key=lambda index: documents[index]['sort_index'])
