@@ -170,7 +170,7 @@ def normalize_headers(markdown_text):
         new_level = normalized_level_by_origin_level[match['level']]
         new_level = min(new_level, 7)
         if new_level < 7:
-            new_header = f"{'#'*new_level} {match['content']}"
+            new_header = f"<<{'#'*new_level} {match['content']}>>"
         else:
             new_header = f"**{match['content']}:**"
 
@@ -229,6 +229,7 @@ directory_path = "./"
 head_file_path = 'llm/modules/mod 1/1.6 Hands-On Project - Using an Existing LLM via API.md'
 data = parse_file(head_file_path)['content']
 norm_content = normalize_headers(data)
+print(norm_content)
 
 # print('\n\n\n\n')
 
