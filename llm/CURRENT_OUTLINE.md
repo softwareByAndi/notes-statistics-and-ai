@@ -626,7 +626,9 @@ print(f"Tokenized: {tokenized}")
 
 In a real BPE implementation, you would train on millions of documents to build a robust vocabulary, then use that vocabulary to tokenize new text.
 
-###### Modern Tokenization in PracticeModern LLMs use sophisticated tokenizers that handle:
+#### Modern Tokenization in Practice
+
+Modern LLMs use sophisticated tokenizers that handle:
 
 - Multiple languages
 - Special tokens (like [START], [END], [PAD])
@@ -1579,7 +1581,9 @@ def train_char_lstm(model, data, epochs=10, batch_size=64, seq_length=100, lr=0.
             print(f"Sample: {sample}")
 ```
 
-###### Generating TextNow let's generate text with our trained model:
+#### Generating Text
+
+Now let's generate text with our trained model:
 
 ```python
 def generate_text(model, char_to_idx, idx_to_char, seed, length=1000, temperature=0.8):
@@ -1621,7 +1625,11 @@ def generate_text(model, char_to_idx, idx_to_char, seed, length=1000, temperatur
     return generated_text
 ```
 
-######## Temperature SamplingNotice the `temperature` parameter in our text generation function. This controls the randomness of the generated text:- Lower temperature (e.g., 0.2) makes the model more conservative, picking the most likely characters
+#### Temperature Sampling
+
+Notice the `temperature` parameter in our text generation function. This controls the randomness of the generated text:
+
+- Lower temperature (e.g., 0.2) makes the model more conservative, picking the most likely characters
 - Higher temperature (e.g., 1.5) makes the model more creative but potentially less coherent
 - A temperature of 1.0 uses the exact probabilities from the model
 
@@ -2151,7 +2159,9 @@ Let's visualize this process for a simple example sentence: "The cat sat on the 
 4. The final representation for "cat" would be: 0.1×V₁ + 0.4×V₂ + 0.3×V₃ + 0.05×V₄ + 0.05×V₅ + 0.1×V₆
     
 
-This process happens simultaneously for every word in the sequence, allowing each word to gather information from the entire c# Multi-Head Attention: Attending from Multiple Perspectivesspectives
+This process happens simultaneously for every word in the sequence, allowing each word to gather information from the entire context.
+
+#### Multi-Head Attention: Attending from Multiple Perspectives
 
 In practice, a single attention mechanism might not be sufficient to capture all the different types of relationships between words. Some words might be related syntactically, others semantically, and so on.
 
@@ -2165,7 +2175,9 @@ Where each head is:
 
 $$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
 
-And $W_i^Q$, $W_i^K$, $W_i^V$, and $W^O$ are learnable parameter ma# Implementing Self-Attention in Coden in Code
+And $W_i^Q$, $W_i^K$, $W_i^V$, and $W^O$ are learnable parameter matrices.
+
+#### Implementing Self-Attention in Code
 
 Let's implement a basic self-attention mechanism in PyTorch:
 
@@ -2355,7 +2367,11 @@ class Encoder(nn.Module):
         return x
 ```
 
-######## Decoder LayerThe decoder layer is similar to the encoder layer but with some key differences:1. It uses **masked self-attention** in its first sub-layer to prevent attending to future tokens
+#### Decoder Layer
+
+The decoder layer is similar to the encoder layer but with some key differences:
+
+1. It uses **masked self-attention** in its first sub-layer to prevent attending to future tokens
 2. It has an additional **cross-attention** layer that attends to the encoder's output
 
 ```python
@@ -2442,7 +2458,11 @@ class Decoder(nn.Module):
         return x
 ```
 
-### ###### # The Complete Transformertting everything together, we get the complete Transformer model:`python
+#### The Complete Transformer
+
+Putting everything together, we get the complete Transformer model:
+
+```python
 class Transformer(nn.Module):
     def __init__(self, src_vocab_size, trg_vocab_size, embed_size=512, num_layers=6, 
                  heads=8, ff_hidden_size=2048, dropout=0.1, max_seq_len=100):
@@ -2477,7 +2497,11 @@ class Transformer(nn.Module):
         return src_mask, trg_mask
 ```
 
-### D###### D# Decoder-Only Modelsy modern LLMs (like GPT) use only the decoder part of the Transformer, adapted to handle both encoding and generation. These models:Use causal (masked) self-attention to predict the next token based on previous tokens
+#### Decoder-Only Models
+
+Many modern LLMs (like GPT) use only the decoder part of the Transformer, adapted to handle both encoding and generation. These models:
+
+1. Use causal (masked) self-attention to predict the next token based on previous tokens
 2. Eliminate the encoder entirely
 3. Apply the decoder logic to the entire sequence
 
@@ -2562,7 +2586,9 @@ def get_lr_scheduler(optimizer, d_model, warmup_steps=4000):
 
 This schedule first increases the learning rate linearly during a warmup phase, then decreases it proportionally to the inverse square root of the step number.
 
-###### InitializationProper initialization is crucial for stable training:
+#### Initialization
+
+Proper initialization is crucial for stable training:
 
 ```python
 def initialize_weights(m):
@@ -2570,7 +2596,11 @@ def initialize_weights(m):
         nn.init.xavier_uniform_(m.weight.data)
 ```
 
-######## Training LoopHere's a simplified training loop for a Transformer language model:```python
+#### Training Loop
+
+Here's a simplified training loop for a Transformer language model:
+
+```python
 def train_epoch(model, dataloader, optimizer, criterion, device):
     model.train()
     total_loss = 0
@@ -2685,7 +2715,9 @@ class SimpleTokenizer:
         return ''.join([self.idx_to_char[idx] for idx in indices])
 ```
 
-###### Building a Decoder-Only TransformerFor simplicity, we'll build a decoder-only transformer similar to GPT:
+#### Building a Decoder-Only Transformer
+
+For simplicity, we'll build a decoder-only transformer similar to GPT:
 
 ```python
 class DecoderOnlyLayer(nn.Module):
@@ -2801,7 +2833,11 @@ class GPTModel(nn.Module):
         return current_tokens
 ```
 
-######## Training and GenerationNow let's define functions for training and text generation:```python
+#### Training and Generation
+
+Now let's define functions for training and text generation:
+
+```python
 def train_gpt(model, dataset, epochs, batch_size, learning_rate, device):
     """Train the GPT model."""
     # Create dataloader
@@ -2881,7 +2917,11 @@ def generate_text(model, tokenizer, start_text, length, device, temperature=0.8)
     return generated_text
 ```
 
-###**Complete Implementationow let's put everything together for a full working example::**``python
+#### Complete Implementation
+
+Now let's put everything together for a full working example:
+
+```python
 def main():
     # Check for GPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -3220,7 +3260,9 @@ Where:
 - C is the amount of compute
 - a, b, and c are scaling exponents (typically between 0.05 and 0.3)
 
-This means that doubling the size of your model might reduce the loss by a predictable amount, even without any architectural changes.#### Why Scaling Matters: Emergent Abilitiesss
+This means that doubling the size of your model might reduce the loss by a predictable amount, even without any architectural changes.
+
+#### Why Scaling Matters: Emergent Abilities
 
 Perhaps the most fascinating aspect of scaling is the emergence of new capabilities that weren't explicitly programmed. As models grow larger, they don't just get better at the tasks they were already doing—they suddenly demonstrate entirely new abilities.
 
@@ -3230,7 +3272,9 @@ For example:
 - Medium models might handle grammar well but fail at logical reasoning
 - Large models might suddenly display reasoning capabilities, humor, and creative writing skills
 
-These "emergent abilities" often appear suddenly once models cross certain size thresholds, creating what researchers call "scaling cliffs" rather than smooth improvements.#### The Bitter Lesson of AI Researchhh
+These "emergent abilities" often appear suddenly once models cross certain size thresholds, creating what researchers call "scaling cliffs" rather than smooth improvements.
+
+#### The Bitter Lesson of AI Research
 
 Computer scientist Rich Sutton's essay "The Bitter Lesson" argues that approaches leveraging computation and scale have consistently outperformed methods that try to engineer human knowledge into AI systems.
 
@@ -3308,7 +3352,9 @@ def create_mlm_inputs_and_labels(input_ids, tokenizer, mask_probability=0.15):
 
 This approach forces the model to understand bidirectional context, as it needs to consider both left and right context to predict masked tokens.
 
-###### Hybrid ApproachesMany modern models use hybrid or novel pre-training objectives:
+#### Hybrid Approaches
+
+Many modern models use hybrid or novel pre-training objectives:
 
 1. **Span-based masking**: Masking consecutive spans of tokens rather than individual tokens (e.g., T5)
 2. **Prefix Language Modeling**: Combining autoregressive prediction with bidirectional attention (e.g., Prefix LM)
@@ -3316,7 +3362,9 @@ This approach forces the model to understand bidirectional context, as it needs 
 
 Each approach comes with its own trade-offs in terms of efficiency, downstream performance, and alignment with specific use cases.
 
-###### Curriculum Learning for Pre-trainingRather than training on random data, curriculum learning involves structuring the training process from easier to harder examples. For LLMs, this might mean:
+#### Curriculum Learning for Pre-training
+
+Rather than training on random data, curriculum learning involves structuring the training process from easier to harder examples. For LLMs, this might mean:
 
 1. Starting with shorter, simpler texts
 2. Gradually introducing longer, more complex content
@@ -3379,20 +3427,22 @@ attention_output = self.attention(normalized_x) + x  # Residual connection
 ```
 
 
-### The Challenges of Batch Size and Learning Rate
+#### The Challenges of Batch Size and Learning Rate
 
-One of the most important hyper-parameter relationships is between batch size and learning rate. As we scale to larger models and distributed training, batch sizes often increase dramatically.:**he relationship can be approximated as:
+One of the most important hyper-parameter relationships is between batch size and learning rate. As we scale to larger models and distributed training, batch sizes often increase dramatically.
+
+The relationship can be approximated as:
 ```
 learning_rate ∝ sqrt(batch_size)
 ```
 
 This means if you increase your batch size by 4x, you should roughly double your learning rate. However, this relationship breaks down at extremely large batch sizes, necessitating more careful tuning.
 
-### Loss Scaling for Mixed Precision Training
+#### Loss Scaling for Mixed Precision Training
 
 Training in mixed precision (using float16 for most operations) is essential for efficiency with large models, but introduces numerical stability challenges. Loss scaling helps address this:
 
-``` python
+```python
 # Example of manual loss scaling
 # Forward pass in float16
 outputs = model(inputs)
@@ -3486,7 +3536,9 @@ class AlbertTransformer(nn.Module):
         return hidden_states
 ```
 
-###### Mixture of ExpertsFor extremely large models, Mixture of Experts (MoE) architectures have gained popularity. These models use "expert" neural networks (usually feed-forward networks) and a routing mechanism to send different inputs to different experts:
+#### Mixture of Experts
+
+For extremely large models, Mixture of Experts (MoE) architectures have gained popularity. These models use "expert" neural networks (usually feed-forward networks) and a routing mechanism to send different inputs to different experts:
 
 ```python
 class MixtureOfExperts(nn.Module):
@@ -3595,7 +3647,9 @@ class ShardedLinear(nn.Module):
 
 In practice, modern frameworks implement more sophisticated approaches:
 
-###### Pipeline ParallelismPipeline parallelism splits the model across devices by layer, with each device responsible for a set of consecutive layers:
+#### Pipeline Parallelism
+
+Pipeline parallelism splits the model across devices by layer, with each device responsible for a set of consecutive layers:
 
 ```python
 # Conceptual implementation of pipeline parallelism
@@ -3619,7 +3673,11 @@ def pipeline_forward(model_shards, input_batch, num_microbatches):
     return torch.cat(outputs, dim=0)
 ```
 
-######## Tensor ParallelismTensor parallelism splits individual operations across devices. For example, a large matrix multiplication might be split such that each device computes only a portion:```python
+#### Tensor Parallelism
+
+Tensor parallelism splits individual operations across devices. For example, a large matrix multiplication might be split such that each device computes only a portion:
+
+```python
 # Very simplified example of tensor parallelism for a self-attention layer
 class DistributedSelfAttention(nn.Module):
     def __init__(self, hidden_size, num_heads, world_size):
@@ -3655,7 +3713,11 @@ class DistributedSelfAttention(nn.Module):
         return output
 ```
 
-###**DeepSpeed and Megatron-LMn practice, libraries like DeepSpeed (Microsoft) and Megatron-LM (NVIDIA) provide optimized implementations of these techniques::**``python
+#### DeepSpeed and Megatron-LM
+
+In practice, libraries like DeepSpeed (Microsoft) and Megatron-LM (NVIDIA) provide optimized implementations of these techniques:
+
+```python
 # Using DeepSpeed for training
 import deepspeed
 
@@ -3741,7 +3803,11 @@ def create_balanced_dataset(texts_by_domain, target_proportions):
 ```
 
 
-######## Efficient Data LoadingWith terabyte-scale datasets, efficient data loading becomes critical:```python
+#### Efficient Data Loading
+
+With terabyte-scale datasets, efficient data loading becomes critical:
+
+```python
 class StreamingDataset(torch.utils.data.IterableDataset):
     """Dataset that streams data from disk instead of loading everything to memory."""
     def __init__(self, file_paths, tokenizer, max_length=1024):
@@ -3780,7 +3846,11 @@ class StreamingDataset(torch.utils.data.IterableDataset):
                             yield torch.tensor(chunk)
 ```
 
-###**WebDataset and Efficient Formatsor even larger datasets, specialized formats like WebDataset provide optimal I/O performance::**``python
+#### WebDataset and Efficient Formats
+
+For even larger datasets, specialized formats like WebDataset provide optimal I/O performance:
+
+```python
 import webdataset as wds
 
 # Create a WebDataset pipeline
@@ -4233,7 +4303,9 @@ def get_cosine_schedule_with_warmup(optimizer, num_warmup_steps, num_training_st
     return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
 ```
 
-###### Text GenerationOnce our model is trained, we can use it to generate text:
+#### Text Generation
+
+Once our model is trained, we can use it to generate text:
 
 ```python
 def generate_text(model, tokenizer, prompt, max_length=100, temperature=0.8, top_k=50, top_p=0.95):
@@ -4549,7 +4621,9 @@ Some key considerations for hyperparameters:
 - **Training epochs**: Fewer epochs (2-5) to prevent overfitting
 - **Weight decay**: Helps prevent overfitting (0.01 is a common value)
 
-####### 4. Training LoopThe training process involves:
+##### 4. Training Loop
+
+The training process involves:
 
 ```python
 from transformers import Trainer, TrainingArguments
@@ -4576,7 +4650,11 @@ trainer.train()
 trainer.save_model("./fine-tuned-model")
 ```
 
-##**5. Evaluation and IterationAfter fine-tuning, we evaluate the model's performance::**```python
+##### 5. Evaluation and Iteration
+
+After fine-tuning, we evaluate the model's performance:
+
+```python
 # Evaluate on validation set
 metrics = trainer.evaluate()
 print(f"Validation loss: {metrics['eval_loss']:.4f}")
@@ -4590,7 +4668,11 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 Based on the evaluation, we might adjust hyperparameters and repeat the process.
 
-###**Example: Fine-tuning for Sentiment Analysiset's look at a concrete example of fine-tuning for a specific task - sentiment analysis.:**``python
+#### Example: Fine-tuning for Sentiment Analysis
+
+Let's look at a concrete example of fine-tuning for a specific task - sentiment analysis.
+
+```python
 import torch
 import pandas as pd
 from datasets import Dataset
@@ -4657,12 +4739,20 @@ predictions = torch.softmax(outputs.logits, dim=1)
 print(f"Positive: {predictions[0][0]:.4f}, Neutral: {predictions[0][1]:.4f}, Negative: {predictions[0][2]:.4f}")
 ```
 
-### ###### # Advantages of Full Fine-tuningll fine-tuning offers several benefits: **Optimal performance**: Generally achieves the best possible performance for a given task
+#### Advantages of Full Fine-tuning
+
+Full fine-tuning offers several benefits:
+
+1. **Optimal performance**: Generally achieves the best possible performance for a given task
 2. **Complete adaptation**: All layers can adapt to the target domain and task
 3. **Established process**: Well-understood with extensive research and tooling
 4. **Flexibility**: Works for a wide range of tasks and model architectures
 
-### ###### # Challenges and Limitationsspite its effectiveness, full fine-tuning has significant drawbacks: **Computational requirements**: Fine-tuning large models needs substantial GPU memory
+#### Challenges and Limitations
+
+Despite its effectiveness, full fine-tuning has significant drawbacks:
+
+1. **Computational requirements**: Fine-tuning large models needs substantial GPU memory
 2. **Storage needs**: Each fine-tuned model requires storing a complete copy
 3. **Risk of overfitting**: Especially with small datasets
 4. **Catastrophic forgetting**: The model may lose general capabilities
@@ -4743,9 +4833,13 @@ total_params = sum(p.numel() for p in peft_model.parameters())
 print(f"Trainable parameters: {trainable_params} ({trainable_params/total_params:.2%} of total)")
 ```
 
-###### LoRA: Low-Rank AdaptationLoRA is one of the most popular PEFT methods. It approximates the weight updates during fine-tuning using low-rank matrices.
+#### LoRA: Low-Rank Adaptation
 
-####### How LoRA Works1. **Key insight**: Weight updates during fine-tuning often have low "intrinsic rank"
+LoRA is one of the most popular PEFT methods. It approximates the weight updates during fine-tuning using low-rank matrices.
+
+##### How LoRA Works
+
+1. **Key insight**: Weight updates during fine-tuning often have low "intrinsic rank"
 2. **Implementation**: Decomposes weight updates into pairs of low-rank matrices (A×B)
 3. **Application**: Usually applied to query and value projection matrices in attention
 4. **Training**: Only the low-rank matrices are trained, original weights remain frozen
@@ -4777,7 +4871,9 @@ class LoRALayer(nn.Module):
         return base_output + scaling * lora_output
 ```
 
-##**LoRA Implementation with PEFT Library:**`python
+##### LoRA Implementation with PEFT Library
+
+```python
 from transformers import AutoModelForCausalLM
 from peft import get_peft_model, LoraConfig, TaskType
 
@@ -4802,7 +4898,14 @@ total_params = sum(p.numel() for p in peft_model.parameters())
 print(f"Trainable params: {trainable_params} ({trainable_params/total_params:.2%} of total)")
 ```
 
-###**Prompt Tuning and Prefix Tuninghese methods add trainable tokens to the input, leaving the entire model frozen.:**##**Prompt Tuning. **Approach**: Prepends trainable continuous "soft prompt" embeddings to the input:** **Training**: Only the soft prompt parameters are updated
+#### Prompt Tuning and Prefix Tuning
+
+These methods add trainable tokens to the input, leaving the entire model frozen.
+
+##### Prompt Tuning
+
+1. **Approach**: Prepends trainable continuous "soft prompt" embeddings to the input
+2. **Training**: Only the soft prompt parameters are updated
 3. **Advantages**: Extremely parameter-efficient, model can be completely frozen
 
 ```python
@@ -4853,7 +4956,11 @@ class PromptTuningModel(nn.Module):
         return outputs
 ```
 
-####**Prefix Tuningefix tuning is similar to prompt tuning but inserts trainable vectors at each layer of the model instead of just the input.:**`python
+##### Prefix Tuning
+
+Prefix tuning is similar to prompt tuning but inserts trainable vectors at each layer of the model instead of just the input.
+
+```python
 class PrefixTuningModel(nn.Module):
     def __init__(self, base_model, prefix_length=20):
         super().__init__()
@@ -4888,7 +4995,15 @@ class PrefixTuningModel(nn.Module):
         return self.base_model(input_ids, **kwargs)
 ```
 
-### Q###### Q# QLoRA and Other Quantized Approachesse methods combine quantization with parameter-efficient fine-tuning to further reduce memory requirements.# **## QLoRARA quantizes the base model (typically to 4 or 8 bits) and then applies LoRA for fine-tuning. This dramatically reduces memory usage.:**python
+#### QLoRA and Other Quantized Approaches
+
+These methods combine quantization with parameter-efficient fine-tuning to further reduce memory requirements.
+
+##### QLoRA
+
+QLoRA quantizes the base model (typically to 4 or 8 bits) and then applies LoRA for fine-tuning. This dramatically reduces memory usage.
+
+```python
 from transformers import AutoModelForCausalLM
 from peft import get_peft_model, LoraConfig, TaskType
 import bitsandbytes as bnb
@@ -4921,7 +5036,11 @@ from peft.utils import get_peft_model_state_dict
 print(f"Size of fine-tuned adapters: {sum(p.numel() * p.element_size() for p in get_peft_model_state_dict(peft_model).values()) / (1024 * 1024):.2f} MB")
 ```
 
-### Co###### Co# Comparison of PEFT Methodselp you choose the right approach, here's a comparison:hod|Parameter Efficiency|Memory Usage|Performance|Flexibility|Ease of Use|
+#### Comparison of PEFT Methods
+
+To help you choose the right approach, here's a comparison:
+
+|Method|Parameter Efficiency|Memory Usage|Performance|Flexibility|Ease of Use|
 |---|---|---|---|---|---|
 |Full Fine-tuning|Low|High|Excellent|High|Easy|
 |Adapters|Medium|Medium|Very Good|Medium|Medium|
@@ -4929,7 +5048,11 @@ print(f"Size of fine-tuned adapters: {sum(p.numel() * p.element_size() for p in 
 |Prompt Tuning|Very High|Very Low|Good|Limited|Medium|
 |QLoRA|Very High|Very Low|Very Good|High|Medium|
 
-### Ch###### Ch# Choosing the Right PEFT Methodider these factors when selecting a PEFT approach:*Available compute resources**: Limited GPU memory favors more efficient methods like QLoRA
+#### Choosing the Right PEFT Method
+
+Consider these factors when selecting a PEFT approach:
+
+1. **Available compute resources**: Limited GPU memory favors more efficient methods like QLoRA
 2. **Dataset size**: Smaller datasets work better with more constrained methods like LoRA
 3. **Task complexity**: Complex tasks may benefit from more expressive methods like adapters
 4. **Deployment constraints**: Storage or latency requirements may favor certain approaches
@@ -5027,9 +5150,13 @@ trainer = Trainer(
 )
 ```
 
-###### Sequence Tagging TasksSequence tagging assigns labels to individual tokens (named entity recognition, part-of-speech tagging, etc.).
+#### Sequence Tagging Tasks
 
-####### Approach for Sequence Tagging1. **Model architecture**: Use a token classification head
+Sequence tagging assigns labels to individual tokens (named entity recognition, part-of-speech tagging, etc.).
+
+##### Approach for Sequence Tagging
+
+1. **Model architecture**: Use a token classification head
 2. **Loss function**: Token-level cross-entropy loss
 3. **Output format**: Label for each token
 
@@ -5073,7 +5200,14 @@ def tokenize_and_align_labels(examples):
     return tokenized_inputs
 ```
 
-######## Text Generation TasksText generation involves creating coherent text based on a prompt (story generation, text completion, etc.).##**Approach for Text Generation1. **Model architecture**: Decoder-only or encoder-decoder models:**. **Loss function**: Next-token prediction (causal language modeling)
+#### Text Generation Tasks
+
+Text generation involves creating coherent text based on a prompt (story generation, text completion, etc.).
+
+##### Approach for Text Generation
+
+1. **Model architecture**: Decoder-only or encoder-decoder models
+2. **Loss function**: Next-token prediction (causal language modeling)
 3. **Output format**: Generated text sequence
 
 ```python
@@ -5117,7 +5251,14 @@ trainer = Trainer(
 trainer.train()
 ```
 
-###**Question Answering Tasksuestion answering extracts answers from a context given a question.:**##**Approach for Extractive QA. **Model architecture**: Add span prediction head (start/end positions):** **Loss function**: Combined loss for start and end positions
+#### Question Answering Tasks
+
+Question answering extracts answers from a context given a question.
+
+##### Approach for Extractive QA
+
+1. **Model architecture**: Add span prediction head (start/end positions)
+2. **Loss function**: Combined loss for start and end positions
 3. **Output format**: Start and end indices for the answer span
 
 ```python
@@ -5191,7 +5332,14 @@ def preprocess_function(examples):
     return inputs
 ```
 
-### ###### # Summarization Tasksmmarization condenses a longer text into a shorter one while preserving key information.##**Approach for Summarization **Model architecture**: Encoder-decoder models (e.g., T5, BART):****Loss function**: Cross-entropy on output tokens
+#### Summarization Tasks
+
+Summarization condenses a longer text into a shorter one while preserving key information.
+
+##### Approach for Summarization
+
+1. **Model architecture**: Encoder-decoder models (e.g., T5, BART)
+2. **Loss function**: Cross-entropy on output tokens
 3. **Output format**: Generated summary text
 
 ```python
@@ -5254,7 +5402,14 @@ trainer = Seq2SeqTrainer(
 trainer.train()
 ```
 
-### T###### T# Translation Tasksnslation converts text from one language to another.# **## Approach for Translation**Model architecture**: Encoder-decoder models:***Loss function**: Cross-entropy on output tokens
+#### Translation Tasks
+
+Translation converts text from one language to another.
+
+##### Approach for Translation
+
+1. **Model architecture**: Encoder-decoder models
+2. **Loss function**: Cross-entropy on output tokens
 3. **Output format**: Translated text
 
 ```python
@@ -5295,7 +5450,11 @@ def preprocess_function(examples):
     return model_inputs
 ```
 
-### Ta###### Ta# Task-Specific Best Practicesss all tasks, certain best practices can help improve fine-tuning outcomes:*Data quality over quantity**: A smaller, high-quality dataset often outperforms a larger, noisy one
+#### Task-Specific Best Practices
+
+Across all tasks, certain best practices can help improve fine-tuning outcomes:
+
+1. **Data quality over quantity**: A smaller, high-quality dataset often outperforms a larger, noisy one
 2. **Task-specific preprocessing**: Adapt preprocessing to the specific requirements of your task
 3. **Evaluation metrics**: Choose metrics that align with the end-use of the model
 4. **Early stopping**: Monitor validation performance and stop when it plateaus
@@ -5405,7 +5564,11 @@ print(f"Added {num_added} tokens to the vocabulary")
 model.resize_token_embeddings(len(base_tokenizer))
 ```
 
-###### Effective Domain Adaptation Strategies####### 1. Data CurationThe quality of domain-specific data is crucial:
+#### Effective Domain Adaptation Strategies
+
+##### 1. Data Curation
+
+The quality of domain-specific data is crucial:
 
 ```python
 def curate_domain_corpus(texts, domain_terms, min_term_frequency=2):
@@ -5423,11 +5586,19 @@ def curate_domain_corpus(texts, domain_terms, min_term_frequency=2):
     return relevant_texts
 ```
 
-##**2. Staged AdaptationFor best results, use a staged approach::**1. **General pre-training**: Start with a generally pre-trained model
+##### 2. Staged Adaptation
+
+For best results, use a staged approach:
+
+1. **General pre-training**: Start with a generally pre-trained model
 2. **Domain pre-training**: Continue pre-training on domain corpus
 3. **Task-specific fine-tuning**: Fine-tune for specific tasks within the domain
 
-##**3. Domain-Specific EvaluationCreate domain-specific evaluation benchmarks::**```python
+##### 3. Domain-Specific Evaluation
+
+Create domain-specific evaluation benchmarks:
+
+```python
 def evaluate_domain_specificity(model, tokenizer, domain_test_set, general_test_set):
     """Compare performance on domain vs. general data."""
     # Evaluate on domain data
@@ -5448,7 +5619,11 @@ def evaluate_domain_specificity(model, tokenizer, domain_test_set, general_test_
     }
 ```
 
-###**Domain Adaptation with PEFTor efficient domain adaptation, parameter-efficient methods work well::**``python
+#### Domain Adaptation with PEFT
+
+For efficient domain adaptation, parameter-efficient methods work well:
+
+```python
 from transformers import AutoModelForCausalLM
 from peft import get_peft_model, LoraConfig, TaskType
 
@@ -5491,7 +5666,15 @@ trainer.train()
 peft_model.save_pretrained("./lora-domain-adapter")
 ```
 
-### ###### # Domain Adaptation for Specific Industriest's look at adaptation strategies for particular domains:##**Medical Domaindical text has unique challenges::**`python
+#### Domain Adaptation for Specific Industries
+
+Let's look at adaptation strategies for particular domains:
+
+##### Medical Domain
+
+Medical text has unique challenges:
+
+```python
 # Medical-specific preprocessing
 def preprocess_medical_text(text):
     # Standardize medical abbreviations
@@ -5509,7 +5692,11 @@ def preprocess_medical_text(text):
     return text
 ```
 
-#### **## Legal Domainal text requires special handling::**python
+##### Legal Domain
+
+Legal text requires special handling:
+
+```python
 # Legal corpus weighting
 def weight_legal_corpus(texts, categories):
     """Weight training examples by legal category."""
@@ -5530,7 +5717,11 @@ def weight_legal_corpus(texts, categories):
     return weighted_corpus
 ```
 
-#### T**T## Technical Documentationtechnical domains like software documentation::**ython
+##### Technical Documentation
+
+For technical domains like software documentation:
+
+```python
 # Extract and retain code blocks
 def process_technical_docs(text):
     # Split into text and code segments
@@ -5733,7 +5924,9 @@ def evaluate_classification(model, eval_dataset):
     return metrics
 ```
 
-####### Generation Metrics```python
+##### Generation Metrics
+
+```python
 def evaluate_generation_quality(model, tokenizer, prompts, temperature=0.7):
     """Evaluate text generation quality."""
     model.eval()
@@ -5772,7 +5965,9 @@ def evaluate_generation_quality(model, tokenizer, prompts, temperature=0.7):
     return generations
 ```
 
-##**Domain-Specific Evaluation:**`python
+##### Domain-Specific Evaluation
+
+```python
 def evaluate_domain_accuracy(model, tokenizer, domain_test_cases):
     """Evaluate accuracy on domain-specific knowledge."""
     model.eval()
@@ -5824,7 +6019,11 @@ def evaluate_domain_accuracy(model, tokenizer, domain_test_cases):
     }
 ```
 
-###**Behavioral Evaluationeyond task performance, it's important to evaluate behavioral aspects of fine-tuned models::**``python
+#### Behavioral Evaluation
+
+Beyond task performance, it's important to evaluate behavioral aspects of fine-tuned models:
+
+```python
 def evaluate_behavioral_changes(base_model, fine_tuned_model, tokenizer, test_cases):
     """Compare responses between base and fine-tuned models."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -5887,7 +6086,11 @@ def evaluate_behavioral_changes(base_model, fine_tuned_model, tokenizer, test_ca
     return results, category_counts
 ```
 
-### ###### # Comparison with Baselinesways compare your fine-tuned model against relevant baselines:`python
+#### Comparison with Baselines
+
+Always compare your fine-tuned model against relevant baselines:
+
+```python
 def compare_with_baselines(models, tokenizer, eval_dataset, task):
     """Compare multiple models on the same evaluation set."""
     results = {}
@@ -5916,7 +6119,11 @@ def compare_with_baselines(models, tokenizer, eval_dataset, task):
     return results
 ```
 
-### I###### I# Interpreting Evaluation Resultsond the raw numbers, it's important to understand what evaluation results mean:python
+#### Interpreting Evaluation Results
+
+Beyond the raw numbers, it's important to understand what evaluation results mean:
+
+```python
 def analyze_evaluation_results(results, baseline_results):
     """Analyze and interpret evaluation results."""
     analysis = {}
@@ -6056,7 +6263,9 @@ def create_mixed_dataset(new_task_dataset, general_capability_dataset, mix_ratio
     return mixed_dataset
 ```
 
-####### 3. Multitask LearningTrain on multiple tasks simultaneously:
+##### 3. Multitask Learning
+
+Train on multiple tasks simultaneously:
 
 ```python
 def create_multitask_dataset(task_datasets, task_prefixes):
@@ -6081,7 +6290,11 @@ def create_multitask_dataset(task_datasets, task_prefixes):
     return combined_dataset
 ```
 
-##**4. Parameter-Efficient Fine-tuningPEFT methods naturally mitigate catastrophic forgetting by keeping most parameters frozen::**```python
+##### 4. Parameter-Efficient Fine-tuning
+
+PEFT methods naturally mitigate catastrophic forgetting by keeping most parameters frozen:
+
+```python
 from transformers import AutoModelForCausalLM
 from peft import get_peft_model, LoraConfig
 
@@ -6101,7 +6314,11 @@ peft_config = LoraConfig(
 peft_model = get_peft_model(model, peft_config)
 ```
 
-###**5. Knowledge Distillationse the original model to guide the fine-tuned model::**``python
+##### 5. Knowledge Distillation
+
+Use the original model to guide the fine-tuned model:
+
+```python
 class DistillationLoss(nn.Module):
     def __init__(self, teacher_model, temperature=2.0, alpha=0.5):
         super().__init__()
@@ -6134,7 +6351,11 @@ class DistillationLoss(nn.Module):
         return loss
 ```
 
-### ###### # Measuring and Monitoring Forgetting's important to track if your fine-tuning is causing catastrophic forgetting:`python
+#### Measuring and Monitoring Forgetting
+
+It's important to track if your fine-tuning is causing catastrophic forgetting:
+
+```python
 def evaluate_forgetting(base_model, fine_tuned_model, tokenizer, general_eval_datasets):
     """Evaluate how much general capability has been lost."""
     
@@ -6176,7 +6397,11 @@ def evaluate_forgetting(base_model, fine_tuned_model, tokenizer, general_eval_da
     return results
 ```
 
-### P###### P# Practical Strategy for Preventing Forgettingpractice, a combination of techniques works best:Use PEFT methods as a first line of defense
+#### Practical Strategy for Preventing Forgetting
+
+In practice, a combination of techniques works best:
+
+1. Use PEFT methods as a first line of defense
 2. Include a small amount of diverse "replay" data in fine-tuning
 3. Apply lightweight regularization like knowledge distillation
 4. Continuously monitor for forgetting on general tasks
@@ -6248,7 +6473,9 @@ for epoch in range(num_epochs):
 quantization.convert(model, inplace=True)
 ```
 
-####### Dynamic QuantizationApplied at runtime without calibration data:
+##### Dynamic Quantization
+
+Applied at runtime without calibration data:
 
 ```python
 import torch
@@ -6269,7 +6496,11 @@ print(f"Quantized model size: {q_size / 1e6:.2f} MB")
 print(f"Compression ratio: {fp32_size / q_size:.2f}x")
 ```
 
-######## GPTQ and Other Advanced Quantization TechniquesGPTQ is a state-of-the-art quantization method specifically designed for LLMs:```python
+#### GPTQ and Other Advanced Quantization Techniques
+
+GPTQ is a state-of-the-art quantization method specifically designed for LLMs:
+
+```python
 from transformers import AutoModelForCausalLM, GPTQConfig
 
 # Configure GPTQ
@@ -6288,7 +6519,11 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 ```
 
-###**Evaluating Quantized Modelslways evaluate quantization impact on model quality::**``python
+#### Evaluating Quantized Models
+
+Always evaluate quantization impact on model quality:
+
+```python
 def compare_quantized_models(original_model, quantized_model, tokenizer, eval_dataset):
     """Compare original and quantized model performance."""
     
@@ -6382,7 +6617,11 @@ def measure_inference_speed(model, tokenizer, prompt, max_length=100, num_runs=5
     return tokens_per_second
 ```
 
-### ###### # Optimizing Inference with ONNX and TensorRTnvert models to optimized formats for faster inference:`python
+#### Optimizing Inference with ONNX and TensorRT
+
+Convert models to optimized formats for faster inference:
+
+```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from optimum.onnxruntime import ORTModelForCausalLM
 
@@ -6406,7 +6645,11 @@ outputs = ort_model.generate(**inputs, max_length=100)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 ```
 
-### P###### P# Pruning: Removing Unnecessary Weightsning removes less important weights, further reducing model size:python
+#### Pruning: Removing Unnecessary Weights
+
+Pruning removes less important weights, further reducing model size:
+
+```python
 import torch.nn.utils.prune as prune
 
 def apply_weight_pruning(model, pruning_rate=0.3):
@@ -6438,7 +6681,11 @@ for module in pruned_model.modules():
         prune.remove(module, 'weight')
 ```
 
-### Di###### Di# Distillation: Creating Smaller, Faster Modelsledge distillation creates a smaller model that mimics the behavior of a larger one:ython
+#### Distillation: Creating Smaller, Faster Models
+
+Knowledge distillation creates a smaller model that mimics the behavior of a larger one:
+
+```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
 
 # Load teacher (large) and student (small) models
@@ -6578,7 +6825,10 @@ def format_instruction_dataset(example):
     }
 ```
 
-### S###### S# Step 3: Set Up LoRA Fine-tuningpython transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
+#### Step 3: Set Up LoRA Fine-tuning
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
 from peft import get_peft_model, LoraConfig, TaskType, PeftModel
 import torch
 
@@ -6613,7 +6863,8 @@ def setup_fine_tuning():
     
     return peft_model, tokenizer
 
-# Tok#### Tokenization functiontokenize_function(examples, tokenizer, max_length=512):
+# Tokenization function
+def tokenize_function(examples, tokenizer, max_length=512):
     return tokenizer(
         examples["text"],
         truncation=True,
@@ -6622,7 +6873,8 @@ def setup_fine_tuning():
         return_tensors="pt"
     )
 
-# Dat#### Data collator for causal language modeling (continued)s CustomDataCollator:
+# Data collator for causal language modeling (continued)
+class CustomDataCollator:
     def __init__(self, tokenizer):
         self.tokenizer = tokenizer
         
@@ -6641,7 +6893,9 @@ def setup_fine_tuning():
 ```
 
 
-### St# Step 4: Training Processython
+#### Step 4: Training Process
+
+```python
 from transformers import Trainer
 
 def train_model(model, tokenizer, dataset):
@@ -6695,7 +6949,10 @@ def train_model(model, tokenizer, dataset):
     return model, tokenizer
 ```
 
-######### Ste# Step 5: Evaluation Functionsthonf evaluate_technical_documentation(model, tokenizer, test_prompts):
+#### Step 5: Evaluation Functions
+
+```python
+def evaluate_technical_documentation(model, tokenizer, test_prompts):
     """Evaluate the model on technical documentation tasks."""
     model.eval()
     device = next(model.parameters()).device
@@ -6771,7 +7028,9 @@ def analyze_code_correctness(responses):
     return code_results
 ```
 
-### Step 6# Step 6: Put It All Togethern
+#### Step 6: Put It All Together
+
+```python
 def run_complete_project():
     """Run the complete fine-tuning project."""
     # Prepare data
@@ -6818,7 +7077,10 @@ if __name__ == "__main__":
     project_results = run_complete_project()
 ```
 
-### ###### Step 7:# Step 7: Save and Load the Fine-tuned Model save_and_load_model():
+#### Step 7: Save and Load the Fine-tuned Model
+
+```python
+def save_and_load_model():
     """Demonstrate how to save and load a LoRA fine-tuned model."""
     from peft import PeftModel, PeftConfig
     
@@ -6860,7 +7122,10 @@ if __name__ == "__main__":
     return model, tokenizer
 ```
 
-### Step 8: # Step 8: Apply Quantization for Deploymentdef prepare_for_deployment():
+#### Step 8: Apply Quantization for Deployment
+
+```python
+def prepare_for_deployment():
     """Demonstrate quantization and preparation for deployment."""
     from peft import PeftModel, PeftConfig
     import torch
@@ -6918,7 +7183,11 @@ if __name__ == "__main__":
         return merged_model, tokenizer
 ```
 
-######### Step 9: C# Step 9: Create a Simple Inference APIef create_inference_api(model, tokenizer):  """Create a simple FastAPI endpoint for model inference."""
+#### Step 9: Create a Simple Inference API
+
+```python
+def create_inference_api(model, tokenizer):
+    """Create a simple FastAPI endpoint for model inference."""
     try:
         from fastapi import FastAPI, HTTPException
         from pydantic import BaseModel

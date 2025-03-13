@@ -129,8 +129,8 @@ def find_markdown_headers(markdown_text):
     content = ''
     while i < len(blocks):
         if i % 2 == 1:
-            content += f"``` {blocks[i].strip()} ```"
-            char_index = len(content) - 1
+            content += f"```{blocks[i]}```"
+            char_index = len(content)
         else:
             content += blocks[i]
             for match in re.finditer(header_pattern, blocks[i]):
