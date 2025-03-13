@@ -16,15 +16,9 @@ Each module builds upon the previous ones, creating a comprehensive understandin
 - [[_Module 4 - The Transformer Revolution]]
 - [[_Module 5 - Scaling Up - From Models to LLMs]]
 - [[_Module 6 - Transfer Learning and Fine-tuning]]
+- [[_Module 7 - Prompt Engineering and In-context Learning]]
 
 ## future modules - not yet developed
-
-
-**Module 7: Prompt Engineering and In-context Learning**
-
-- The art and science of effective prompting
-- Few-shot and zero-shot techniques
-- Building prompt-based applications
 
 **Module 8: Alignment and Safety**
 

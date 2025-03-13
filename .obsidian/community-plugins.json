@@ -4,5 +4,6 @@
   "mathlive",
   "automatic-table-of-contents",
   "vscode-editor",
-  "github-sync"
+  "github-sync",
+  "better-export-pdf"
 ]
