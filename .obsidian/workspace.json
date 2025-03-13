@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/CURRENT_OUTLINE.md",
+                "file": "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CURRENT_OUTLINE"
+              "title": "Programming LLMs From Scratch - A Comprehensive Crash Course"
             }
           }
         ]
@@ -140,13 +140,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/CURRENT_OUTLINE.md",
+                "file": "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of CURRENT_OUTLINE"
+              "title": "Outline of Programming LLMs From Scratch - A Comprehensive Crash Course"
             }
           }
         ],
@@ -171,6 +171,7 @@
   },
   "active": "4177a8be28e47bcf",
   "lastOpenFiles": [
+    "llm/CURRENT_OUTLINE.md",
     "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
     "llm/modules/mod 6/_Module 6 - Transfer Learning and Fine-tuning.md",
     "llm/modules/mod 6/6.12 Preview of Module 7 - Prompt Engineering and In-context Learning.md",
@@ -186,7 +187,6 @@
     "llm/modules/mod 6/6.2 Full Fine-tuning.md",
     "llm/modules/mod 6/6.1 Transfer Learning Fundamentals.md",
     "Untitled 1.md",
-    "llm/CURRENT_OUTLINE.md",
     "llm/modules/mod 6",
     "llm/modules/mod 1/1.4 The Journey of a Prompt.md",
     "llm/modules/mod 1/_Module 1 - The Big Picture - What Are We Building.md",
