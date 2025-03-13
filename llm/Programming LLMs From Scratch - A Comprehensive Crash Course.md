@@ -15,14 +15,10 @@ Each module builds upon the previous ones, creating a comprehensive understandin
 - [[_Module 3 - Neural Networks for Language]]
 - [[_Module 4 - The Transformer Revolution]]
 - [[_Module 5 - Scaling Up - From Models to LLMs]]
+- [[_Module 6 - Transfer Learning and Fine-tuning]]
 
 ## future modules - not yet developed
 
-**Module 6: Transfer Learning and Fine-tuning**
-
-- Utilizing pre-trained models
-- Fine-tuning strategies and techniques
-- Advanced fine-tuning with parameter-efficient methods
 
 **Module 7: Prompt Engineering and In-context Learning**
 

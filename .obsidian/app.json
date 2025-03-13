@@ -6,5 +6,11 @@
   "newFileFolderPath": "uncategorized_notes",
   "promptDelete": false,
   "showInlineTitle": false,
-  "attachmentFolderPath": "assets/uncategorized"
+  "attachmentFolderPath": "assets/uncategorized",
+  "pdfExportSettings": {
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  }
 }

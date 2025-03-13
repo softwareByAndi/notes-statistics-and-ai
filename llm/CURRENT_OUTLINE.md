@@ -15,14 +15,10 @@ Each module builds upon the previous ones, creating a comprehensive understandin
 - [[_Module 3 - Neural Networks for Language]]
 - [[_Module 4 - The Transformer Revolution]]
 - [[_Module 5 - Scaling Up - From Models to LLMs]]
+- [[_Module 6 - Transfer Learning and Fine-tuning]]
 
 ## future modules - not yet developed
 
-**Module 6: Transfer Learning and Fine-tuning**
-
-- Utilizing pre-trained models
-- Fine-tuning strategies and techniques
-- Advanced fine-tuning with parameter-efficient methods
 
 **Module 7: Prompt Engineering and In-context Learning**
 
@@ -189,21 +185,17 @@ Imagine having read every book, article, and website ever published, and develop
 Language models have evolved dramatically over time:
 
 1. **Statistical Models (1980s-2000s)**
-    
     - Simple probability-based models (n-grams)
     - Limited by sparse data and lack of generalization
 2. **Neural Network Models (2010-2017)**
-    
     - Word embeddings (Word2Vec, GloVe)
     - Recurrent Neural Networks (RNNs, LSTMs)
     - Better generalization but struggled with long contexts
 3. **Transformer Revolution (2017-Present)**
-    
     - Attention mechanisms replaced recurrence
     - Enabled efficient training on massive datasets
     - Opened the door to truly large models
 4. **Scaling Era (2019-Present)**
-    
     - GPT, BERT, T5, and other massive models
     - Emergent capabilities appearing with scale
     - Continued improvements in architecture and training
@@ -3316,8 +3308,7 @@ def create_mlm_inputs_and_labels(input_ids, tokenizer, mask_probability=0.15):
 
 This approach forces the model to understand bidirectional context, as it needs to consider both left and right context to predict masked tokens.
 
-###### Hybrid Approaches
-Many modern models use hybrid or novel pre-training objectives:
+###### Hybrid ApproachesMany modern models use hybrid or novel pre-training objectives:
 
 1. **Span-based masking**: Masking consecutive spans of tokens rather than individual tokens (e.g., T5)
 2. **Prefix Language Modeling**: Combining autoregressive prediction with bidirectional attention (e.g., Prefix LM)
@@ -3325,8 +3316,7 @@ Many modern models use hybrid or novel pre-training objectives:
 
 Each approach comes with its own trade-offs in terms of efficiency, downstream performance, and alignment with specific use cases.
 
-###### Curriculum Learning for Pre-training
-Rather than training on random data, curriculum learning involves structuring the training process from easier to harder examples. For LLMs, this might mean:
+###### Curriculum Learning for Pre-trainingRather than training on random data, curriculum learning involves structuring the training process from easier to harder examples. For LLMs, this might mean:
 
 1. Starting with shorter, simpler texts
 2. Gradually introducing longer, more complex content
@@ -3389,14 +3379,20 @@ attention_output = self.attention(normalized_x) + x  # Residual connection
 ```
 
 
-###**The Challenges of Batch Size and Learning Ratene of the most important hyper-parameter relationships is between batch size and learning rate. As we scale to larger models and distributed training, batch sizes often increase dramatically.:**he relationship can be approximated as:
+### The Challenges of Batch Size and Learning Rate
+
+One of the most important hyper-parameter relationships is between batch size and learning rate. As we scale to larger models and distributed training, batch sizes often increase dramatically.:**he relationship can be approximated as:
 ```
 learning_rate ∝ sqrt(batch_size)
 ```
 
 This means if you increase your batch size by 4x, you should roughly double your learning rate. However, this relationship breaks down at extremely large batch sizes, necessitating more careful tuning.
 
-###**Loss Scaling for Mixed Precision Trainingraining in mixed precision (using float16 for most operations) is essential for efficiency with large models, but introduces numerical stability challenges. Loss scaling helps address this::**``python
+### Loss Scaling for Mixed Precision Training
+
+Training in mixed precision (using float16 for most operations) is essential for efficiency with large models, but introduces numerical stability challenges. Loss scaling helps address this:
+
+``` python
 # Example of manual loss scaling
 # Forward pass in float16
 outputs = model(inputs)
@@ -3490,9 +3486,7 @@ class AlbertTransformer(nn.Module):
         return hidden_states
 ```
 
-###### Mixture of Experts
-
-For extremely large models, Mixture of Experts (MoE) architectures have gained popularity. These models use "expert" neural networks (usually feed-forward networks) and a routing mechanism to send different inputs to different experts:
+###### Mixture of ExpertsFor extremely large models, Mixture of Experts (MoE) architectures have gained popularity. These models use "expert" neural networks (usually feed-forward networks) and a routing mechanism to send different inputs to different experts:
 
 ```python
 class MixtureOfExperts(nn.Module):
@@ -4372,6 +4366,2909 @@ Having explored how to scale up language models, our next module will focus on h
 7. **Quantization and Efficient Inference**: Deploying fine-tuned models efficiently
 
 By the end of Module 6, you'll have a comprehensive understanding of how to take large pre-trained models and efficiently adapt them for specific applications, which is the most practical approach to using LLMs in most real-world scenarios.
+
+---
+
+## Module 6 - Transfer Learning and Fine-tuning
+
+Welcome to Module 6 of our LLM crash course! In the previous module, we explored how to scale up language models to create truly powerful AI systems. We learned about scaling laws, distributed training, and the engineering challenges of building large models.
+
+However, training models from scratch requires enormous computational resources that most individuals and organizations simply don't have. The good news is that we don't need to train our own models from scratch. Instead, we can leverage pre-trained models and adapt them to our specific needs - a process called transfer learning.
+
+In this module, we'll explore how to take existing large language models and fine-tune them for specific tasks, domains, and applications. We'll learn both traditional fine-tuning approaches and cutting-edge parameter-efficient techniques that make fine-tuning accessible even with limited resources.
+
+- [[6.1 Transfer Learning Fundamentals]]
+- [[6.2 Full Fine-tuning]]
+- [[6.3 Parameter-Efficient Fine-tuning Methods]]
+- [[6.4 Task-Specific Adaptations]]
+- [[6.5 Domain Adaptation]]
+- [[6.6 Evaluating Fine-tuned Models]]
+- [[6.7 Preventing Catastrophic Forgetting]]
+- [[6.8 Quantization and Efficient Inference]]
+- [[6.9 Hands-On Project - Fine-tuning a Model for a Specialized Task]]
+- [[6.10 Key Takeaways from Module 6]]
+- [[6.11 Practice Exercises]]
+- [[6.12 Preview of Module 7 - Prompt Engineering and In-context Learning]]
+
+---
+
+### 6.1 Transfer Learning Fundamentals
+
+#### What is Transfer Learning?
+
+Transfer learning is the process of taking knowledge learned in one context and applying it to a different but related context. In the case of LLMs, this typically means:
+
+1. Starting with a model pre-trained on a vast corpus of general text
+2. Adapting this model to perform well on a specific task or domain
+
+This approach leverages the fact that pre-trained models have already learned rich representations of language, including grammar, facts, and even reasoning capabilities. We can then fine-tune these models with much less data and compute than would be required for training from scratch.
+
+#### Why Transfer Learning Works for Language Models
+
+To understand why transfer learning works so well for language models, let's think about what these models learn during pre-training:
+
+##### Layer-by-Layer Understanding
+
+Language models learn different types of knowledge at different layers:
+
+1. **Lower layers**: Capture syntactic patterns, basic grammar, and word relationships
+2. **Middle layers**: Encode semantic meaning and contextual relationships
+3. **Higher layers**: Represent more abstract knowledge and task-specific capabilities
+
+When we fine-tune, we're effectively preserving the foundational knowledge in the lower and middle layers while adjusting the higher layers to specialize in our target task.
+
+##### Foundation + Specialization
+
+Think of pre-trained LLMs as having two components:
+
+1. **Foundation**: General knowledge about language, facts, and reasoning
+2. **Task alignment**: Specific capabilities for particular tasks
+
+Pre-training builds the foundation, while fine-tuning aligns the model with specific tasks.
+
+#### The Pre-training/Fine-tuning Paradigm
+
+The standard approach to leveraging transfer learning with LLMs follows this pattern:
+
+1. **Pre-training**: Train a large model on a diverse corpus using self-supervised objectives (like next-token prediction)
+2. **Fine-tuning**: Adapt the pre-trained model to specific downstream tasks using labeled data
+
+This paradigm has become dominant because:
+
+- Pre-training is compute-intensive but needs to be done only once
+- Fine-tuning is relatively efficient and can be done many times for different tasks
+- The resulting models often perform better than those trained from scratch on the target task alone
+
+#### What Happens During Fine-tuning?
+
+During fine-tuning, several important things occur:
+
+1. **Weight adjustment**: The model's parameters are updated to minimize loss on the target task
+2. **Knowledge retention**: The model maintains much of its general knowledge
+3. **Task specialization**: The model becomes better at the specific task
+4. **Distribution shift**: The model adapts to the distribution of the fine-tuning data
+
+The key insight is that while the weights change, they don't change dramatically - they're "fine-tuned" rather than completely relearned. This preserves the valuable knowledge from pre-training.
+
+#### When to Fine-tune vs. When to Use Prompting
+
+Not all use cases require fine-tuning. Here's a general guideline:
+
+**Consider fine-tuning when**:
+
+- You have a specific, well-defined task
+- You have a moderate amount of high-quality labeled data (hundreds to thousands of examples)
+- The task requires consistent, reliable outputs
+- The task differs significantly from the model's pre-trained capabilities
+- You need optimal performance and efficiency
+
+**Consider prompting when**:
+
+- You need flexibility across diverse tasks
+- You have very few examples (0-100)
+- The task is well-aligned with the model's existing capabilities
+- You're exploring or prototyping solutions
+- You don't have resources for fine-tuning
+
+In practice, these approaches are complementary - you might use prompt engineering for exploration and initial development, then move to fine-tuning for production systems.
+
+#### Limitations and Considerations
+
+While transfer learning with LLMs is powerful, it has some important limitations:
+
+1. **Bias amplification**: Fine-tuning can amplify biases present in either the pre-trained model or fine-tuning data
+2. **Catastrophic forgetting**: Models can "forget" general capabilities when fine-tuned too aggressively
+3. **Overfitting**: With small fine-tuning datasets, models can easily memorize rather than generalize
+4. **Distribution mismatch**: If your fine-tuning data differs dramatically from the pre-training data, results may be unpredictable
+
+We'll address strategies for mitigating these issues throughout this module.
+
+---
+
+### 6.2 Full Fine-tuning
+
+Full fine-tuning is the most straightforward approach to transfer learning with LLMs. In this approach, we update all parameters of the pre-trained model using our task-specific data.
+
+#### The Full Fine-tuning Process
+
+Let's walk through the complete process of full fine-tuning:
+
+##### 1. Preparing Your Dataset
+
+The first step is to prepare a high-quality dataset for your target task. This typically involves:
+
+- **Data collection**: Gathering examples relevant to your task
+- **Preprocessing**: Cleaning and formatting the text
+- **Tokenization**: Converting text to the format expected by the model
+- **Train/validation split**: Creating separate sets for training and evaluation
+
+For supervised fine-tuning, each example usually consists of an input text and a target output. However, the exact format depends on your task.
+
+##### 2. Configuring the Pre-trained Model
+
+Next, we load a pre-trained model and configure it for fine-tuning:
+
+```python
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+# Load pre-trained model and tokenizer
+model_name = "gpt2-medium"  # Or any other pre-trained model
+model = AutoModelForCausalLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# Configure tokenizer and model for your task
+tokenizer.pad_token = tokenizer.eos_token
+model.config.pad_token_id = tokenizer.pad_token_id
+```
+
+##### 3. Setting Up Fine-tuning Hyperparameters
+
+Fine-tuning requires careful selection of hyperparameters:
+
+```python
+training_args = {
+    "learning_rate": 5e-5,  # Typically lower than for training from scratch
+    "num_train_epochs": 3,
+    "per_device_train_batch_size": 4,
+    "gradient_accumulation_steps": 8,  # Effectively increases batch size
+    "warmup_steps": 500,
+    "weight_decay": 0.01,
+    "logging_steps": 100,
+    "evaluation_strategy": "steps",
+    "save_strategy": "steps",
+    "fp16": True,  # Mixed precision training
+    "max_grad_norm": 1.0,  # Gradient clipping
+}
+```
+
+Some key considerations for hyperparameters:
+
+- **Learning rate**: Usually much lower than for training from scratch (1e-5 to 5e-5)
+- **Batch size**: Often smaller due to memory constraints (but can use gradient accumulation)
+- **Training epochs**: Fewer epochs (2-5) to prevent overfitting
+- **Weight decay**: Helps prevent overfitting (0.01 is a common value)
+
+####### 4. Training LoopThe training process involves:
+
+```python
+from transformers import Trainer, TrainingArguments
+
+# Set up training arguments
+args = TrainingArguments(
+    output_dir="./results",
+    **training_args
+)
+
+# Create trainer
+trainer = Trainer(
+    model=model,
+    args=args,
+    train_dataset=train_dataset,
+    eval_dataset=val_dataset,
+    tokenizer=tokenizer,
+)
+
+# Run training
+trainer.train()
+
+# Save the model
+trainer.save_model("./fine-tuned-model")
+```
+
+##**5. Evaluation and IterationAfter fine-tuning, we evaluate the model's performance::**```python
+# Evaluate on validation set
+metrics = trainer.evaluate()
+print(f"Validation loss: {metrics['eval_loss']:.4f}")
+
+# Try the model on some examples
+input_text = "Your test input here"
+inputs = tokenizer(input_text, return_tensors="pt")
+outputs = model.generate(**inputs, max_length=100)
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+```
+
+Based on the evaluation, we might adjust hyperparameters and repeat the process.
+
+###**Example: Fine-tuning for Sentiment Analysiset's look at a concrete example of fine-tuning for a specific task - sentiment analysis.:**``python
+import torch
+import pandas as pd
+from datasets import Dataset
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
+
+# 1. Prepare data
+df = pd.read_csv("sentiment_data.csv")
+dataset = Dataset.from_pandas(df)
+
+# Split into train and validation
+dataset = dataset.train_test_split(test_size=0.1)
+
+# 2. Load pre-trained model and tokenizer
+model_name = "distilbert-base-uncased"
+model = AutoModelForSequenceClassification.from_pretrained(
+    model_name, 
+    num_labels=3  # For positive, negative, neutral
+)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# 3. Preprocess data
+def tokenize_function(examples):
+    return tokenizer(
+        examples["text"], 
+        padding="max_length",
+        truncation=True,
+        max_length=128
+    )
+
+tokenized_datasets = dataset.map(tokenize_function, batched=True)
+
+# 4. Set up training arguments
+training_args = TrainingArguments(
+    output_dir="./sentiment-model",
+    learning_rate=2e-5,
+    per_device_train_batch_size=16,
+    per_device_eval_batch_size=16,
+    num_train_epochs=3,
+    weight_decay=0.01,
+    evaluation_strategy="epoch",
+    save_strategy="epoch",
+    load_best_model_at_end=True,
+)
+
+# 5. Train the model
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_datasets["train"],
+    eval_dataset=tokenized_datasets["test"],
+    tokenizer=tokenizer,
+)
+
+trainer.train()
+
+# 6. Save the model
+trainer.save_model("./sentiment-model-final")
+
+# 7. Evaluate on an example
+test_text = "I absolutely loved this product, it exceeded all my expectations!"
+inputs = tokenizer(test_text, return_tensors="pt", padding=True, truncation=True)
+outputs = model(**inputs)
+predictions = torch.softmax(outputs.logits, dim=1)
+print(f"Positive: {predictions[0][0]:.4f}, Neutral: {predictions[0][1]:.4f}, Negative: {predictions[0][2]:.4f}")
+```
+
+### ###### # Advantages of Full Fine-tuningll fine-tuning offers several benefits: **Optimal performance**: Generally achieves the best possible performance for a given task
+2. **Complete adaptation**: All layers can adapt to the target domain and task
+3. **Established process**: Well-understood with extensive research and tooling
+4. **Flexibility**: Works for a wide range of tasks and model architectures
+
+### ###### # Challenges and Limitationsspite its effectiveness, full fine-tuning has significant drawbacks: **Computational requirements**: Fine-tuning large models needs substantial GPU memory
+2. **Storage needs**: Each fine-tuned model requires storing a complete copy
+3. **Risk of overfitting**: Especially with small datasets
+4. **Catastrophic forgetting**: The model may lose general capabilities
+5. **Difficult to merge**: Combining multiple fine-tuned models is challenging
+
+These limitations have motivated the development of parameter-efficient fine-tuning methods, which we'll explore next.
+
+---
+
+### 6.3 Parameter-Efficient Fine-tuning Methods
+
+As language models grow larger, full fine-tuning becomes increasingly impractical. Parameter-efficient fine-tuning (PEFT) methods address this by updating only a small subset of parameters or introducing a small number of new parameters.
+
+These approaches offer several benefits:
+
+1. **Lower memory requirements**: Often reducing memory needs by 90%+ during training
+2. **Faster training**: Fewer parameters to update means faster iterations
+3. **Better generalization**: Often less prone to overfitting on small datasets
+4. **Storage efficiency**: The fine-tuned components are much smaller than the full model
+5. **Modularity**: Easier to combine multiple fine-tuned models
+
+Let's explore the most important PEFT techniques.
+
+#### Adapter-Based Methods
+
+Adapters insert small trainable modules into the pre-trained model while keeping the original parameters frozen.
+
+##### How Adapters Work
+
+1. **Architecture**: Typically a down-projection, followed by a non-linearity, then an up-projection
+2. **Placement**: Usually after attention and/or feed-forward blocks in each layer
+3. **Size**: Contain far fewer parameters than the original layers (reduction factor r, typically 8-64)
+
+```python
+class Adapter(nn.Module):
+    def __init__(self, hidden_size, adapter_size, adapter_dropout=0.1):
+        super().__init__()
+        self.down_project = nn.Linear(hidden_size, adapter_size)
+        self.activation = nn.GELU()
+        self.up_project = nn.Linear(adapter_size, hidden_size)
+        self.dropout = nn.Dropout(adapter_dropout)
+        self.layer_norm = nn.LayerNorm(hidden_size)
+        
+    def forward(self, hidden_states):
+        residual = hidden_states
+        hidden_states = self.layer_norm(hidden_states)
+        hidden_states = self.down_project(hidden_states)
+        hidden_states = self.activation(hidden_states)
+        hidden_states = self.up_project(hidden_states)
+        hidden_states = self.dropout(hidden_states)
+        return hidden_states + residual
+```
+
+##### Implementation Example with Transformers Library
+
+```python
+from transformers import AutoModelForCausalLM
+from peft import get_peft_model, AdapterConfig
+
+# Load pre-trained model
+model = AutoModelForCausalLM.from_pretrained("gpt2")
+
+# Configure adapters
+peft_config = AdapterConfig(
+    r=16,  # Reduction factor
+    lora_alpha=16,
+    lora_dropout=0.1,
+    bias="none",
+    task_type="CAUSAL_LM"
+)
+
+# Get PEFT model for fine-tuning
+peft_model = get_peft_model(model, peft_config)
+
+# Check trainable parameters
+trainable_params = sum(p.numel() for p in peft_model.parameters() if p.requires_grad)
+total_params = sum(p.numel() for p in peft_model.parameters())
+print(f"Trainable parameters: {trainable_params} ({trainable_params/total_params:.2%} of total)")
+```
+
+###### LoRA: Low-Rank AdaptationLoRA is one of the most popular PEFT methods. It approximates the weight updates during fine-tuning using low-rank matrices.
+
+####### How LoRA Works1. **Key insight**: Weight updates during fine-tuning often have low "intrinsic rank"
+2. **Implementation**: Decomposes weight updates into pairs of low-rank matrices (A×B)
+3. **Application**: Usually applied to query and value projection matrices in attention
+4. **Training**: Only the low-rank matrices are trained, original weights remain frozen
+
+```python
+class LoRALayer(nn.Module):
+    def __init__(self, base_layer, rank=8, alpha=16):
+        super().__init__()
+        self.base_layer = base_layer
+        self.rank = rank
+        self.alpha = alpha
+        
+        # Initialize A with random values and B with zeros
+        self.lora_A = nn.Parameter(torch.randn(base_layer.in_features, rank) * 0.01)
+        self.lora_B = nn.Parameter(torch.zeros(rank, base_layer.out_features))
+        
+        # Freeze original weights
+        for param in self.base_layer.parameters():
+            param.requires_grad = False
+            
+    def forward(self, x):
+        # Regular forward pass
+        base_output = self.base_layer(x)
+        
+        # Add LoRA contribution, scaled by alpha/rank
+        lora_output = (x @ self.lora_A) @ self.lora_B
+        scaling = self.alpha / self.rank
+        
+        return base_output + scaling * lora_output
+```
+
+##**LoRA Implementation with PEFT Library:**`python
+from transformers import AutoModelForCausalLM
+from peft import get_peft_model, LoraConfig, TaskType
+
+# Load pre-trained model
+model = AutoModelForCausalLM.from_pretrained("gpt2")
+
+# Configure LoRA
+peft_config = LoraConfig(
+    task_type=TaskType.CAUSAL_LM,
+    r=8,  # Rank
+    lora_alpha=16,  # Alpha scaling
+    lora_dropout=0.1,
+    target_modules=["q_proj", "v_proj"]  # Apply only to query and value projections
+)
+
+# Create PEFT model
+peft_model = get_peft_model(model, peft_config)
+
+# Check parameter count
+trainable_params = sum(p.numel() for p in peft_model.parameters() if p.requires_grad)
+total_params = sum(p.numel() for p in peft_model.parameters())
+print(f"Trainable params: {trainable_params} ({trainable_params/total_params:.2%} of total)")
+```
+
+###**Prompt Tuning and Prefix Tuninghese methods add trainable tokens to the input, leaving the entire model frozen.:**##**Prompt Tuning. **Approach**: Prepends trainable continuous "soft prompt" embeddings to the input:** **Training**: Only the soft prompt parameters are updated
+3. **Advantages**: Extremely parameter-efficient, model can be completely frozen
+
+```python
+class PromptTuningModel(nn.Module):
+    def __init__(self, base_model, tokenizer, num_virtual_tokens=20):
+        super().__init__()
+        self.base_model = base_model
+        self.tokenizer = tokenizer
+        self.num_virtual_tokens = num_virtual_tokens
+        
+        # Freeze the base model
+        for param in self.base_model.parameters():
+            param.requires_grad = False
+            
+        # Create trainable prompt embeddings
+        self.prompt_embeddings = nn.Parameter(
+            torch.randn(
+                1, self.num_virtual_tokens, self.base_model.config.hidden_size
+            )
+        )
+        
+    def forward(self, input_ids, attention_mask=None, **kwargs):
+        batch_size = input_ids.shape[0]
+        
+        # Get token embeddings from the model
+        token_embeds = self.base_model.get_input_embeddings()(input_ids)
+        
+        # Expand prompt embeddings to batch size
+        prompt_embeds = self.prompt_embeddings.expand(batch_size, -1, -1)
+        
+        # Concatenate prompt embeddings with token embeddings
+        inputs_embeds = torch.cat([prompt_embeds, token_embeds], dim=1)
+        
+        # Adjust attention mask if provided
+        if attention_mask is not None:
+            prefix_mask = torch.ones(
+                batch_size, self.num_virtual_tokens, device=attention_mask.device
+            )
+            attention_mask = torch.cat([prefix_mask, attention_mask], dim=1)
+            
+        # Forward pass with extended embeddings
+        outputs = self.base_model(
+            inputs_embeds=inputs_embeds,
+            attention_mask=attention_mask,
+            **kwargs
+        )
+        
+        return outputs
+```
+
+####**Prefix Tuningefix tuning is similar to prompt tuning but inserts trainable vectors at each layer of the model instead of just the input.:**`python
+class PrefixTuningModel(nn.Module):
+    def __init__(self, base_model, prefix_length=20):
+        super().__init__()
+        self.base_model = base_model
+        self.prefix_length = prefix_length
+        
+        # Freeze the base model
+        for param in self.base_model.parameters():
+            param.requires_grad = False
+        
+        # Get configuration
+        config = self.base_model.config
+        hidden_size = config.hidden_size
+        num_layers = config.num_hidden_layers
+        num_heads = config.num_attention_heads
+        head_size = hidden_size // num_heads
+        
+        # Create trainable prefixes for each layer
+        self.prefix_keys = nn.Parameter(
+            torch.randn(num_layers, prefix_length, num_heads, head_size)
+        )
+        
+        self.prefix_values = nn.Parameter(
+            torch.randn(num_layers, prefix_length, num_heads, head_size)
+        )
+        
+    def forward(self, input_ids, **kwargs):
+        # Standard forward pass with modified attention
+        # (implementation would hook into the attention mechanism)
+        # This is a simplified sketch - actual implementation would depend on model architecture
+        
+        return self.base_model(input_ids, **kwargs)
+```
+
+### Q###### Q# QLoRA and Other Quantized Approachesse methods combine quantization with parameter-efficient fine-tuning to further reduce memory requirements.# **## QLoRARA quantizes the base model (typically to 4 or 8 bits) and then applies LoRA for fine-tuning. This dramatically reduces memory usage.:**python
+from transformers import AutoModelForCausalLM
+from peft import get_peft_model, LoraConfig, TaskType
+import bitsandbytes as bnb
+
+# Load pre-trained model in 4-bit quantization
+model = AutoModelForCausalLM.from_pretrained(
+    "llama-7b",
+    load_in_4bit=True,
+    quantization_config=BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_compute_dtype=torch.float16,
+        bnb_4bit_quant_type="nf4"
+    )
+)
+
+# Configure LoRA
+peft_config = LoraConfig(
+    task_type=TaskType.CAUSAL_LM,
+    r=8,
+    lora_alpha=16,
+    lora_dropout=0.1,
+    target_modules=["q_proj", "v_proj", "k_proj", "o_proj"]
+)
+
+# Create PEFT model
+peft_model = get_peft_model(model, peft_config)
+
+# Check memory usage
+from peft.utils import get_peft_model_state_dict
+print(f"Size of fine-tuned adapters: {sum(p.numel() * p.element_size() for p in get_peft_model_state_dict(peft_model).values()) / (1024 * 1024):.2f} MB")
+```
+
+### Co###### Co# Comparison of PEFT Methodselp you choose the right approach, here's a comparison:hod|Parameter Efficiency|Memory Usage|Performance|Flexibility|Ease of Use|
+|---|---|---|---|---|---|
+|Full Fine-tuning|Low|High|Excellent|High|Easy|
+|Adapters|Medium|Medium|Very Good|Medium|Medium|
+|LoRA|High|Low|Very Good|High|Easy|
+|Prompt Tuning|Very High|Very Low|Good|Limited|Medium|
+|QLoRA|Very High|Very Low|Very Good|High|Medium|
+
+### Ch###### Ch# Choosing the Right PEFT Methodider these factors when selecting a PEFT approach:*Available compute resources**: Limited GPU memory favors more efficient methods like QLoRA
+2. **Dataset size**: Smaller datasets work better with more constrained methods like LoRA
+3. **Task complexity**: Complex tasks may benefit from more expressive methods like adapters
+4. **Deployment constraints**: Storage or latency requirements may favor certain approaches
+5. **Multi-task requirements**: Need to switch between tasks favors modular approaches
+
+For most users just getting started with fine-tuning, LoRA or QLoRA are excellent default choices, offering a good balance of efficiency, performance, and ease of use.
+
+---
+
+### 6.4 Task-Specific Adaptations
+
+Different tasks require different approaches to fine-tuning. In this section, we'll explore how to adapt pre-trained models for various common tasks.
+
+#### Classification Tasks
+
+Text classification involves categorizing text into predefined classes (sentiment analysis, topic classification, etc.).
+
+##### Approach for Classification
+
+1. **Model architecture**: Add a classification head on top of the pre-trained model
+2. **Loss function**: Cross-entropy loss
+3. **Output format**: Probabilities across classes
+
+```python
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
+
+# Load pre-trained model with classification head
+model = AutoModelForSequenceClassification.from_pretrained(
+    "distilbert-base-uncased", 
+    num_labels=4  # Number of classes
+)
+
+# Prepare classification dataset
+def preprocess_function(examples):
+    return tokenizer(examples["text"], truncation=True, padding="max_length")
+
+# Training setup
+training_args = TrainingArguments(
+    output_dir="./classification-model",
+    learning_rate=2e-5,
+    per_device_train_batch_size=16,
+    num_train_epochs=3,
+    evaluation_strategy="epoch"
+)
+
+# Train model
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_train_dataset,
+    eval_dataset=tokenized_eval_dataset
+)
+trainer.train()
+```
+
+##### Handling Class Imbalance
+
+When classes aren't equally represented:
+
+```python
+# Compute class weights
+from sklearn.utils.class_weight import compute_class_weight
+import numpy as np
+
+labels = [example["label"] for example in train_dataset]
+class_weights = compute_class_weight(
+    class_weight="balanced",
+    classes=np.unique(labels),
+    y=labels
+)
+
+# Convert to tensor
+class_weights = torch.tensor(class_weights, dtype=torch.float)
+
+# Create weighted loss function
+class WeightedLoss(nn.Module):
+    def __init__(self, class_weights):
+        super().__init__()
+        self.class_weights = class_weights
+        
+    def forward(self, outputs, targets):
+        return F.cross_entropy(
+            outputs.view(-1, outputs.size(-1)), 
+            targets.view(-1), 
+            weight=self.class_weights.to(outputs.device)
+        )
+
+# Use in training
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_train_dataset,
+    eval_dataset=tokenized_eval_dataset,
+    compute_loss=WeightedLoss(class_weights)
+)
+```
+
+###### Sequence Tagging TasksSequence tagging assigns labels to individual tokens (named entity recognition, part-of-speech tagging, etc.).
+
+####### Approach for Sequence Tagging1. **Model architecture**: Use a token classification head
+2. **Loss function**: Token-level cross-entropy loss
+3. **Output format**: Label for each token
+
+```python
+from transformers import AutoModelForTokenClassification, AutoTokenizer
+
+# Load pre-trained model for token classification
+model = AutoModelForTokenClassification.from_pretrained(
+    "distilbert-base-uncased", 
+    num_labels=9  # Number of NER tags (B-PER, I-PER, etc.)
+)
+
+# Prepare NER dataset
+def tokenize_and_align_labels(examples):
+    tokenized_inputs = tokenizer(
+        examples["tokens"], 
+        truncation=True, 
+        is_split_into_words=True
+    )
+    labels = []
+    
+    for i, label in enumerate(examples["ner_tags"]):
+        word_ids = tokenized_inputs.word_ids(batch_index=i)
+        aligned_labels = []
+        
+        previous_word_id = None
+        for word_id in word_ids:
+            if word_id is None:
+                aligned_labels.append(-100)  # Special tokens
+            elif word_id != previous_word_id:
+                aligned_labels.append(label[word_id])
+            else:
+                # For tokens that are part of the same word
+                # Use either the same tag or a special tag
+                aligned_labels.append(label[word_id])
+            previous_word_id = word_id
+            
+        labels.append(aligned_labels)
+    
+    tokenized_inputs["labels"] = labels
+    return tokenized_inputs
+```
+
+######## Text Generation TasksText generation involves creating coherent text based on a prompt (story generation, text completion, etc.).##**Approach for Text Generation1. **Model architecture**: Decoder-only or encoder-decoder models:**. **Loss function**: Next-token prediction (causal language modeling)
+3. **Output format**: Generated text sequence
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
+
+# Load pre-trained model for causal language modeling
+model = AutoModelForCausalLM.from_pretrained("gpt2")
+tokenizer = AutoTokenizer.from_pretrained("gpt2")
+tokenizer.pad_token = tokenizer.eos_token  # Set pad token
+
+# Prepare generation dataset
+def preprocess_function(examples):
+    return tokenizer(
+        examples["text"], 
+        truncation=True, 
+        padding="max_length",
+        max_length=512
+    )
+
+# Training setup
+training_args = TrainingArguments(
+    output_dir="./generation-model",
+    learning_rate=5e-5,
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=4,
+    num_train_epochs=3,
+    evaluation_strategy="steps",
+    eval_steps=500
+)
+
+# Train model
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_train_dataset,
+    eval_dataset=tokenized_eval_dataset,
+    data_collator=lambda data: {'input_ids': torch.stack([x['input_ids'] for x in data]),
+                              'attention_mask': torch.stack([x['attention_mask'] for x in data]),
+                              'labels': torch.stack([x['input_ids'] for x in data])}
+)
+trainer.train()
+```
+
+###**Question Answering Tasksuestion answering extracts answers from a context given a question.:**##**Approach for Extractive QA. **Model architecture**: Add span prediction head (start/end positions):** **Loss function**: Combined loss for start and end positions
+3. **Output format**: Start and end indices for the answer span
+
+```python
+from transformers import AutoModelForQuestionAnswering, AutoTokenizer
+
+# Load pre-trained model for question answering
+model = AutoModelForQuestionAnswering.from_pretrained("distilbert-base-uncased")
+tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
+
+# Prepare QA dataset
+def preprocess_function(examples):
+    questions = [q.strip() for q in examples["question"]]
+    contexts = [c.strip() for c in examples["context"]]
+    
+    # Tokenize questions and contexts together
+    inputs = tokenizer(
+        questions,
+        contexts,
+        truncation="only_second",
+        max_length=384,
+        stride=128,
+        padding="max_length",
+        return_overflowing_tokens=True,
+        return_offsets_mapping=True
+    )
+    
+    # Map token positions to character positions
+    offset_mapping = inputs.pop("offset_mapping")
+    
+    # Get start and end positions
+    start_positions = []
+    end_positions = []
+    
+    for i, offset in enumerate(offset_mapping):
+        sample_idx = inputs["overflow_to_sample_mapping"][i]
+        answer = examples["answers"][sample_idx]
+        
+        start_char = answer["answer_start"][0]
+        end_char = start_char + len(answer["text"][0])
+        
+        sequence_ids = inputs.sequence_ids(i)
+        
+        # Find token indices that contain the answer
+        token_start_index = 0
+        while sequence_ids[token_start_index] != 1:
+            token_start_index += 1
+            
+        token_end_index = len(input_ids[i]) - 1
+        while sequence_ids[token_end_index] != 1:
+            token_end_index -= 1
+            
+        # If answer not fully contained in context, use cls token
+        if (offset[token_start_index][0] > end_char or 
+            offset[token_end_index][1] < start_char):
+            start_positions.append(0)
+            end_positions.append(0)
+        else:
+            # Find token containing start of answer
+            while (token_start_index < len(offset) and 
+                  offset[token_start_index][0] <= start_char):
+                token_start_index += 1
+            start_positions.append(token_start_index - 1)
+            
+            # Find token containing end of answer
+            while offset[token_end_index][1] >= end_char:
+                token_end_index -= 1
+            end_positions.append(token_end_index + 1)
+    
+    inputs["start_positions"] = start_positions
+    inputs["end_positions"] = end_positions
+    return inputs
+```
+
+### ###### # Summarization Tasksmmarization condenses a longer text into a shorter one while preserving key information.##**Approach for Summarization **Model architecture**: Encoder-decoder models (e.g., T5, BART):****Loss function**: Cross-entropy on output tokens
+3. **Output format**: Generated summary text
+
+```python
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, Seq2SeqTrainer, Seq2SeqTrainingArguments
+
+# Load pre-trained model for summarization
+model = AutoModelForSeq2SeqLM.from_pretrained("t5-base")
+tokenizer = AutoTokenizer.from_pretrained("t5-base")
+
+# Prepare summarization dataset
+def preprocess_function(examples):
+    # For T5, prefix the task
+    inputs = ["summarize: " + doc for doc in examples["document"]]
+    
+    # Tokenize inputs and targets
+    model_inputs = tokenizer(
+        inputs, 
+        max_length=1024, 
+        truncation=True,
+        padding="max_length"
+    )
+    
+    # Tokenize summaries
+    labels = tokenizer(
+        examples["summary"], 
+        max_length=128, 
+        truncation=True,
+        padding="max_length"
+    )
+    
+    # Set -100 for padding tokens
+    labels["input_ids"] = [
+        [(l if l != tokenizer.pad_token_id else -100) for l in label]
+        for label in labels["input_ids"]
+    ]
+    
+    model_inputs["labels"] = labels["input_ids"]
+    return model_inputs
+
+# Training setup
+training_args = Seq2SeqTrainingArguments(
+    output_dir="./summarization-model",
+    learning_rate=3e-5,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
+    gradient_accumulation_steps=4,
+    num_train_epochs=4,
+    evaluation_strategy="epoch",
+    predict_with_generate=True,
+    generation_max_length=128
+)
+
+# Train model
+trainer = Seq2SeqTrainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_train_dataset,
+    eval_dataset=tokenized_eval_dataset,
+)
+trainer.train()
+```
+
+### T###### T# Translation Tasksnslation converts text from one language to another.# **## Approach for Translation**Model architecture**: Encoder-decoder models:***Loss function**: Cross-entropy on output tokens
+3. **Output format**: Translated text
+
+```python
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, Seq2SeqTrainer, Seq2SeqTrainingArguments
+
+# Load pre-trained model for translation
+model = AutoModelForSeq2SeqLM.from_pretrained("t5-base")
+tokenizer = AutoTokenizer.from_pretrained("t5-base")
+
+# Prepare translation dataset
+def preprocess_function(examples):
+    # For T5, prefix with the task
+    inputs = ["translate English to French: " + en for en in examples["en"]]
+    
+    # Tokenize inputs and targets
+    model_inputs = tokenizer(
+        inputs, 
+        max_length=512, 
+        truncation=True,
+        padding="max_length"
+    )
+    
+    # Tokenize translations
+    labels = tokenizer(
+        examples["fr"], 
+        max_length=512, 
+        truncation=True,
+        padding="max_length"
+    )
+    
+    # Set -100 for padding tokens
+    labels["input_ids"] = [
+        [(l if l != tokenizer.pad_token_id else -100) for l in label]
+        for label in labels["input_ids"]
+    ]
+    
+    model_inputs["labels"] = labels["input_ids"]
+    return model_inputs
+```
+
+### Ta###### Ta# Task-Specific Best Practicesss all tasks, certain best practices can help improve fine-tuning outcomes:*Data quality over quantity**: A smaller, high-quality dataset often outperforms a larger, noisy one
+2. **Task-specific preprocessing**: Adapt preprocessing to the specific requirements of your task
+3. **Evaluation metrics**: Choose metrics that align with the end-use of the model
+4. **Early stopping**: Monitor validation performance and stop when it plateaus
+5. **Learning rate schedules**: Warm-up followed by decay often works well
+6. **Task-specific generation parameters**: Tune generation hyperparameters (temperature, top-p, etc.) for your specific use case
+
+By adapting these approaches to your specific needs, you can effectively fine-tune models for a wide range of NLP tasks.
+
+---
+
+### 6.5 Domain Adaptation
+
+Domain adaptation involves fine-tuning a pre-trained model to perform well on data from a specific domain (medical, legal, scientific, etc.). The challenge is that these domains often have specialized terminology and linguistic patterns that differ from general language.
+
+#### Why Domain Adaptation Matters
+
+Pre-trained LLMs typically learn from broad web corpora, which may not adequately capture the nuances of specialized domains. Domain adaptation helps models:
+
+1. Learn domain-specific vocabulary and terminology
+2. Understand specialized discourse patterns
+3. Incorporate domain knowledge
+4. Reduce errors on domain-specific tasks
+
+#### Continual Pre-training
+
+The most common approach to domain adaptation is continual pre-training - continuing the pre-training process on domain-specific data before fine-tuning for specific tasks.
+
+##### Implementation
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments, DataCollatorForLanguageModeling
+
+# Load pre-trained model
+model = AutoModelForCausalLM.from_pretrained("gpt2")
+tokenizer = AutoTokenizer.from_pretrained("gpt2")
+tokenizer.pad_token = tokenizer.eos_token
+
+# Create data collator for language modeling
+data_collator = DataCollatorForLanguageModeling(
+    tokenizer=tokenizer, 
+    mlm=False  # Causal language modeling, not masked
+)
+
+# Set up training arguments for domain adaptation
+training_args = TrainingArguments(
+    output_dir="./domain-adapted-model",
+    learning_rate=1e-5,  # Lower learning rate for domain adaptation
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=8,
+    num_train_epochs=2,
+    save_strategy="steps",
+    save_steps=1000,
+    evaluation_strategy="steps",
+    eval_steps=1000,
+    weight_decay=0.01,
+    warmup_steps=500,
+    logging_steps=100,
+)
+
+# Train on domain-specific data
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=domain_train_dataset,
+    eval_dataset=domain_val_dataset,
+    data_collator=data_collator,
+)
+trainer.train()
+
+# Save domain-adapted model
+model.save_pretrained("./domain-adapted-model-final")
+tokenizer.save_pretrained("./domain-adapted-model-final")
+```
+
+#### Domain-Specific Vocabulary
+
+Many domains have specialized terminology not well-represented in standard tokenizers. Training a domain-adapted tokenizer can significantly improve performance.
+
+##### Extending the Vocabulary
+
+```python
+from tokenizers import ByteLevelBPETokenizer
+
+# Train a tokenizer on domain data
+tokenizer = ByteLevelBPETokenizer()
+
+# Train from scratch
+tokenizer.train(
+    files=domain_text_files,
+    vocab_size=50000,
+    min_frequency=2,
+    special_tokens=["<s>", "</s>", "<unk>", "<pad>", "<mask>"]
+)
+tokenizer.save_model("./domain-tokenizer")
+
+# Alternative: Extend existing tokenizer
+from transformers import AutoTokenizer
+
+base_tokenizer = AutoTokenizer.from_pretrained("gpt2")
+domain_terms = ["oncogene", "carcinoma", "metastasis", "biopsy", "chemotherapy"]
+
+# Add new tokens to the tokenizer
+num_added = base_tokenizer.add_tokens(domain_terms)
+print(f"Added {num_added} tokens to the vocabulary")
+
+# Resize token embeddings in the model
+model.resize_token_embeddings(len(base_tokenizer))
+```
+
+###### Effective Domain Adaptation Strategies####### 1. Data CurationThe quality of domain-specific data is crucial:
+
+```python
+def curate_domain_corpus(texts, domain_terms, min_term_frequency=2):
+    """Filter texts to ensure domain relevance."""
+    relevant_texts = []
+    
+    for text in texts:
+        # Count domain terms in the text
+        domain_term_count = sum(text.lower().count(term.lower()) for term in domain_terms)
+        
+        # Select texts with sufficient domain terminology
+        if domain_term_count >= min_term_frequency:
+            relevant_texts.append(text)
+            
+    return relevant_texts
+```
+
+##**2. Staged AdaptationFor best results, use a staged approach::**1. **General pre-training**: Start with a generally pre-trained model
+2. **Domain pre-training**: Continue pre-training on domain corpus
+3. **Task-specific fine-tuning**: Fine-tune for specific tasks within the domain
+
+##**3. Domain-Specific EvaluationCreate domain-specific evaluation benchmarks::**```python
+def evaluate_domain_specificity(model, tokenizer, domain_test_set, general_test_set):
+    """Compare performance on domain vs. general data."""
+    # Evaluate on domain data
+    domain_results = evaluate_perplexity(model, tokenizer, domain_test_set)
+    
+    # Evaluate on general data
+    general_results = evaluate_perplexity(model, tokenizer, general_test_set)
+    
+    # Compare results
+    print(f"Domain perplexity: {domain_results['perplexity']:.2f}")
+    print(f"General perplexity: {general_results['perplexity']:.2f}")
+    print(f"Domain specialization (ratio): {general_results['perplexity'] / domain_results['perplexity']:.2f}")
+    
+    return {
+        "domain_perplexity": domain_results['perplexity'],
+        "general_perplexity": general_results['perplexity'],
+        "specialization_ratio": general_results['perplexity'] / domain_results['perplexity']
+    }
+```
+
+###**Domain Adaptation with PEFTor efficient domain adaptation, parameter-efficient methods work well::**``python
+from transformers import AutoModelForCausalLM
+from peft import get_peft_model, LoraConfig, TaskType
+
+# Load pre-trained model
+model = AutoModelForCausalLM.from_pretrained("gpt2")
+
+# Configure LoRA for domain adaptation
+lora_config = LoraConfig(
+    task_type=TaskType.CAUSAL_LM,
+    r=16,  # Higher rank for domain adaptation
+    lora_alpha=32,
+    lora_dropout=0.05,
+    target_modules=["c_attn"]  # Target attention layers
+)
+
+# Create PEFT model
+peft_model = get_peft_model(model, lora_config)
+
+# Training setup for domain adaptation
+training_args = TrainingArguments(
+    output_dir="./lora-domain-adapter",
+    learning_rate=2e-4,
+    num_train_epochs=3,
+    per_device_train_batch_size=8,
+    save_strategy="epoch",
+    evaluation_strategy="epoch"
+)
+
+# Train on domain data
+trainer = Trainer(
+    model=peft_model,
+    args=training_args,
+    train_dataset=domain_train_dataset,
+    eval_dataset=domain_val_dataset,
+    data_collator=data_collator
+)
+trainer.train()
+
+# Save the adapter weights
+peft_model.save_pretrained("./lora-domain-adapter")
+```
+
+### ###### # Domain Adaptation for Specific Industriest's look at adaptation strategies for particular domains:##**Medical Domaindical text has unique challenges::**`python
+# Medical-specific preprocessing
+def preprocess_medical_text(text):
+    # Standardize medical abbreviations
+    text = re.sub(r'\b(?:Dx|DX)\b', 'diagnosis', text)
+    text = re.sub(r'\b(?:Tx|TX)\b', 'treatment', text)
+    text = re.sub(r'\b(?:Hx|HX)\b', 'history', text)
+    
+    # Handle numeric expressions
+    text = re.sub(r'(\d+)(-|\s)(\d+)\s*(?:mg|mcg|ml|g)', r'\1-\3 \4', text)
+    
+    # Remove PHI (Protected Health Information)
+    text = re.sub(r'\b\d{3}-\d{2}-\d{4}\b', '[SSN]', text)  # SSN
+    text = re.sub(r'\b\d{3}-\d{3}-\d{4}\b', '[PHONE]', text)  # Phone
+    
+    return text
+```
+
+#### **## Legal Domainal text requires special handling::**python
+# Legal corpus weighting
+def weight_legal_corpus(texts, categories):
+    """Weight training examples by legal category."""
+    weights = {
+        "case_law": 0.3,
+        "statutes": 0.3,
+        "contracts": 0.2,
+        "legal_memos": 0.1,
+        "legal_briefs": 0.1
+    }
+    
+    weighted_corpus = []
+    for text, category in zip(texts, categories):
+        # Duplicate examples according to weights
+        num_copies = max(1, int(100 * weights.get(category, 0.1)))
+        weighted_corpus.extend([text] * num_copies)
+        
+    return weighted_corpus
+```
+
+#### T**T## Technical Documentationtechnical domains like software documentation::**ython
+# Extract and retain code blocks
+def process_technical_docs(text):
+    # Split into text and code segments
+    segments = []
+    code_pattern = r'```(?:[a-z]+)?\n(.*?)```'
+    
+    code_blocks = re.findall(code_pattern, text, re.DOTALL)
+    
+    # Replace code blocks with placeholders
+    placeholder_text = re.sub(code_pattern, '[CODE_BLOCK]', text, flags=re.DOTALL)
+    
+    # Split text on placeholders
+    text_segments = placeholder_text.split('[CODE_BLOCK]')
+    
+    # Interleave text and code
+    for i in range(max(len(text_segments), len(code_blocks))):
+        if i < len(text_segments):
+            segments.append({"type": "text", "content": text_segments[i]})
+        if i < len(code_blocks):
+            segments.append({"type": "code", "content": code_blocks[i]})
+    
+    return segments
+```
+
+---
+
+### 6.6 Evaluating Fine-tuned Models
+
+Proper evaluation is crucial to determine if fine-tuning has improved model performance for your specific task and to compare different fine-tuning approaches.
+
+#### Setting Up a Comprehensive Evaluation Framework
+
+A good evaluation setup should:
+
+1. Use separate validation and test sets
+2. Include multiple metrics
+3. Compare to relevant baselines
+4. Test for specific capabilities and limitations
+
+```python
+def evaluate_model(model, tokenizer, test_dataset, task_type):
+    """Comprehensive model evaluation for different task types."""
+    
+    results = {}
+    
+    # Common setup
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
+    model.eval()
+    
+    if task_type == "classification":
+        # Classification metrics
+        all_predictions = []
+        all_references = []
+        
+        # Create dataloader
+        dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=16)
+        
+        with torch.no_grad():
+            for batch in dataloader:
+                inputs = {k: v.to(device) for k, v in batch.items() if k != "labels"}
+                labels = batch["labels"].to(device)
+                
+                outputs = model(**inputs)
+                logits = outputs.logits
+                
+                predictions = torch.argmax(logits, dim=-1)
+                
+                all_predictions.extend(predictions.cpu().numpy())
+                all_references.extend(labels.cpu().numpy())
+        
+        # Calculate metrics
+        from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+        
+        results["accuracy"] = accuracy_score(all_references, all_predictions)
+        results["f1"] = f1_score(all_references, all_predictions, average="weighted")
+        results["precision"] = precision_score(all_references, all_predictions, average="weighted")
+        results["recall"] = recall_score(all_references, all_predictions, average="weighted")
+        
+    elif task_type == "generation":
+        # Generation metrics
+        from rouge_score import rouge_scorer
+        from nltk.translate.bleu_score import corpus_bleu
+        import nltk
+        nltk.download('punkt')
+        
+        scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
+        
+        all_generations = []
+        all_references = []
+        
+        # Generate text for each prompt
+        for example in test_dataset:
+            input_text = example["prompt"]
+            reference = example["completion"]
+            
+            inputs = tokenizer(input_text, return_tensors="pt").to(device)
+            
+            # Generate text
+            output_ids = model.generate(
+                inputs.input_ids,
+                max_length=512,
+                num_beams=5,
+                early_stopping=True
+            )
+            
+            generated_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+            
+            all_generations.append(generated_text)
+            all_references.append(reference)
+        
+        # Calculate ROUGE scores
+        rouge1_sum = rouge2_sum = rougeL_sum = 0
+        for gen, ref in zip(all_generations, all_references):
+            scores = scorer.score(ref, gen)
+            rouge1_sum += scores['rouge1'].fmeasure
+            rouge2_sum += scores['rouge2'].fmeasure
+            rougeL_sum += scores['rougeL'].fmeasure
+        
+        n_examples = len(all_generations)
+        results["rouge1"] = rouge1_sum / n_examples
+        results["rouge2"] = rouge2_sum / n_examples
+        results["rougeL"] = rougeL_sum / n_examples
+        
+        # Calculate BLEU score
+        references_tokenized = [[nltk.word_tokenize(ref)] for ref in all_references]
+        generations_tokenized = [nltk.word_tokenize(gen) for gen in all_generations]
+        
+        bleu_score = corpus_bleu(references_tokenized, generations_tokenized)
+        results["bleu"] = bleu_score
+    
+    # Add perplexity for any text generation model
+    if hasattr(model, "compute_loss"):
+        # Calculate perplexity
+        total_loss = 0
+        total_tokens = 0
+        
+        dataloader = torch.utils.data.DataLoader(
+            test_dataset, 
+            batch_size=4, 
+            collate_fn=lambda data: {
+                'input_ids': torch.stack([x['input_ids'] for x in data]),
+                'attention_mask': torch.stack([x['attention_mask'] for x in data]),
+                'labels': torch.stack([x['input_ids'] for x in data])
+            }
+        )
+        
+        with torch.no_grad():
+            for batch in dataloader:
+                inputs = {k: v.to(device) for k, v in batch.items()}
+                outputs = model(**inputs)
+                loss = outputs.loss
+                
+                total_loss += loss.item() * batch["input_ids"].size(1)
+                total_tokens += (batch["attention_mask"].sum()).item()
+        
+        avg_loss = total_loss / total_tokens
+        perplexity = math.exp(avg_loss)
+        results["perplexity"] = perplexity
+    
+    return results
+```
+
+#### Task-Specific Evaluation Metrics
+
+Different tasks require different evaluation approaches:
+
+##### Classification Metrics
+
+```python
+def evaluate_classification(model, eval_dataset):
+    # Standard metrics
+    metrics = evaluate_model(model, tokenizer, eval_dataset, "classification")
+    
+    # Add confusion matrix
+    from sklearn.metrics import confusion_matrix
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    
+    # Get predictions
+    predictions = []
+    references = []
+    for batch in eval_dataloader:
+        inputs = {k: v.to(device) for k, v in batch.items() if k != "labels"}
+        outputs = model(**inputs)
+        preds = torch.argmax(outputs.logits, dim=-1)
+        
+        predictions.extend(preds.cpu().numpy())
+        references.extend(batch["labels"].cpu().numpy())
+    
+    # Create confusion matrix
+    cm = confusion_matrix(references, predictions)
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.xlabel('Predicted')
+    plt.ylabel('True')
+    plt.title('Confusion Matrix')
+    plt.savefig('confusion_matrix.png')
+    
+    return metrics
+```
+
+####### Generation Metrics```python
+def evaluate_generation_quality(model, tokenizer, prompts, temperature=0.7):
+    """Evaluate text generation quality."""
+    model.eval()
+    device = next(model.parameters()).device
+    
+    generations = []
+    
+    for prompt in prompts:
+        inputs = tokenizer(prompt, return_tensors="pt").to(device)
+        
+        # Generate with different settings
+        outputs_greedy = model.generate(
+            inputs.input_ids, 
+            max_length=200,
+            do_sample=False
+        )
+        
+        outputs_sampling = model.generate(
+            inputs.input_ids, 
+            max_length=200,
+            do_sample=True, 
+            temperature=temperature, 
+            top_p=0.92
+        )
+        
+        text_greedy = tokenizer.decode(outputs_greedy[0], skip_special_tokens=True)
+        text_sampling = tokenizer.decode(outputs_sampling[0], skip_special_tokens=True)
+        
+        generations.append({
+            "prompt": prompt,
+            "greedy": text_greedy,
+            "sampling": text_sampling
+        })
+    
+    # Human evaluation is recommended for generation quality
+    return generations
+```
+
+##**Domain-Specific Evaluation:**`python
+def evaluate_domain_accuracy(model, tokenizer, domain_test_cases):
+    """Evaluate accuracy on domain-specific knowledge."""
+    model.eval()
+    device = next(model.parameters()).device
+    
+    correct = 0
+    total = len(domain_test_cases)
+    
+    results = []
+    
+    for case in domain_test_cases:
+        question = case["question"]
+        correct_answer = case["answer"]
+        
+        # Format as Q&A
+        prompt = f"Question: {question}\nAnswer:"
+        
+        inputs = tokenizer(prompt, return_tensors="pt").to(device)
+        
+        # Generate answer
+        outputs = model.generate(
+            inputs.input_ids,
+            max_length=100,
+            num_beams=3,
+            early_stopping=True
+        )
+        
+        # Extract generated answer
+        generated_answer = tokenizer.decode(outputs[0][len(inputs.input_ids[0]):], skip_special_tokens=True).strip()
+        
+        # Check if answer is correct (exact match or contains correct answer)
+        is_correct = correct_answer.lower() in generated_answer.lower()
+        if is_correct:
+            correct += 1
+            
+        results.append({
+            "question": question,
+            "correct_answer": correct_answer,
+            "generated_answer": generated_answer,
+            "is_correct": is_correct
+        })
+    
+    accuracy = correct / total
+    print(f"Domain knowledge accuracy: {accuracy:.2f} ({correct}/{total})")
+    
+    return {
+        "accuracy": accuracy,
+        "detailed_results": results
+    }
+```
+
+###**Behavioral Evaluationeyond task performance, it's important to evaluate behavioral aspects of fine-tuned models::**``python
+def evaluate_behavioral_changes(base_model, fine_tuned_model, tokenizer, test_cases):
+    """Compare responses between base and fine-tuned models."""
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    base_model.to(device)
+    fine_tuned_model.to(device)
+    
+    base_model.eval()
+    fine_tuned_model.eval()
+    
+    results = []
+    
+    for case in test_cases:
+        prompt = case["prompt"]
+        inputs = tokenizer(prompt, return_tensors="pt").to(device)
+        
+        # Generate from base model
+        base_outputs = base_model.generate(
+            inputs.input_ids,
+            max_length=200,
+            do_sample=True,
+            temperature=0.7
+        )
+        
+        # Generate from fine-tuned model
+        ft_outputs = fine_tuned_model.generate(
+            inputs.input_ids,
+            max_length=200,
+            do_sample=True,
+            temperature=0.7
+        )
+        
+        base_text = tokenizer.decode(base_outputs[0], skip_special_tokens=True)
+        ft_text = tokenizer.decode(ft_outputs[0], skip_special_tokens=True)
+        
+        results.append({
+            "prompt": prompt,
+            "base_response": base_text,
+            "fine_tuned_response": ft_text,
+            "category": case["category"]
+        })
+    
+    # Analyze results by category
+    category_counts = {}
+    for result in results:
+        category = result["category"]
+        if category not in category_counts:
+            category_counts[category] = {"total": 0, "different": 0}
+        
+        category_counts[category]["total"] += 1
+        
+        # Simple difference check (could be more sophisticated)
+        if result["base_response"] != result["fine_tuned_response"]:
+            category_counts[category]["different"] += 1
+    
+    # Calculate difference percentages
+    for category, counts in category_counts.items():
+        diff_percent = counts["different"] / counts["total"] * 100
+        print(f"Category '{category}': {diff_percent:.1f}% responses changed after fine-tuning")
+    
+    return results, category_counts
+```
+
+### ###### # Comparison with Baselinesways compare your fine-tuned model against relevant baselines:`python
+def compare_with_baselines(models, tokenizer, eval_dataset, task):
+    """Compare multiple models on the same evaluation set."""
+    results = {}
+    
+    for model_name, model in models.items():
+        print(f"Evaluating model: {model_name}")
+        model_results = evaluate_model(model, tokenizer, eval_dataset, task)
+        results[model_name] = model_results
+    
+    # Print comparison table
+    metrics = list(results[list(results.keys())[0]].keys())
+    
+    print("\nComparison Table:")
+    header = "Model".ljust(20) + " | " + " | ".join(metric.ljust(12) for metric in metrics)
+    print("-" * len(header))
+    print(header)
+    print("-" * len(header))
+    
+    for model_name, model_results in results.items():
+        row = model_name.ljust(20) + " | "
+        row += " | ".join(f"{model_results[metric]:.4f}".ljust(12) for metric in metrics)
+        print(row)
+    
+    print("-" * len(header))
+    
+    return results
+```
+
+### I###### I# Interpreting Evaluation Resultsond the raw numbers, it's important to understand what evaluation results mean:python
+def analyze_evaluation_results(results, baseline_results):
+    """Analyze and interpret evaluation results."""
+    analysis = {}
+    
+    # Calculate improvements
+    for metric, value in results.items():
+        if metric in baseline_results:
+            improvement = value - baseline_results[metric]
+            percent_improvement = (improvement / baseline_results[metric]) * 100
+            
+            analysis[metric] = {
+                "value": value,
+                "baseline": baseline_results[metric],
+                "absolute_improvement": improvement,
+                "percent_improvement": percent_improvement
+            }
+    
+    # Print analysis
+    print("\nPerformance Analysis:")
+    for metric, data in analysis.items():
+        print(f"{metric}:")
+        print(f"  Current: {data['value']:.4f}")
+        print(f"  Baseline: {data['baseline']:.4f}")
+        print(f"  Improvement: {data['absolute_improvement']:.4f} ({data['percent_improvement']:.2f}%)")
+    
+    # Overall assessment
+    avg_improvement = sum(data["percent_improvement"] for data in analysis.values()) / len(analysis)
+    print(f"\nAverage improvement: {avg_improvement:.2f}%")
+    
+    if avg_improvement > 15:
+        overall = "Significant improvement"
+    elif avg_improvement > 5:
+        overall = "Moderate improvement"
+    elif avg_improvement > 0:
+        overall = "Slight improvement"
+    else:
+        overall = "No improvement or regression"
+    
+    print(f"Overall assessment: {overall}")
+    
+    return analysis
+```
+
+---
+
+### 6.7 Preventing Catastrophic Forgetting
+
+Catastrophic forgetting occurs when a model loses previously learned capabilities after fine-tuning on a new task. This is particularly problematic with LLMs, where we want to preserve general knowledge while adding specialized capabilities.
+
+#### Understanding Catastrophic Forgetting
+
+When we fine-tune a model, its parameters shift to optimize for the new task. If these shifts significantly alter the representations learned during pre-training, the model may "forget" capabilities not explicitly tested in the fine-tuning objective.
+
+Common symptoms include:
+
+1. Degraded performance on tasks unrelated to fine-tuning
+2. Loss of factual knowledge
+3. Reduced generalization capabilities
+4. Over-specialization to the fine-tuning domain
+
+#### Techniques to Mitigate Catastrophic Forgetting
+
+##### 1. Regularization Methods
+
+Elastic Weight Consolidation (EWC) penalizes changes to important parameters:
+
+```python
+class EWCLoss(nn.Module):
+    def __init__(self, model, old_model, fisher_estimation_dataset, lambda_ewc=100):
+        super().__init__()
+        self.model = model
+        self.old_model = old_model
+        self.lambda_ewc = lambda_ewc
+        
+        # Store old parameters
+        self.old_params = {name: param.clone().detach() 
+                          for name, param in old_model.named_parameters()}
+        
+        # Estimate Fisher Information Matrix
+        self.fisher = self._estimate_fisher(fisher_estimation_dataset)
+        
+    def _estimate_fisher(self, dataset):
+        """Estimate Fisher Information Matrix."""
+        fisher = {name: torch.zeros_like(param) 
+                 for name, param in self.model.named_parameters()}
+        
+        self.model.eval()
+        for batch in dataset:
+            self.model.zero_grad()
+            outputs = self.model(**batch)
+            loss = outputs.loss
+            loss.backward()
+            
+            for name, param in self.model.named_parameters():
+                if param.grad is not None:
+                    fisher[name] += param.grad.pow(2) / len(dataset)
+        
+        return fisher
+    
+    def forward(self, outputs, targets):
+        # Standard task loss
+        task_loss = F.cross_entropy(outputs, targets)
+        
+        # EWC regularization loss
+        ewc_loss = 0
+        for name, param in self.model.named_parameters():
+            if name in self.fisher and name in self.old_params:
+                ewc_loss += torch.sum(self.fisher[name] * (param - self.old_params[name]).pow(2))
+        
+        # Combined loss
+        loss = task_loss + self.lambda_ewc * ewc_loss
+        
+        return loss
+```
+
+##### 2. Replay Methods
+
+Interleave examples from the pre-training or previous tasks:
+
+```python
+def create_mixed_dataset(new_task_dataset, general_capability_dataset, mix_ratio=0.2):
+    """Create a mixed dataset with examples from both tasks."""
+    
+    # Determine how many general examples to include
+    num_general_examples = int(len(new_task_dataset) * mix_ratio / (1 - mix_ratio))
+    
+    # Select samples from general dataset
+    if len(general_capability_dataset) > num_general_examples:
+        general_samples = random.sample(list(general_capability_dataset), num_general_examples)
+    else:
+        general_samples = list(general_capability_dataset)
+    
+    # Combine datasets
+    mixed_dataset = list(new_task_dataset) + general_samples
+    random.shuffle(mixed_dataset)
+    
+    return mixed_dataset
+```
+
+####### 3. Multitask LearningTrain on multiple tasks simultaneously:
+
+```python
+def create_multitask_dataset(task_datasets, task_prefixes):
+    """Create a multitask dataset with task prefixes."""
+    combined_dataset = []
+    
+    for task_name, dataset in task_datasets.items():
+        prefix = task_prefixes[task_name]
+        
+        # Add task prefix to each example
+        prefixed_dataset = []
+        for example in dataset:
+            prefixed_example = example.copy()
+            prefixed_example["input_text"] = prefix + " " + example["input_text"]
+            prefixed_dataset.append(prefixed_example)
+        
+        combined_dataset.extend(prefixed_dataset)
+    
+    # Shuffle the combined dataset
+    random.shuffle(combined_dataset)
+    
+    return combined_dataset
+```
+
+##**4. Parameter-Efficient Fine-tuningPEFT methods naturally mitigate catastrophic forgetting by keeping most parameters frozen::**```python
+from transformers import AutoModelForCausalLM
+from peft import get_peft_model, LoraConfig
+
+# Load pre-trained model
+model = AutoModelForCausalLM.from_pretrained("gpt2")
+
+# Configure LoRA
+peft_config = LoraConfig(
+    task_type="CAUSAL_LM",
+    r=8,
+    lora_alpha=16,
+    lora_dropout=0.1,
+    target_modules=["c_attn"]
+)
+
+# Create PEFT model - base weights are frozen
+peft_model = get_peft_model(model, peft_config)
+```
+
+###**5. Knowledge Distillationse the original model to guide the fine-tuned model::**``python
+class DistillationLoss(nn.Module):
+    def __init__(self, teacher_model, temperature=2.0, alpha=0.5):
+        super().__init__()
+        self.teacher_model = teacher_model
+        self.temperature = temperature
+        self.alpha = alpha
+        
+        # Freeze teacher model
+        for param in teacher_model.parameters():
+            param.requires_grad = False
+            
+    def forward(self, student_logits, labels, inputs):
+        # Standard cross-entropy loss
+        ce_loss = F.cross_entropy(student_logits, labels)
+        
+        # Get teacher predictions
+        with torch.no_grad():
+            teacher_logits = self.teacher_model(**inputs).logits
+            
+        # Distillation loss
+        distill_loss = F.kl_div(
+            F.log_softmax(student_logits / self.temperature, dim=-1),
+            F.softmax(teacher_logits / self.temperature, dim=-1),
+            reduction='batchmean'
+        ) * (self.temperature ** 2)
+        
+        # Combined loss
+        loss = (1 - self.alpha) * ce_loss + self.alpha * distill_loss
+        
+        return loss
+```
+
+### ###### # Measuring and Monitoring Forgetting's important to track if your fine-tuning is causing catastrophic forgetting:`python
+def evaluate_forgetting(base_model, fine_tuned_model, tokenizer, general_eval_datasets):
+    """Evaluate how much general capability has been lost."""
+    
+    results = {}
+    
+    for dataset_name, dataset in general_eval_datasets.items():
+        print(f"Evaluating on {dataset_name}...")
+        
+        # Evaluate base model
+        base_metrics = evaluate_model(base_model, tokenizer, dataset, task_type="generation")
+        
+        # Evaluate fine-tuned model
+        ft_metrics = evaluate_model(fine_tuned_model, tokenizer, dataset, task_type="generation")
+        
+        # Calculate changes
+        changes = {}
+        for metric, value in base_metrics.items():
+            change = ft_metrics[metric] - value
+            percent_change = (change / value) * 100 if value != 0 else float('inf')
+            
+            changes[metric] = {
+                "base": value,
+                "fine_tuned": ft_metrics[metric],
+                "absolute_change": change,
+                "percent_change": percent_change
+            }
+        
+        results[dataset_name] = changes
+    
+    # Print summary
+    print("\nForgetting Analysis:")
+    for dataset_name, changes in results.items():
+        print(f"\n{dataset_name}:")
+        for metric, data in changes.items():
+            change_str = f"{data['absolute_change']:.4f} ({data['percent_change']:.2f}%)"
+            change_type = "Improvement" if data['percent_change'] > 0 else "Regression"
+            print(f"  {metric}: {change_str} - {change_type}")
+    
+    return results
+```
+
+### P###### P# Practical Strategy for Preventing Forgettingpractice, a combination of techniques works best:Use PEFT methods as a first line of defense
+2. Include a small amount of diverse "replay" data in fine-tuning
+3. Apply lightweight regularization like knowledge distillation
+4. Continuously monitor for forgetting on general tasks
+5. Use multi-stage fine-tuning with decreasing learning rates
+
+---
+
+### 6.8 Quantization and Efficient Inference
+
+After fine-tuning a model, deploying it efficiently becomes the next challenge. Quantization reduces the precision of model weights, significantly decreasing memory usage and increasing inference speed with minimal impact on quality.
+
+#### Understanding Quantization
+
+Quantization converts high-precision weights (usually FP32 or FP16) to lower precision (INT8, INT4, or even lower):
+
+- **FP32**: 32-bit floating point (standard precision)
+- **FP16**: 16-bit floating point (half precision)
+- **INT8**: 8-bit integer (quantized)
+- **INT4**: 4-bit integer (highly quantized)
+
+#### Types of Quantization
+
+##### Post-Training Quantization (PTQ)
+
+PTQ applies quantization after training without further fine-tuning:
+
+```python
+from transformers import AutoModelForCausalLM, BitsAndBytesConfig
+
+# Configure quantization
+quantization_config = BitsAndBytesConfig(
+    load_in_8bit=True,
+    llm_int8_threshold=6.0
+)
+
+# Load model with quantization
+model = AutoModelForCausalLM.from_pretrained(
+    "your-fine-tuned-model",
+    quantization_config=quantization_config,
+    device_map="auto"
+)
+
+# Model is now loaded in 8-bit precision
+print(f"Model size in memory: {model.get_memory_footprint() / 1e9:.2f} GB")
+```
+
+##### Quantization-Aware Training (QAT)
+
+QAT incorporates quantization during the training process:
+
+```python
+import torch.quantization as quantization
+
+# Define quantization configuration
+qconfig = quantization.get_default_qconfig('fbgemm')  # For x86 CPUs
+model.qconfig = qconfig
+
+# Prepare model for QAT
+quantization.prepare_qat(model, inplace=True)
+
+# Train with quantization awareness
+for epoch in range(num_epochs):
+    train_one_epoch(model, criterion, optimizer, data_loader, device)
+    
+    # Adjust learning rate
+    scheduler.step()
+
+# Convert to quantized model
+quantization.convert(model, inplace=True)
+```
+
+####### Dynamic QuantizationApplied at runtime without calibration data:
+
+```python
+import torch
+
+# Apply dynamic quantization
+quantized_model = torch.quantization.quantize_dynamic(
+    model,  # Model to quantize
+    {torch.nn.Linear},  # Layers to quantize
+    dtype=torch.qint8  # Quantization data type
+)
+
+# Compare model sizes
+fp32_size = sum(p.numel() * 4 for p in model.parameters())  # 4 bytes per param for fp32
+q_size = sum(p.numel() * (1 if isinstance(p, torch.qint8) else 4) for p in quantized_model.parameters())
+
+print(f"FP32 model size: {fp32_size / 1e6:.2f} MB")
+print(f"Quantized model size: {q_size / 1e6:.2f} MB")
+print(f"Compression ratio: {fp32_size / q_size:.2f}x")
+```
+
+######## GPTQ and Other Advanced Quantization TechniquesGPTQ is a state-of-the-art quantization method specifically designed for LLMs:```python
+from transformers import AutoModelForCausalLM, GPTQConfig
+
+# Configure GPTQ
+gptq_config = GPTQConfig(
+    bits=4,  # 4-bit quantization
+    group_size=128,  # Group size for quantization
+    dataset="c4",  # Calibration dataset
+    desc_act=False  # Whether to quantize activations
+)
+
+# Load and quantize model
+model = AutoModelForCausalLM.from_pretrained(
+    "your-fine-tuned-model",
+    quantization_config=gptq_config,
+    device_map="auto"
+)
+```
+
+###**Evaluating Quantized Modelslways evaluate quantization impact on model quality::**``python
+def compare_quantized_models(original_model, quantized_model, tokenizer, eval_dataset):
+    """Compare original and quantized model performance."""
+    
+    print("Evaluating original model...")
+    original_results = evaluate_model(original_model, tokenizer, eval_dataset, "generation")
+    
+    print("Evaluating quantized model...")
+    quantized_results = evaluate_model(quantized_model, tokenizer, eval_dataset, "generation")
+    
+    # Compare results
+    print("\nPerformance Comparison:")
+    print("Metric".ljust(15) + "Original".ljust(15) + "Quantized".ljust(15) + "Difference".ljust(15) + "% Change")
+    print("-" * 75)
+    
+    for metric in original_results:
+        orig_val = original_results[metric]
+        quant_val = quantized_results[metric]
+        difference = quant_val - orig_val
+        percent = (difference / orig_val) * 100 if orig_val != 0 else float('inf')
+        
+        print(
+            f"{metric}".ljust(15) + 
+            f"{orig_val:.4f}".ljust(15) + 
+            f"{quant_val:.4f}".ljust(15) + 
+            f"{difference:.4f}".ljust(15) + 
+            f"{percent:.2f}%"
+        )
+    
+    # Speed comparison
+    print("\nSpeed Comparison:")
+    original_speed = measure_inference_speed(original_model, tokenizer, prompt="Your test prompt here")
+    quantized_speed = measure_inference_speed(quantized_model, tokenizer, prompt="Your test prompt here")
+    
+    speedup = quantized_speed / original_speed if original_speed > 0 else float('inf')
+    print(f"Original model: {original_speed:.2f} tokens/sec")
+    print(f"Quantized model: {quantized_speed:.2f} tokens/sec")
+    print(f"Speedup: {speedup:.2f}x")
+    
+    # Memory usage
+    import torch
+    original_memory = torch.cuda.max_memory_allocated() / 1e9 if torch.cuda.is_available() else "N/A"
+    torch.cuda.reset_peak_memory_stats()
+    
+    # Run inference with quantized model
+    inputs = tokenizer("Test prompt", return_tensors="pt").to(next(quantized_model.parameters()).device)
+    quantized_model.generate(**inputs, max_length=50)
+    
+    quantized_memory = torch.cuda.max_memory_allocated() / 1e9 if torch.cuda.is_available() else "N/A"
+    
+    print(f"\nMemory Usage:")
+    print(f"Original model: {original_memory:.2f} GB")
+    print(f"Quantized model: {quantized_memory:.2f} GB")
+    if isinstance(original_memory, float) and isinstance(quantized_memory, float):
+        print(f"Memory reduction: {original_memory/quantized_memory:.2f}x")
+    
+    return {
+        "performance": {
+            "original": original_results,
+            "quantized": quantized_results
+        },
+        "speed": {
+            "original": original_speed,
+            "quantized": quantized_speed,
+            "speedup": speedup
+        },
+        "memory": {
+            "original": original_memory,
+            "quantized": quantized_memory
+        }
+    }
+
+def measure_inference_speed(model, tokenizer, prompt, max_length=100, num_runs=5):
+    """Measure inference speed in tokens per second."""
+    device = next(model.parameters()).device
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+    
+    # Warm-up run
+    _ = model.generate(**inputs, max_length=max_length)
+    
+    # Timed runs
+    start_time = time.time()
+    for _ in range(num_runs):
+        generated = model.generate(**inputs, max_length=max_length)
+    end_time = time.time()
+    
+    # Calculate tokens per second
+    total_time = end_time - start_time
+    num_tokens_generated = generated.shape[1] - inputs.input_ids.shape[1]
+    tokens_per_second = (num_tokens_generated * num_runs) / total_time
+    
+    return tokens_per_second
+```
+
+### ###### # Optimizing Inference with ONNX and TensorRTnvert models to optimized formats for faster inference:`python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from optimum.onnxruntime import ORTModelForCausalLM
+
+# Load model and tokenizer
+model_id = "your-fine-tuned-model"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+# Convert to ONNX with Optimum
+ort_model = ORTModelForCausalLM.from_pretrained(
+    model_id,
+    from_transformers=True,
+    provider="CUDAExecutionProvider"
+)
+
+# Save ONNX model
+ort_model.save_pretrained("./onnx-model")
+
+# Inference with ONNX model
+inputs = tokenizer("Generate a story about:", return_tensors="pt")
+outputs = ort_model.generate(**inputs, max_length=100)
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+```
+
+### P###### P# Pruning: Removing Unnecessary Weightsning removes less important weights, further reducing model size:python
+import torch.nn.utils.prune as prune
+
+def apply_weight_pruning(model, pruning_rate=0.3):
+    """Apply magnitude pruning to model weights."""
+    for name, module in model.named_modules():
+        if isinstance(module, torch.nn.Linear):
+            prune.l1_unstructured(module, name='weight', amount=pruning_rate)
+            
+    # Calculate sparsity after pruning
+    total_params = 0
+    zero_params = 0
+    
+    for name, param in model.named_parameters():
+        if 'weight' in name:
+            total_params += param.numel()
+            zero_params += (param == 0).sum().item()
+    
+    sparsity = 100.0 * zero_params / total_params
+    print(f"Model sparsity after pruning: {sparsity:.2f}%")
+    
+    return model
+
+# Apply pruning
+pruned_model = apply_weight_pruning(model, pruning_rate=0.3)
+
+# Make pruning permanent
+for module in pruned_model.modules():
+    if isinstance(module, torch.nn.Linear):
+        prune.remove(module, 'weight')
+```
+
+### Di###### Di# Distillation: Creating Smaller, Faster Modelsledge distillation creates a smaller model that mimics the behavior of a larger one:ython
+from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
+
+# Load teacher (large) and student (small) models
+teacher_model = AutoModelForCausalLM.from_pretrained("your-fine-tuned-model")
+student_model = AutoModelForCausalLM.from_pretrained("gpt2")  # Smaller model
+
+tokenizer = AutoTokenizer.from_pretrained("your-fine-tuned-model")
+
+# Freeze teacher model
+for param in teacher_model.parameters():
+    param.requires_grad = False
+
+# Custom distillation training loop
+class DistillationTrainer(Trainer):
+    def compute_loss(self, model, inputs, return_outputs=False):
+        # Student forward pass
+        student_outputs = model(**inputs)
+        student_logits = student_outputs.logits
+        
+        # Teacher forward pass
+        with torch.no_grad():
+            teacher_outputs = self.teacher_model(**inputs)
+            teacher_logits = teacher_outputs.logits
+        
+        # Standard language modeling loss
+        loss_ce = student_outputs.loss
+        
+        # Distillation loss
+        temperature = 2.0
+        loss_kd = F.kl_div(
+            F.log_softmax(student_logits / temperature, dim=-1),
+            F.softmax(teacher_logits / temperature, dim=-1),
+            reduction="batchmean"
+        ) * (temperature ** 2)
+        
+        # Combined loss
+        alpha = 0.5  # Weight between CE and KD loss
+        loss = alpha * loss_ce + (1 - alpha) * loss_kd
+        
+        return (loss, student_outputs) if return_outputs else loss
+
+# Set up distillation trainer
+distill_trainer = DistillationTrainer(
+    model=student_model,
+    teacher_model=teacher_model,
+    args=TrainingArguments(
+        output_dir="./distilled-model",
+        learning_rate=5e-5,
+        num_train_epochs=3,
+        per_device_train_batch_size=4,
+        evaluation_strategy="steps",
+        eval_steps=500,
+        save_strategy="steps",
+        save_steps=500,
+        logging_dir="./logs"
+    ),
+    train_dataset=train_dataset,
+    eval_dataset=val_dataset,
+)
+
+# Train distilled model
+distill_trainer.train()
+
+# Save distilled model
+distill_trainer.save_model("./distilled-model-final")
+```
+
+---
+
+### 6.9 Hands-On Project - Fine-tuning a Model for a Specialized Task
+
+Let's put everything we've learned into practice with a complete project to fine-tune a model for a specialized task: creating a technical documentation assistant.
+
+#### Project Overview
+
+We'll fine-tune a model to:
+
+1. Answer questions about programming concepts
+2. Generate code examples in various languages
+3. Explain technical concepts clearly
+4. Follow a consistent style for documentation
+
+#### Step 1: Define Requirements
+
+```python
+# Project Requirements
+project = {
+    "name": "TechDocGPT",
+    "description": "A specialized assistant for technical documentation",
+    "base_model": "gpt2-medium",
+    "fine_tuning_method": "LoRA",
+    "target_tasks": ["question-answering", "code-generation", "explanation"],
+    "evaluation_metrics": ["accuracy", "code_correctness", "clarity"]
+}
+```
+
+#### Step 2: Prepare Training Data
+
+```python
+import pandas as pd
+from datasets import Dataset
+
+# Load and prepare training data
+def prepare_training_data():
+    # Sample data structure (in practice, you'd have a larger dataset)
+    data = {
+        "instruction": [
+            "Explain how HTTP requests work",
+            "Write a Python function to sort a list of numbers",
+            "What is the difference between REST and GraphQL?",
+            "Create a React component for a login form"
+        ],
+        "response": [
+            "HTTP (Hypertext Transfer Protocol) is the foundation of data communication on the web. Here's how HTTP requests work:\n\n1. The client (browser) sends an HTTP request to a server\n2. This request includes a method (GET, POST, etc.), headers, and sometimes a body\n3. The server processes the request and sends back an HTTP response\n4. The response contains a status code, headers, and usually a body with the requested data\n\nThe most common HTTP methods are:\n- GET: Retrieve data\n- POST: Submit data\n- PUT: Update existing data\n- DELETE: Remove data",
+            
+            "```python\ndef sort_numbers(numbers):\n    \"\"\"\n    Sort a list of numbers in ascending order.\n    \n    Args:\n        numbers: List of integers or floats\n        \n    Returns:\n        A new list with the numbers sorted\n    \"\"\"\n    # Using Python's built-in sorted function\n    return sorted(numbers)\n    \n    # Alternatively, we could use the list.sort() method\n    # This modifies the original list instead of returning a new one\n    # numbers.sort()\n    # return numbers\n```\n\nThis function takes a list of numbers and returns a new sorted list. The built-in `sorted()` function handles both integers and floats, and can even sort strings or other comparable objects.",
+            
+            "REST (Representational State Transfer) and GraphQL are both approaches for building APIs, but they differ in several key ways:\n\n1. **Data Fetching**:\n   - REST: Typically utilizes multiple endpoints, each returning fixed data structures\n   - GraphQL: Uses a single endpoint where clients specify exactly what data they need\n\n2. **Over/Under-fetching**:\n   - REST: Often returns too much data or requires multiple requests to get all needed data\n   - GraphQL: Clients request precisely the data they need, no more, no less\n\n3. **Versioning**:\n   - REST: Often requires explicit versioning (e.g., /api/v1/)\n   - GraphQL: Can add fields without breaking existing queries\n\n4. **Error Handling**:\n   - REST: Uses HTTP status codes\n   - GraphQL: Always returns 200 OK with errors in the response body\n\nChoose REST for simpler APIs with well-defined resources. Choose GraphQL for complex applications where clients need flexible data fetching.",
+            
+            "```jsx\nimport React, { useState } from 'react';\n\nconst LoginForm = () => {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [error, setError] = useState('');\n\n  const handleSubmit = (e) => {\n    e.preventDefault();\n    setError('');\n    \n    if (!email || !password) {\n      setError('Please enter both email and password');\n      return;\n    }\n    \n    // Here you would typically call an authentication API\n    console.log('Logging in with:', email, password);\n    // Example: authService.login(email, password)\n  };\n\n  return (\n    <div className=\"login-form-container\">\n      <h2>Log In</h2>\n      \n      {error && <div className=\"error-message\">{error}</div>}\n      \n      <form onSubmit={handleSubmit}>\n        <div className=\"form-group\">\n          <label htmlFor=\"email\">Email:</label>\n          <input\n            type=\"email\"\n            id=\"email\"\n            value={email}\n            onChange={(e) => setEmail(e.target.value)}\n            required\n          />\n        </div>\n        \n        <div className=\"form-group\">\n          <label htmlFor=\"password\">Password:</label>\n          <input\n            type=\"password\"\n            id=\"password\"\n            value={password}\n            onChange={(e) => setPassword(e.target.value)}\n            required\n          />\n        </div>\n        \n        <button type=\"submit\" className=\"login-button\">\n          Log In\n        </button>\n      </form>\n    </div>\n  );\n};\n\nexport default LoginForm;\n```\n\nThis React component creates a simple login form with email and password fields. It uses React Hooks (useState) to manage the form state and includes basic validation to ensure both fields are filled before submission."
+        ]
+    }
+    
+    # Convert to DataFrame and then to Hugging Face Dataset
+    df = pd.DataFrame(data)
+    dataset = Dataset.from_pandas(df)
+    
+    # Split into train and validation
+    dataset = dataset.train_test_split(test_size=0.1)
+    
+    return dataset
+
+# Format data for instruction-based fine-tuning
+def format_instruction_dataset(example):
+    return {
+        "text": f"### Instruction:\n{example['instruction']}\n\n### Response:\n{example['response']}\n"
+    }
+```
+
+### S###### S# Step 3: Set Up LoRA Fine-tuningpython transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
+from peft import get_peft_model, LoraConfig, TaskType, PeftModel
+import torch
+
+def setup_fine_tuning():
+    # Load base model and tokenizer
+    model_name = "gpt2-medium"
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    
+    # Add padding token if it doesn't exist
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+        model.config.pad_token_id = tokenizer.pad_token_id
+    
+    # Configure LoRA
+    lora_config = LoraConfig(
+        task_type=TaskType.CAUSAL_LM,
+        r=16,  # Rank
+        lora_alpha=32,
+        lora_dropout=0.05,
+        target_modules=["c_attn", "c_proj"],  # Target attention components
+        bias="none",
+    )
+    
+    # Create PEFT model
+    peft_model = get_peft_model(model, lora_config)
+    
+    # Print trainable parameters info
+    trainable_params = sum(p.numel() for p in peft_model.parameters() if p.requires_grad)
+    total_params = sum(p.numel() for p in peft_model.parameters())
+    print(f"Trainable parameters: {trainable_params} ({trainable_params/total_params:.2%} of total)")
+    
+    return peft_model, tokenizer
+
+# Tok#### Tokenization functiontokenize_function(examples, tokenizer, max_length=512):
+    return tokenizer(
+        examples["text"],
+        truncation=True,
+        padding="max_length",
+        max_length=max_length,
+        return_tensors="pt"
+    )
+
+# Dat#### Data collator for causal language modeling (continued)s CustomDataCollator:
+    def __init__(self, tokenizer):
+        self.tokenizer = tokenizer
+        
+    def __call__(self, examples):
+        # Extract input_ids and create batch
+        batch = {
+            "input_ids": torch.stack([example["input_ids"] for example in examples]),
+            "attention_mask": torch.stack([example["attention_mask"] for example in examples]),
+        }
+        
+        # Set up labels for causal language modeling (shifted input_ids)
+        batch["labels"] = batch["input_ids"].clone()
+        
+        # Return the batch
+        return batch
+```
+
+
+### St# Step 4: Training Processython
+from transformers import Trainer
+
+def train_model(model, tokenizer, dataset):
+    # Tokenize datasets
+    tokenized_dataset = dataset.map(
+        lambda examples: tokenize_function(examples, tokenizer),
+        batched=True,
+        remove_columns=dataset["train"].column_names  # Remove original columns
+    )
+    
+    # Set up training arguments
+    training_args = TrainingArguments(
+        output_dir="./techdoc-assistant",
+        learning_rate=1e-4,
+        num_train_epochs=3,
+        per_device_train_batch_size=4,
+        per_device_eval_batch_size=4,
+        gradient_accumulation_steps=8,  # Effectively increases batch size
+        warmup_steps=100,
+        weight_decay=0.01,
+        logging_dir="./logs",
+        logging_steps=10,
+        evaluation_strategy="epoch",
+        save_strategy="epoch",
+        load_best_model_at_end=True,
+        save_total_limit=3,
+        report_to="tensorboard",
+        fp16=True,  # Mixed precision training for efficiency
+    )
+    
+    # Create data collator
+    data_collator = CustomDataCollator(tokenizer)
+    
+    # Initialize trainer
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=tokenized_dataset["train"],
+        eval_dataset=tokenized_dataset["test"],
+        data_collator=data_collator,
+    )
+    
+    # Train the model
+    print("Starting training...")
+    trainer.train()
+    
+    # Save the fine-tuned model
+    model.save_pretrained("./techdoc-assistant-final")
+    tokenizer.save_pretrained("./techdoc-assistant-final")
+    
+    return model, tokenizer
+```
+
+######### Ste# Step 5: Evaluation Functionsthonf evaluate_technical_documentation(model, tokenizer, test_prompts):
+    """Evaluate the model on technical documentation tasks."""
+    model.eval()
+    device = next(model.parameters()).device
+    
+    results = []
+    
+    for prompt in test_prompts:
+        # Format prompt as instruction
+        formatted_prompt = f"### Instruction:\n{prompt}\n\n### Response:\n"
+        
+        # Tokenize
+        inputs = tokenizer(formatted_prompt, return_tensors="pt").to(device)
+        
+        # Generate response
+        output_ids = model.generate(
+            inputs.input_ids,
+            max_length=512,
+            temperature=0.7,
+            top_p=0.9,
+            do_sample=True,
+            num_return_sequences=1,
+        )
+        
+        # Decode generated text, skipping the input prompt
+        prompt_length = len(inputs.input_ids[0])
+        generated_text = tokenizer.decode(output_ids[0][prompt_length:], skip_special_tokens=True)
+        
+        # Add to results
+        results.append({
+            "prompt": prompt,
+            "response": generated_text.strip(),
+        })
+    
+    return results
+
+def analyze_code_correctness(responses):
+    """Basic analysis of code snippets in responses."""
+    import re
+    
+    code_results = []
+    code_pattern = r'```(?:python|javascript|jsx|java|cpp|c\+\+|rust|go)?\n(.*?)```'
+    
+    for response in responses:
+        # Extract code blocks
+        code_blocks = re.findall(code_pattern, response["response"], re.DOTALL)
+        
+        # Analyze each code block
+        for code in code_blocks:
+            # Check for syntax errors (this is a simplified check)
+            has_syntax_error = False
+            has_comments = '"""' in code or "'''" in code or '#' in code or '//' in code
+            
+            # Count lines and estimate complexity
+            lines = code.strip().split('\n')
+            line_count = len(lines)
+            complexity = "Simple" if line_count < 15 else "Moderate" if line_count < 40 else "Complex"
+            
+            # Add to results
+            code_results.append({
+                "prompt": response["prompt"],
+                "code_length": line_count,
+                "has_comments": has_comments,
+                "complexity": complexity,
+                "has_syntax_error": has_syntax_error,
+            })
+    
+    # Print summary
+    if code_results:
+        print(f"Found {len(code_results)} code snippets")
+        print(f"Average length: {sum(r['code_length'] for r in code_results) / len(code_results):.1f} lines")
+        print(f"With comments: {sum(1 for r in code_results if r['has_comments'])} ({sum(1 for r in code_results if r['has_comments']) / len(code_results):.1%})")
+    
+    return code_results
+```
+
+### Step 6# Step 6: Put It All Togethern
+def run_complete_project():
+    """Run the complete fine-tuning project."""
+    # Prepare data
+    dataset = prepare_training_data()
+    dataset = dataset.map(format_instruction_dataset)
+    print(f"Dataset prepared with {len(dataset['train'])} training examples")
+    
+    # Set up model and tokenizer
+    model, tokenizer = setup_fine_tuning()
+    
+    # Train model
+    trained_model, tokenizer = train_model(model, tokenizer, dataset)
+    
+    # Evaluate on test prompts
+    test_prompts = [
+        "Explain how RESTful APIs work",
+        "Write a Python class to represent a simple bank account",
+        "What's the difference between synchronous and asynchronous programming?",
+        "Create a function to calculate the Fibonacci sequence in JavaScript"
+    ]
+    
+    evaluation_results = evaluate_technical_documentation(trained_model, tokenizer, test_prompts)
+    
+    # Analyze code snippets
+    code_analysis = analyze_code_correctness(evaluation_results)
+    
+    # Print sample responses
+    print("\nSample Responses:")
+    for i, result in enumerate(evaluation_results[:2]):  # Show first 2 examples
+        print(f"\nPrompt {i+1}: {result['prompt']}")
+        print("-" * 40)
+        print(result['response'])
+        print("=" * 80)
+    
+    return {
+        "model": trained_model,
+        "tokenizer": tokenizer,
+        "evaluation_results": evaluation_results,
+        "code_analysis": code_analysis
+    }
+
+# Call this function to execute the entire project
+if __name__ == "__main__":
+    project_results = run_complete_project()
+```
+
+### ###### Step 7:# Step 7: Save and Load the Fine-tuned Model save_and_load_model():
+    """Demonstrate how to save and load a LoRA fine-tuned model."""
+    from peft import PeftModel, PeftConfig
+    
+    # Save model adapter weights separately
+    def save_lora_model(model, path):
+        model.save_pretrained(path)
+        print(f"LoRA adapter saved to {path}")
+    
+    # Load model for inference
+    def load_for_inference(base_model_name, adapter_path):
+        # Load base model
+        base_model = AutoModelForCausalLM.from_pretrained(base_model_name)
+        
+        # Load adapter
+        model = PeftModel.from_pretrained(base_model, adapter_path)
+        tokenizer = AutoTokenizer.from_pretrained(base_model_name)
+        
+        # Set model to evaluation mode
+        model.eval()
+        
+        return model, tokenizer
+    
+    # Example: Save model after training
+    # save_lora_model(project_results["model"], "./techdoc-lora-adapter")
+    
+    # Example: Load model for inference
+    model, tokenizer = load_for_inference("gpt2-medium", "./techdoc-lora-adapter")
+    
+    # Test the loaded model
+    prompt = "Explain how garbage collection works in programming languages"
+    formatted_prompt = f"### Instruction:\n{prompt}\n\n### Response:\n"
+    
+    inputs = tokenizer(formatted_prompt, return_tensors="pt").to(next(model.parameters()).device)
+    outputs = model.generate(**inputs, max_length=512, temperature=0.7)
+    
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    print(f"Prompt: {prompt}\n\nResponse: {response}")
+    
+    return model, tokenizer
+```
+
+### Step 8: # Step 8: Apply Quantization for Deploymentdef prepare_for_deployment():
+    """Demonstrate quantization and preparation for deployment."""
+    from peft import PeftModel, PeftConfig
+    import torch
+    
+    # Load LoRA weights with base model
+    base_model = AutoModelForCausalLM.from_pretrained("gpt2-medium")
+    model = PeftModel.from_pretrained(base_model, "./techdoc-lora-adapter")
+    tokenizer = AutoTokenizer.from_pretrained("gpt2-medium")
+    
+    # Merge weights (optional, combines adapter with base model)
+    merged_model = model.merge_and_unload()
+    
+    # Apply 8-bit quantization 
+    try:
+        import bitsandbytes as bnb
+        from transformers import BitsAndBytesConfig
+        
+        # Configure quantization
+        quantization_config = BitsAndBytesConfig(
+            load_in_8bit=True,
+            llm_int8_enable_fp32_cpu_offload=True
+        )
+        
+        # Load model with quantization
+        quantized_model = AutoModelForCausalLM.from_pretrained(
+            "gpt2-medium",
+            quantization_config=quantization_config,
+            device_map="auto"
+        )
+        
+        # Load adapter onto quantized model
+        quantized_model = PeftModel.from_pretrained(
+            quantized_model, 
+            "./techdoc-lora-adapter"
+        )
+        
+        print("Model quantized successfully")
+        
+        # Compare memory usage
+        def get_model_size(model):
+            """Estimate model size in memory."""
+            return sum(p.numel() * p.element_size() for p in model.parameters()) / (1024 * 1024)
+        
+        original_size = get_model_size(model)
+        quantized_size = get_model_size(quantized_model)
+        
+        print(f"Original model size: {original_size:.2f} MB")
+        print(f"Quantized model size: {quantized_size:.2f} MB")
+        print(f"Compression ratio: {original_size / quantized_size:.2f}x")
+        
+        return quantized_model, tokenizer
+        
+    except ImportError:
+        print("Quantization libraries not available. Install bitsandbytes for quantization.")
+        return merged_model, tokenizer
+```
+
+######### Step 9: C# Step 9: Create a Simple Inference APIef create_inference_api(model, tokenizer):  """Create a simple FastAPI endpoint for model inference."""
+    try:
+        from fastapi import FastAPI, HTTPException
+        from pydantic import BaseModel
+        import uvicorn
+        
+        app = FastAPI(title="TechDoc Assistant API")
+        
+        class DocumentationRequest(BaseModel):
+            prompt: str
+            max_length: int = 512
+            temperature: float = 0.7
+            top_p: float = 0.9
+        
+        class DocumentationResponse(BaseModel):
+            prompt: str
+            response: str
+        
+        @app.post("/generate", response_model=DocumentationResponse)
+        async def generate_documentation(request: DocumentationRequest):
+            try:
+                # Format prompt
+                formatted_prompt = f"### Instruction:\n{request.prompt}\n\n### Response:\n"
+                
+                # Tokenize
+                inputs = tokenizer(formatted_prompt, return_tensors="pt").to(
+                    next(model.parameters()).device
+                )
+                
+                # Generate response
+                outputs = model.generate(
+                    inputs.input_ids,
+                    max_length=request.max_length,
+                    temperature=request.temperature,
+                    top_p=request.top_p,
+                    do_sample=True
+                )
+                
+                # Decode
+                response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+                
+                # Extract just the response part
+                response_text = response.split("### Response:\n")[-1].strip()
+                
+                return DocumentationResponse(
+                    prompt=request.prompt,
+                    response=response_text
+                )
+            
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Generation error: {str(e)}")
+        
+        # Return the app instance (would normally be run with uvicorn)
+        return app
+        
+    except ImportError:
+        print("API libraries not available. Install fastapi and uvicorn for API deployment.")
+        return None
+```
+
+This comprehensive project demonstrates a complete workflow for fine-tuning a language model for a specific task. By following these steps, you can create specialized models for various applications while efficiently using computational resources through techniques like LoRA fine-tuning and quantization.
+
+The project illustrates several key concepts:
+
+1. **Data preparation**: Formatting data for instruction fine-tuning
+2. **Parameter-efficient fine-tuning**: Using LoRA to adapt models efficiently
+3. **Evaluation**: Assessing model performance on technical content
+4. **Deployment considerations**: Quantizing and serving the model
+
+In a real-world scenario, you would want to expand the training dataset significantly, add more comprehensive evaluation metrics, and potentially incorporate techniques to prevent catastrophic forgetting of general knowledge while specializing in technical documentation.
+
+---
+
+### 6.10 Key Takeaways from Module 6
+
+In this module, we've explored the powerful paradigm of transfer learning and fine-tuning for large language models. Let's summarize the key points:
+
+#### The Power of Transfer Learning
+
+Transfer learning allows us to leverage knowledge from pre-trained models rather than starting from scratch. This approach:
+
+1. **Drastically reduces computational requirements** for developing specialized models
+2. **Minimizes data needs** by building on existing language knowledge
+3. **Enables rapid adaptation** to new domains and tasks
+4. **Preserves general capabilities** while adding specialized skills
+
+#### Fine-tuning Approaches
+
+We explored several approaches to fine-tuning:
+
+1. **Full fine-tuning**: Updates all parameters of the pre-trained model
+    
+    - Provides optimal performance but requires significant resources
+    - Most suitable when computational resources are plentiful
+2. **Parameter-efficient fine-tuning (PEFT)**: Updates a small subset of parameters
+    
+    - LoRA: Low-rank adaptation of weight matrices
+    - Adapters: Small modules inserted between layers
+    - Prompt tuning: Trainable continuous prompt embeddings
+    - Significantly reduces memory requirements and training time
+    - Often performs nearly as well as full fine-tuning
+3. **Quantization and optimization**: Reduces model precision after training
+    
+    - Enables deployment on resource-constrained devices
+    - Maintains most of model quality with substantial efficiency gains
+
+#### Task Adaptation Strategies
+
+Different tasks require different adaptation strategies:
+
+1. **Classification tasks**: Add classification heads and use cross-entropy loss
+2. **Generation tasks**: Use autoregressive fine-tuning with carefully formatted data
+3. **Sequence tagging**: Employ token-level classification with aligned labels
+4. **Question answering**: Specialize in extracting information from context
+5. **Domain adaptation**: Continue pre-training on domain-specific corpora before task-specific fine-tuning
+
+#### Mitigating Catastrophic Forgetting
+
+Fine-tuning can cause models to "forget" their general capabilities. We learned techniques to prevent this:
+
+1. **Regularization methods**: Constrain weight updates to preserve original knowledge
+2. **Replay methods**: Mix in general-domain examples during fine-tuning
+3. **Parameter-efficient methods**: Naturally preserve original capabilities by keeping most weights frozen
+4. **Knowledge distillation**: Use the original model to guide the fine-tuned model
+5. **Continual learning**: Gradually adapt the model while maintaining performance on previous tasks
+
+#### Evaluation Best Practices
+
+Proper evaluation ensures that fine-tuned models meet requirements:
+
+1. **Task-specific metrics**: Different tasks require different evaluation approaches
+2. **Behavioral evaluation**: Assess changes in model behavior beyond just task performance
+3. **Comparison with baselines**: Always benchmark against relevant baseline models
+4. **Domain-specific testing**: Create specialized test sets for your particular application
+5. **General capability retention**: Check that general abilities haven't degraded
+
+#### Deployment Considerations
+
+Moving from fine-tuning to production requires additional steps:
+
+1. **Quantization**: Reduce precision to improve inference speed and reduce memory usage
+2. **Pruning**: Remove unnecessary weights to shrink model size
+3. **Distillation**: Create smaller, faster models that mimic larger ones
+4. **Optimization frameworks**: Convert models to optimized formats like ONNX
+5. **Inference APIs**: Create standardized interfaces for model access
+
+#### Practical Recommendations
+
+Based on all we've covered, here are some practical recommendations:
+
+1. **Start with PEFT**: Begin with parameter-efficient methods like LoRA before trying full fine-tuning
+2. **Quality data matters more than quantity**: Focus on high-quality, diverse examples
+3. **Consistent formatting**: Use consistent instruction formats across training examples
+4. **Test general capabilities**: Always verify that fine-tuning hasn't degraded important general abilities
+5. **Consider compute trade-offs**: Balance training efficiency with inference requirements
+6. **Iterate quickly**: Use efficient methods to test multiple approaches before committing resources
+
+By applying these principles, you can effectively adapt large language models to specialized tasks and domains, creating powerful AI systems tailored to your specific needs.
+
+---
+
+### 6.11 Practice Exercises
+
+To reinforce your learning from this module, here are some hands-on exercises to try:
+
+#### Exercise 1: Comparative Fine-tuning
+
+Try fine-tuning the same base model using different methods and compare the results:
+
+1. **Setup**:
+    
+    - Choose a small base model (e.g., GPT-2 small or DistilGPT2)
+    - Select a simple task (e.g., sentiment classification)
+    - Prepare a small dataset (a few hundred examples)
+2. **Implement and compare**:
+    
+    - Fine-tune using full fine-tuning
+    - Fine-tune using LoRA
+    - Fine-tune using adapters
+    - Fine-tune using prompt tuning
+3. **Analyze**:
+    
+    - Compare performance metrics across methods
+    - Measure training time and memory usage
+    - Evaluate model size and inference speed
+    - Determine the best approach for your specific use case
+
+#### Exercise 2: Domain Adaptation
+
+Adapt a pre-trained model to a specialized domain:
+
+1. **Data collection**:
+    
+    - Gather text from a specialized domain (legal, medical, technical, etc.)
+    - Create a corpus of at least 1,000 documents
+    - Split into training and evaluation sets
+2. **Adaptation process**:
+    
+    - Continue pre-training a small language model on your domain corpus
+    - Compare different learning rates and training durations
+    - Evaluate domain-specific knowledge before and after adaptation
+3. **Extension**:
+    
+    - Fine-tune for a specific task within the domain
+    - Compare performance with and without domain adaptation
+    - Analyze which domain-specific terms and concepts the model has learned
+
+#### Exercise 3: Preventing Catastrophic Forgetting
+
+Experiment with techniques to maintain general capabilities:
+
+1. **Baseline evaluation**:
+    
+    - Select a pre-trained model
+    - Evaluate its performance on general language tasks (e.g., grammar, world knowledge)
+    - Fine-tune for a specialized task without any forgetting mitigation
+    - Re-evaluate general capabilities to measure forgetting
+2. **Apply mitigation techniques**:
+    
+    - Implement EWC (Elastic Weight Consolidation)
+    - Create a mixed dataset with replay examples
+    - Try LoRA with different configurations
+    - Apply knowledge distillation
+3. **Comparative analysis**:
+    
+    - Measure forgetting across different techniques
+    - Analyze the trade-off between task performance and general capability retention
+    - Determine the most effective approach for your specific scenario
+
+#### Exercise 4: Efficient Deployment Pipeline
+
+Build a complete pipeline from fine-tuning to deployment:
+
+1. **Fine-tuning**:
+    
+    - Fine-tune a model for a practical application (e.g., customer support responses)
+    - Use parameter-efficient methods for training efficiency
+2. **Optimization**:
+    
+    - Apply quantization to the fine-tuned model
+    - Compare FP32, FP16, INT8, and mixed precision
+    - Measure the impact on performance metrics
+3. **Deployment**:
+    
+    - Create a simple REST API for model inference
+    - Implement caching for frequent requests
+    - Measure throughput and latency
+    - Optimize for production use
+
+#### Exercise 5: Multi-task Fine-tuning
+
+Adapt a model for multiple related tasks simultaneously:
+
+1. **Task selection**:
+    
+    - Choose 3-4 related NLP tasks (e.g., sentiment analysis, topic classification, named entity recognition)
+    - Prepare small datasets for each task
+2. **Multi-task setup**:
+    
+    - Format inputs with task-specific prefixes
+    - Create a combined dataset with examples from all tasks
+    - Fine-tune a single model on the combined dataset
+3. **Evaluation and comparison**:
+    
+    - Compare with single-task fine-tuned models
+    - Analyze performance trade-offs across tasks
+    - Test for knowledge transfer between related tasks
+
+#### Exercise 6: Fine-tuning for Code Generation
+
+Create a specialized code assistant:
+
+1. **Data preparation**:
+    
+    - Collect pairs of natural language descriptions and code implementations
+    - Focus on a specific programming language or framework
+    - Format as instruction-response pairs
+2. **Fine-tuning process**:
+    
+    - Use a pre-trained code model (e.g., CodeGen, StarCoder) or a general LLM
+    - Apply LoRA for efficient fine-tuning
+    - Train with appropriate learning rate and epochs
+3. **Evaluation**:
+    
+    - Create test prompts for code generation
+    - Evaluate syntactic correctness of generated code
+    - Test functional correctness where possible
+    - Compare with general, non-fine-tuned models
+
+By completing these exercises, you'll gain hands-on experience with the full spectrum of fine-tuning techniques and applications, deepening your understanding of how to effectively adapt language models for specialized purposes.
+
+---
+
+### 6.12 Preview of Module 7 - Prompt Engineering and In-context Learning
+
+In our next module, we'll explore an alternative approach to adapting language models: using the power of prompts to guide model behavior without changing any parameters. This approach, known as prompt engineering or in-context learning, has become increasingly important as models grow larger and more capable.
+
+Module 7 will cover:
+
+#### 1. Fundamentals of Prompt Engineering
+
+- The theory and principles behind effective prompts
+- How modern LLMs interpret and respond to different prompt formats
+- The relationship between model size and prompt sensitivity
+- The conceptual differences between fine-tuning and prompting
+
+#### 2. Zero-shot and Few-shot Learning
+
+- Leveraging a model's existing knowledge without examples
+- Using demonstrations to guide model behavior
+- Techniques for selecting effective examples
+- When to use zero-shot vs. few-shot approaches
+
+#### 3. Chain-of-Thought and Reasoning Techniques
+
+- Prompting models to think step-by-step
+- Techniques for improved reasoning and problem-solving
+- Self-consistency and verification methods
+- Combining reasoning with external tools and knowledge
+
+#### 4. Advanced Prompting Strategies
+
+- Role-playing and personas in prompts
+- System prompts and instruction formats
+- Template engineering for consistent outputs
+- Combining prompts with structured data
+
+#### 5. Prompt Optimization and Tuning
+
+- Automated methods for prompt improvement
+- A/B testing prompts for optimal performance
+- Measuring and comparing prompt effectiveness
+- Soft prompts and continuous prompt optimization
+
+#### 6. Building Robust Prompt-based Applications
+
+- Creating reliable systems with unreliable components
+- Error handling and recovery strategies
+- Combining prompting with retrieval and tools
+- Designing for prompt-based workflows
+
+#### 7. Hybrid Approaches: Combining Fine-tuning and Prompting
+
+- When to fine-tune vs. when to prompt
+- Using fine-tuned models with carefully crafted prompts
+- Instruction fine-tuning for better prompt following
+- The future of model adaptation techniques
+
+In Module 7, we'll see how the careful crafting of inputs can unlock capabilities in models without modifying their parameters. This complementary approach to fine-tuning is especially valuable when working with the latest frontier models or when computational resources for fine-tuning are limited.
+
+By the end of Modules 6 and 7, you'll have a comprehensive understanding of both parameter-based adaptation (fine-tuning) and input-based adaptation (prompting), allowing you to choose the most appropriate approach for any given scenario.
 
 ---
 
