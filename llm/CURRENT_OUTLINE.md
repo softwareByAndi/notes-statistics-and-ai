@@ -2255,11 +2255,11 @@ This module includes implementing a transformer model for next-word prediction, 
 Now that we understand attention mechanisms, let's explore the full Transformer architecture. The original Transformer consists of an encoder and a decoder, though many modern LLMs use only the decoder component.
 
 - [[4.2.1 Overall Structure]]
-- [[4.2.2 Embedding and Positional Encoding]]
-- [[4.2.3 Encoder Layer]]
-- [[4.2.4 Decoder Layer]]
-- [[4.2.5 The Complete Transformer]]
-- [[4.2.6 Decoder-Only Models]]
+- [[4.2.1 Embedding and Positional Encoding]]
+- [[4.2.2 Encoder Layer]]
+- [[4.2.3 Decoder Layer]]
+- [[4.2.4 The Complete Transformer]]
+- [[4.2.5 Decoder-Only Models]]
 
 ---
 
