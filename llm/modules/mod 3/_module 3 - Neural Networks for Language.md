@@ -2,6 +2,7 @@
 
 Welcome to Module 3 of our LLM crash course! In this module, we'll explore how neural networks revolutionized language modeling. While our previous n-gram models could capture local patterns in text, they had significant limitations that neural approaches address.
 
+- [[Module 3 - TL;DR]]
 - [[3.1 From N-grams to Neural Networks]]
 - [[3.2 Word Embeddings - Representing Words as Vectors]]
 - [[3.3 Feed-Forward Neural Networks for Language]]

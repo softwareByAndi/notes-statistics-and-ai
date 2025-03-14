@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/CURRENT_OUTLINE.md",
+                "file": "llm/modules/mod 3/Module 3 - TL;DR.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CURRENT_OUTLINE"
+              "title": "Module 3 - TL;DR"
             }
           }
         ]
@@ -140,13 +140,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/CURRENT_OUTLINE.md",
+                "file": "llm/modules/mod 3/Module 3 - TL;DR.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of CURRENT_OUTLINE"
+              "title": "Outline of Module 3 - TL;DR"
             }
           }
         ],
@@ -171,10 +171,25 @@
   },
   "active": "4177a8be28e47bcf",
   "lastOpenFiles": [
-    "llm/modules/mod 3/3.5 Advanced Recurrent Architectures.md",
     "llm/modules/mod 3/_Module 3 - Neural Networks for Language.md",
+    "llm/modules/mod 3/Module 3 - TL;DR.md",
     "llm/CURRENT_OUTLINE.md",
     "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
+    "llm/modules/mod 2/_Module 2 - Language and Text - The Foundation.md",
+    "llm/modules/mod 2/2.1 The Text Representation Challenge.md",
+    "llm/modules/mod 1/2.1 The Text Representation Challenge.md",
+    "llm/modules/mod 8/_Module 8 - Alignment and Safety.md",
+    "llm/modules/mod 8/8.1 Understanding AI Alignment.md",
+    "llm/modules/mod 8/8.9 Preview of Module 9 - Deployment and Production Considerations.md",
+    "llm/modules/mod 8/8.8 Practice Exercises.md",
+    "llm/modules/mod 8/8.7 Key Takeaways from Module 8.md",
+    "llm/modules/mod 8/8.6 Hands-On Project - Building an Aligned AI Application.md",
+    "llm/modules/mod 8/8.5 Responsible Deployment.md",
+    "llm/modules/mod 8/8.4 Practical Safety Measures.md",
+    "llm/modules/mod 8/8.3 Alignment Techniques.md",
+    "llm/modules/mod 8/8.2 Safety Challenges with Language Models.md",
+    "llm/modules/mod 8",
+    "llm/modules/mod 3/3.5 Advanced Recurrent Architectures.md",
     "llm/modules/mod 7/_Module 7 - Prompt Engineering and In-context Learning.md",
     "llm/modules/mod 7/7.5 Advanced Prompting Strategies.md",
     "llm/modules/mod 7/7.11 Preview of Module 8 - Alignment and Safety.md",
@@ -183,30 +198,15 @@
     "llm/modules/mod 7/7.8 Hands-On Project - Building a Complex Prompt-Based Application.md",
     "llm/modules/mod 7/7.1 Foundations of Prompt Engineering.md",
     "llm/modules/mod 7/7.7 Building Reliable Prompt-Based Applications.md",
-    "llm/modules/mod 7/7.6 Prompt Optimization and Automated Techniques.md",
-    "llm/modules/mod 7/7.4 Chain-of-Thought and Reasoning Techniques.md",
-    "llm/modules/mod 7/7.3 Zero-shot and Few-shot Learning.md",
-    "llm/modules/mod 7/7.2 Prompt Components and Structure.md",
     "llm/modules/mod 7",
-    "llm/test.md",
     "test.py",
     "compile-llm-notes copy.py",
-    "llm/modules/mod 1/1.1 What is a Large Language Model.md",
-    "llm/modules/mod 1/_Module 1 - The Big Picture - What Are We Building.md",
-    "llm/modules/mod 0/_Module 0 - Prerequisites and Preparation.md",
-    "llm/modules/mod 6/_Module 6 - Transfer Learning and Fine-tuning.md",
-    "llm/modules/mod 6/6.12 Preview of Module 7 - Prompt Engineering and In-context Learning.md",
-    "llm/modules/mod 6/6.11 Practice Exercises.md",
-    "llm/modules/mod 6/6.10 Key Takeaways from Module 6.md",
-    "llm/modules/mod 6/6.9 Hands-On Project - Fine-tuning a Model for a Specialized Task.md",
-    "llm/modules/mod 6/6.8 Quantization and Efficient Inference.md",
     "llm/modules/mod 6",
     "compile-llm-notes.py",
     "compile_obsidian.py",
     "llm/modules/mod 5",
     "llm/modules/mod 4/Untitled",
     "llm/modules/mod 4",
-    "llm/modules/mod 3",
     "Pasted image 20240411184114.png",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",

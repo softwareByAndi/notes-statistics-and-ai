@@ -17,14 +17,9 @@ Each module builds upon the previous ones, creating a comprehensive understandin
 - [[_Module 5 - Scaling Up - From Models to LLMs]]
 - [[_Module 6 - Transfer Learning and Fine-tuning]]
 - [[_Module 7 - Prompt Engineering and In-context Learning]]
+- [[_Module 8 - Alignment and Safety]]
 
 ## future modules - not yet developed
-
-**Module 8: Alignment and Safety**
-
-- Addressing biases in language models
-- Reinforcement Learning from Human Feedback (RLHF)
-- Techniques for responsible AI development
 
 **Module 9: Deployment and Production**
 
