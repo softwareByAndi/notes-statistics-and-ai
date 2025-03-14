@@ -4,6 +4,8 @@ Welcome to Module 4 of our LLM crash course! In our previous module, we explored
 
 In this module, we'll explore the architecture that revolutionized natural language processing: the Transformer. This breakthrough, introduced in the 2017 paper "Attention Is All You Need," solved the key limitations of RNNs and became the foundation for all modern Large Language Models.
 
+[[TL;DR - 4 - The Transformer Revolution]] 
+
 - [[4.1 Attention Mechanisms - The Core Innovation]]
 - [[4.2 The Complete Transformer Architecture]]
 - [[4.3 Training Transformers]]

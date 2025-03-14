@@ -6,6 +6,8 @@ Now we're ready to tackle one of the most fascinating aspects of Large Language 
 
 In this module, we'll bridge the gap between the relatively small transformers that can run on a single GPU and the massive models that power today's AI revolution.
 
+[[TL;DR - 5 - Scaling Up - From Models to LLMs]]
+
 - [[5.1 The Scaling Revolution in AI]]
 - [[5.2 Pre-training Objectives and Techniques]]
 - [[5.3 Training Dynamics of Large Models]]

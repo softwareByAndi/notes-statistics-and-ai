@@ -1,4 +1,4 @@
-# TL;DR - Module 3 - Neural Networks for Language: Key Concepts Simplified
+# TL;DR - 3 - Neural Networks for Language
 
 Module 3 explains how neural networks revolutionized language modeling by overcoming limitations of earlier statistical approaches (like n-grams).
 
