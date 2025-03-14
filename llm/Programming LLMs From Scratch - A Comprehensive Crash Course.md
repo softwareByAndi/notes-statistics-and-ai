@@ -9,12 +9,12 @@ Large Language Models represent one of the most significant technological breakt
 
 Each module builds upon the previous ones, creating a comprehensive understanding of the entire LLM development process from text representation to cutting-edge applications.
 
-- [[_Module 0 - Prerequisites and Preparation]]
-- [[_Module 1 - The Big Picture - What Are We Building]]
-- [[_Module 2 - Language and Text - The Foundation]]
-- [[_Module 3 - Neural Networks for Language]]
-- [[_Module 4 - The Transformer Revolution]]
-- [[_Module 5 - Scaling Up - From Models to LLMs]]
+- [[Module 0 - Prerequisites and Preparation]]
+- [[Module 1 - The Big Picture - What Are We Building]]
+- [[Module 2 - Language and Text - The Foundation]]
+- [[Module 3 - Neural Networks for Language]]
+- [[Module 4 - The Transformer Revolution]]
+- [[Module 5 - Scaling Up - From Models to LLMs]]
 - [[_Module 6 - Transfer Learning and Fine-tuning]]
 - [[_Module 7 - Prompt Engineering and In-context Learning]]
 - [[_Module 8 - Alignment and Safety]]

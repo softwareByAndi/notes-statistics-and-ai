@@ -104,5 +104,13 @@
       ],
       "key": "ArrowLeft"
     }
+  ],
+  "note-composer:extract-heading": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "H"
+    }
   ]
 }
