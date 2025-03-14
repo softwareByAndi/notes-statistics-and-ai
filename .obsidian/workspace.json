@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/modules/mod 5/TL;DR - 5 - Scaling Up - From Models to LLMs.md",
+                "file": "llm/modules/mod 5/5.3 Training Dynamics of Large Models.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TL;DR - 5 - Scaling Up - From Models to LLMs"
+              "title": "5.3 Training Dynamics of Large Models"
             }
           }
         ]
@@ -140,13 +140,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/modules/mod 5/TL;DR - 5 - Scaling Up - From Models to LLMs.md",
+                "file": "llm/modules/mod 5/5.3 Training Dynamics of Large Models.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of TL;DR - 5 - Scaling Up - From Models to LLMs"
+              "title": "Outline of 5.3 Training Dynamics of Large Models"
             }
           }
         ],
@@ -154,8 +154,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -172,42 +171,42 @@
   },
   "active": "4177a8be28e47bcf",
   "lastOpenFiles": [
-    "llm/modules/mod 4/TL;DR - 4 - The Transformer Revolution.md",
-    "llm/modules/mod 5/TL;DR - 5 - Scaling Up - From Models to LLMs.md",
+    "llm/modules/mod 5/5.4 Efficient Parameter Use and Model Architectures.md",
+    "llm/modules/mod 5/5.3 Training Dynamics of Large Models.md",
+    "llm/modules/mod 5/5.4.3 Mixture of Experts.md",
+    "llm/modules/mod 5/5.4.2 Parameter Sharing and Depth vs Width.md",
+    "llm/modules/mod 5/5.4.1 Activation Functions and Parameter Efficiency.md",
+    "llm/modules/mod 5/5.5 Scaling Infrastructure and Distributed Training.md",
+    "llm/modules/mod 5/5.6 Data Preparation and Management at Scale.md",
+    "llm/modules/mod 5/subsections/sub 5.5/5.5.1 Model Parallelism vs Data Parallelism.md",
+    "llm/modules/mod 5/subsections/sub 5.5",
+    "llm/modules/mod 5/subsections/sub 5.5/5.5.4 DeepSpeed and Megatron-LM.md",
+    "llm/modules/mod 5/subsections/sub 5.5/5.5.3 Tensor Parallelism.md",
+    "llm/modules/mod 5/subsections/sub 5.5/5.5.2 Pipeline Parallelism.md",
+    "llm/modules/mod 5/subsections/sub 5.6/5.6.1 Data Curation and Quality.md",
+    "llm/modules/mod 5/subsections/sub 5.6",
+    "llm/modules/mod 5/subsections/sub 5.6/5.6.3 WebDataset and Efficient Formats.md",
+    "llm/modules/mod 5/subsections/sub 5.6/5.6.2 Efficient Data Loading.md",
     "llm/modules/mod 5/_Module 5 - Scaling Up - From Models to LLMs.md",
-    "Untitled 2.md",
-    "llm/modules/mod 5/TL;DR - 5 - 2.md",
-    "llm/modules/mod 4/_Module 4 - The Transformer Revolution.md",
-    "llm/modules/mod 3/_Module 3 - Neural Networks for Language.md",
-    "llm/modules/mod 0/_Module 0 - Prerequisites and Preparation.md",
-    "llm/modules/mod 2/_Module 2 - Language and Text - The Foundation.md",
-    "llm/modules/mod 1/_Module 1 - The Big Picture - What Are We Building.md",
-    "llm/modules/mod 1/TL;DR - 1 - The Big Picture - What Are We Building.md",
-    "llm/modules/mod 1/1.1 What is a Large Language Model.md",
-    "llm/modules/mod 2/TL;DR - 2 - Language and Text - the Foundation of Language Models.md",
-    "llm/modules/mod 3/TL;DR - 3 - Neural Networks for Language.md",
-    "llm/CURRENT_OUTLINE.md",
-    "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
-    "llm/modules/mod 2/2.1 The Text Representation Challenge.md",
-    "llm/modules/mod 1/2.1 The Text Representation Challenge.md",
-    "llm/modules/mod 8/_Module 8 - Alignment and Safety.md",
-    "llm/modules/mod 8/8.1 Understanding AI Alignment.md",
-    "llm/modules/mod 8/8.9 Preview of Module 9 - Deployment and Production Considerations.md",
-    "llm/modules/mod 8/8.8 Practice Exercises.md",
-    "llm/modules/mod 8/8.7 Key Takeaways from Module 8.md",
-    "llm/modules/mod 8/8.6 Hands-On Project - Building an Aligned AI Application.md",
-    "llm/modules/mod 8/8.5 Responsible Deployment.md",
-    "llm/modules/mod 8/8.4 Practical Safety Measures.md",
-    "llm/modules/mod 8",
-    "llm/modules/mod 7",
-    "test.py",
-    "compile-llm-notes copy.py",
-    "llm/modules/mod 6",
-    "compile-llm-notes.py",
-    "compile_obsidian.py",
-    "llm/modules/mod 5",
-    "llm/modules/mod 4/Untitled",
-    "llm/modules/mod 4",
+    "llm/modules/mod 5/TL;DR - 5 - Scaling Up - From Models to LLMs.md",
+    "llm/modules/mod 5/5.10 Preview of Module 6 - Transfer Learning and Fine-tuning.md",
+    "llm/modules/mod 5/5.9 Practice Exercises.md",
+    "llm/modules/mod 5/5.8 Key Takeaways from Module 5.md",
+    "llm/modules/mod 5/subsections/sub 5.7/5.7.1 Project Objectives.md",
+    "llm/modules/mod 5/5.7 Hands-On Project - Training a Mid-Scale Language Model.md",
+    "llm/modules/mod 5/subsections/sub 5.7",
+    "llm/modules/mod 5/subsections",
+    "llm/modules/mod 5/subsections/sub 5.7/5.7.4 Text Generation.md",
+    "llm/modules/mod 5/subsections/sub 5.7/5.7.3 Training Script.md",
+    "llm/modules/mod 5/subsections/sub 5.7/5.7.2 Model Architecture.md",
+    "llm/modules/mod 5/5.2 Pre-training Objectives and Techniques.md",
+    "llm/modules/mod 5/5.1 The Scaling Revolution in AI.md",
+    "llm/modules/mod 4/subsections/sub 4.5",
+    "llm/modules/mod 4/subsections/sub 4.5",
+    "llm/modules/mod 4/subsections/sub 4.4",
+    "llm/modules/mod 4/subsections/sub 4.3",
+    "llm/modules/mod 4/subsections/sub 4.2",
+    "llm/modules/mod 4/subsections",
     "Pasted image 20240411184114.png",
     "Screenshot 2024-04-09 at 7.54.16 PM.png",
     "Screenshot 2024-04-09 at 7.53.23 PM.png",
