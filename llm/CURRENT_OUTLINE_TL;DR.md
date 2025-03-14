@@ -15,7 +15,7 @@ Each module builds upon the previous ones, creating a comprehensive understandin
 - [[Module 3 - Neural Networks for Language]]
 - [[Module 4 - The Transformer Revolution]]
 - [[Module 5 - Scaling Up - From Models to LLMs]]
-- [[_Module 6 - Transfer Learning and Fine-tuning]]
+- [[Module 6 - Transfer Learning and Fine-tuning]]
 - [[_Module 7 - Prompt Engineering and In-context Learning]]
 - [[_Module 8 - Alignment and Safety]]
 
@@ -242,16 +242,15 @@ Self-attention (sometimes called intra-attention) is the core mechanism that all
 Here's how it works, step by step:
 
 1. Each token in the sequence is first converted to three vectors:
-    
     - A **query** vector (Q): what the token is "looking for"
     - A **key** vector (K): what the token "offers" to others
     - A **value** vector (V): the actual content of the token
+
 2. For each token, we compute attention scores with every other token by taking the dot product of its query vector with the key vectors of all tokens.
-    
+
 3. These scores are normalized using a softmax function to create attention weights that sum to 1.
-    
+
 4. Finally, we compute a weighted sum of all value vectors, using these attention weights.
-    
 
 Mathematically, for a single token, the self-attention operation is:
 
