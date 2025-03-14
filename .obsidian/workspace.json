@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/modules/mod 4/subsections/sub 4.2/4.2.2 Encoder Layer.md",
+                "file": "llm/modules/mod 4/Module 4 - The Transformer Revolution.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4.2.2 Encoder Layer"
+              "title": "Module 4 - The Transformer Revolution"
             }
           }
         ]
@@ -141,13 +141,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/modules/mod 4/subsections/sub 4.2/4.2.2 Encoder Layer.md",
+                "file": "llm/modules/mod 4/Module 4 - The Transformer Revolution.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 4.2.2 Encoder Layer"
+              "title": "Outline of Module 4 - The Transformer Revolution"
             }
           }
         ],
@@ -172,21 +172,35 @@
   },
   "active": "ca471fedc0b280ce",
   "lastOpenFiles": [
+    "llm/modules/mod 4/4.5 Visualizing and Understanding Transformers.md",
+    "llm/modules/mod 4/subsections/sub 4.5/4.5.1 Attention Visualization.md",
+    "llm/modules/mod 4/subsections/sub 4.5/4.5.2 Interpreting Attention Patterns.md",
+    "llm/modules/mod 4/code/examples/4.5.1 - attention visualization.ipynb",
+    "llm/modules/mod 4/code/examples/4.5.1 - attention visualization.py",
+    "llm/modules/mod 4/code/examples",
+    "llm/modules/mod 4/code/uv.lock",
+    "llm/modules/mod 4/code/README.md",
+    "llm/modules/mod 4/code/pyproject.toml",
+    "llm/modules/mod 4/code/main.py",
+    "llm/modules/mod 4/code/4.5.1 - attention visualization.py",
+    "llm/modules/mod 4/code/4.5.1 - attention validation.py",
+    "llm/modules/mod 4/code",
+    "llm/modules/mod 4/Module 4 - The Transformer Revolution.md",
+    "llm/modules/mod 4/4.1 Attention Mechanisms - The Core Innovation.md",
+    "llm/modules/mod 4/subsections/sub 4.1/4.1.3 Self-Attention - The Mathematical Foundation.md",
+    "llm/modules/mod 4/4.3 Training Transformers.md",
     "llm/modules/mod 4/4.2 The Complete Transformer Architecture.md",
     "llm/modules/mod 4/subsections/sub 4.2/4.2.1 Embedding and Positional Encoding.md",
     "llm/modules/mod 4/subsections/sub 4.2/4.2.5 Decoder-Only Models.md",
     "llm/modules/mod 4/subsections/sub 4.2/4.2.4 The Complete Transformer.md",
     "llm/modules/mod 4/subsections/sub 4.2/4.2.3 Decoder Layer.md",
-    "llm/modules/mod 4/subsections/sub 4.2/4.2.1 Overall Structure.md",
     "llm/modules/mod 4/subsections/sub 4.2/4.2.2 Encoder Layer.md",
-    "llm/modules/mod 4/Module 4 - The Transformer Revolution.md",
-    "llm/modules/mod 4/4.1 Attention Mechanisms - The Core Innovation.md",
+    "llm/modules/mod 4/subsections/sub 4.2/4.2.1 Overall Structure.md",
     "llm/modules/mod 4/subsections/sub 4.1/4.1.6 Implementing Self-Attention in Code.md",
     "llm/modules/mod 4/subsections/sub 4.1/4.1.5 Multi-Head Attention - Attending from Multiple Perspectives.md",
     "llm/modules/mod 4/subsections/sub 4.1/4.1.2 The Intuition Behind Attention.md",
     "llm/modules/mod 4/subsections/sub 4.1/4.1.1 Why We Need a New Approach.md",
     "llm/modules/mod 4/subsections/sub 4.1/4.1.4 Visual Explanation of Self-Attention.md",
-    "llm/modules/mod 4/subsections/sub 4.1/4.1.3 Self-Attention - The Mathematical Foundation.md",
     "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
     "llm/CURRENT_OUTLINE_TL;DR.md",
     "llm/CURRENT_OUTLINE.md",
@@ -194,20 +208,6 @@
     "llm/modules/mod 7/7.1 Foundations of Prompt Engineering.md",
     "llm/modules/mod 6/Module 6 - Transfer Learning and Fine-tuning.md",
     "llm/modules/mod 7/Untitled",
-    "llm/modules/mod 6/6.12 Preview of Module 7 - Prompt Engineering and In-context Learning.md",
-    "llm/modules/mod 6/subsections/sub 6.11/6.11.1 - Exercise 1 - Comparative Fine-tuning.md",
-    "llm/modules/mod 6/6.11 Practice Exercises.md",
-    "llm/modules/mod 6/subsections/sub 6.11",
-    "llm/modules/mod 6/subsections/sub 6.11/6.11.6 - Exercise 6 - Fine-tuning for Code Generation.md",
-    "llm/modules/mod 6/subsections/sub 6.11/6.11.5 - Exercise 5 - Multi-task Fine-tuning.md",
-    "llm/modules/mod 6/subsections/sub 6.10",
-    "llm/modules/mod 6/subsections/sub 6.9",
-    "llm/modules/mod 6/subsections/sub 6.8",
-    "llm/modules/mod 6/subsections/sub 6.7",
-    "llm/modules/mod 6/subsections/sub 6.6",
-    "llm/modules/mod 6/subsections/sub 6.5",
-    "llm/modules/mod 6/subsections/sub 6.4",
-    "llm/modules/mod 6/subsections/sub 6.3",
     "assets/images/Screenshot 2024-04-09 at 7.50.50 PM.png",
     "assets/images/Screenshot 2024-04-09 at 7.54.16 PM.png",
     "assets/images/Screenshot 2024-04-09 at 7.53.23 PM.png",

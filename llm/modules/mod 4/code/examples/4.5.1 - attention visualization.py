@@ -1,27 +1,8 @@
-### 4.5.1 Attention Visualization
-
-Let's create a function to visualize attention weights:
-#REQUESTING-ELABORATION 
-
-```python
-import torch
-import torch.nn.functional as F
 import matplotlib.pyplot as plt
 import seaborn as sns
-import math
 
 def visualize_attention(model, text, tokenizer, device, layer_idx=0, head_idx=0):
-    """
-    Visualize attention weights for a given text.
-    
-    Parameters:
-    - model: The transformer model
-    - text: Input text to analyze
-    - tokenizer: Tokenizer used for encoding text
-    - device: Torch device (cuda/cpu)
-    - layer_idx: Index of the layer to visualize (default: 0)
-    - head_idx: Index of the attention head to visualize (default: 0)
-    """
+    """Visualize attention weights for a given text."""
     model.eval()
     
     # Tokenize input
@@ -78,14 +59,4 @@ def visualize_attention(model, text, tokenizer, device, layer_idx=0, head_idx=0)
     plt.title(f"Attention Weights (Layer {layer_idx}, Head {head_idx})")
     plt.xlabel("Key")
     plt.ylabel("Query")
-    plt.tight_layout()
     plt.show()
-
-# Example usage (commented out):
-# Example model setup would look like:
-# model = YourTransformerModel()
-# tokenizer = YourTokenizer()
-# device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-# text = "Your input text here"
-# visualize_attention(model, text, tokenizer, device)
-```

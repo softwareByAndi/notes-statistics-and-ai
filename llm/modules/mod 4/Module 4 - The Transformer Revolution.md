@@ -18,3 +18,6 @@ In this module, we'll explore the architecture that revolutionized natural langu
 - [[4.10 Practice Exercises]]
 - [[4.11 Preview of Module 5 - Scaling Up - From Models to LLMs]]
 
+resources:
+- https://poloclub.github.io/transformer-explainer/
+
