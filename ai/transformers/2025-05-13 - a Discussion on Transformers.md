@@ -11,18 +11,12 @@ Q = attention Query embedding
 K = attention Key embedding
 V = attention Value embedding
 
-A = Attention Matrix : $A = Q \cdot K$
-
-$$
-\matrix{{1, 2}{3, 4}}
-$$
-
-
+A = Attention Matrix : $A = Q \cdot K^T$
 
 
 ##### a (3x3) attention matrix (i,j) demonstrates how i attends to j:
-*input = 'hello world !'*
-$I = (3x2) : W_i = (3x3)$  
+`input = ['hello', 'world', '!']`
+$I = (3x2) : W_i = (2x2)$  
 $$
 \begin{bmatrix}
 	\text{HH} & \text{HW} & \text{H!} \\
@@ -32,13 +26,19 @@ $$
 $$
 $$
 \begin{align}
-\begin{bmatrix}
-	I \cdot W_q \\
-	I \cdot W_k \\
-	I \cdot W_v
-\end{bmatrix}
-\rightarrow
-[Q, K, V]
+\underbrace{
+	\begin{bmatrix}
+		I \times W_q \\
+		I \times W_k \\
+		I \times W_v
+	\end{bmatrix}
+	\rightarrow
+	\begin{bmatrix}
+		Q \\
+		K \\
+		V
+	\end{bmatrix}
+}_{\text{do for all tokens}} 
 \rightarrow
 % QK multiplication result
 &\underbrace{
@@ -47,7 +47,7 @@ $$
     25 & 15 & 1 \\
     20 & 4 & 9
   \end{bmatrix}
-}_{Q \cdot K^T} 
+}_{Q_{all \space tokens} \cdot K_{all \space tokens}^T}
 % Scale arrow
 \xrightarrow{\text{scale + mask + softmax + dropout}}
 % Softmax result
@@ -55,8 +55,12 @@ $$
   \begin{bmatrix}
     1.0 & - & - \\
     0.7 & 0.5 & - \\
-    0.5 & 0.1 & -
+    0.5 & 0.2 & 0.1
   \end{bmatrix}
 }_{\text{A}} 
 \end{align}
 $$
+$$
+A \times V \rightarrow \text{weighted output}
+$$
+
