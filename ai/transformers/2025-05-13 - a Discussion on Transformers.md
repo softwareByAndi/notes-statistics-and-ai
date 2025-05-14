@@ -13,19 +13,50 @@ V = attention Value embedding
 
 A = Attention Matrix : $A = Q \cdot K$
 
+$$
+\matrix{{1, 2}{3, 4}}
+$$
 
-```
-legend 
-[
-	H = hello
-	W = world
-	! = !
-]
 
-a (3x3) attention matrix (i,j) demonstrates how i attends to j:
---------       -------------
-HH HW H!        1    0    0 
-WH WW W!  -->  0.5   1    0
-!H !W !!       0.5  0.1   1
---------       -------------
-```
+
+
+##### a (3x3) attention matrix (i,j) demonstrates how i attends to j:
+*input = 'hello world !'*
+$I = (3x2) : W_i = (3x3)$  
+$$
+\begin{bmatrix}
+	\text{HH} & \text{HW} & \text{H!} \\
+	\text{WH} & \text{WW} & \text{W!} \\
+	\text{!H} & \text{!W} & \text{!!}
+\end{bmatrix}
+$$
+$$
+\begin{align}
+\begin{bmatrix}
+	I \cdot W_q \\
+	I \cdot W_k \\
+	I \cdot W_v
+\end{bmatrix}
+\rightarrow
+[Q, K, V]
+\rightarrow
+% QK multiplication result
+&\underbrace{
+  \begin{bmatrix}
+    16 & 22 & 30 \\
+    25 & 15 & 1 \\
+    20 & 4 & 9
+  \end{bmatrix}
+}_{Q \cdot K^T} 
+% Scale arrow
+\xrightarrow{\text{scale + mask + softmax + dropout}}
+% Softmax result
+\underbrace{
+  \begin{bmatrix}
+    1.0 & - & - \\
+    0.7 & 0.5 & - \\
+    0.5 & 0.1 & -
+  \end{bmatrix}
+}_{\text{A}} 
+\end{align}
+$$
