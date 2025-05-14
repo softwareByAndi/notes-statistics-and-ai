@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "028348c39523122e",
+        "id": "807698f45148586c",
         "type": "tabs",
         "children": [
           {
-            "id": "ca471fedc0b280ce",
+            "id": "9c82062cd21c5378",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm/modules/mod 4/Module 4 - The Transformer Revolution.md",
+                "file": "ai/transformers/2025-05-13 - a Discussion on Transformers.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Module 4 - The Transformer Revolution"
+              "title": "2025-05-13 - a Discussion on Transformers"
             }
           }
         ]
@@ -74,8 +74,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -141,13 +140,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "llm/modules/mod 4/Module 4 - The Transformer Revolution.md",
+                "file": "ai/transformers/2025-05-13 - a Discussion on Transformers.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Module 4 - The Transformer Revolution"
+              "title": "Outline of 2025-05-13 - a Discussion on Transformers"
             }
           }
         ],
@@ -170,44 +169,44 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "ca471fedc0b280ce",
+  "active": "9c82062cd21c5378",
   "lastOpenFiles": [
-    "llm/modules/mod 4/4.5 Visualizing and Understanding Transformers.md",
-    "llm/modules/mod 4/subsections/sub 4.5/4.5.1 Attention Visualization.md",
-    "llm/modules/mod 4/subsections/sub 4.5/4.5.2 Interpreting Attention Patterns.md",
+    "llm - ai gen tutorial test/modules/mod 0/Module 0 - Prerequisites and Preparation.md",
+    "llm - ai gen tutorial test/modules/mod 0/Recommended Setup.md",
+    "llm - ai gen tutorial test/modules/mod 0/Knowledge Prerequisites.md",
+    "llm - ai gen tutorial test/CURRENT_OUTLINE.md",
+    "llm - ai gen tutorial test/README.md",
+    "llm - ai gen tutorial test/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
+    "llm - ai gen tutorial test/CURRENT_OUTLINE_TL;DR.md",
+    "llm - ai gen tutorial test/test.md",
+    "ai/transformers/2025-05-13 - a Discussion on Transformers.md",
+    "ai/transformers",
+    "Untitled",
+    "llm/Untitled.md",
+    "llm - ai gen tutorial test/modules/mod 4/Module 4 - The Transformer Revolution.md",
+    "llm - ai gen tutorial test/modules/mod 4/4.5 Visualizing and Understanding Transformers.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.5/4.5.1 Attention Visualization.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.5/4.5.2 Interpreting Attention Patterns.md",
     "llm/modules/mod 4/code/examples/4.5.1 - attention visualization.ipynb",
     "llm/modules/mod 4/code/examples/4.5.1 - attention visualization.py",
     "llm/modules/mod 4/code/examples",
-    "llm/modules/mod 4/code/uv.lock",
-    "llm/modules/mod 4/code/README.md",
-    "llm/modules/mod 4/code/pyproject.toml",
-    "llm/modules/mod 4/code/main.py",
+    "llm - ai gen tutorial test/modules/mod 4/code/uv.lock",
+    "llm - ai gen tutorial test/modules/mod 4/code/README.md",
+    "llm - ai gen tutorial test/modules/mod 4/code/pyproject.toml",
+    "llm - ai gen tutorial test/modules/mod 4/code/main.py",
     "llm/modules/mod 4/code/4.5.1 - attention visualization.py",
     "llm/modules/mod 4/code/4.5.1 - attention validation.py",
-    "llm/modules/mod 4/code",
-    "llm/modules/mod 4/Module 4 - The Transformer Revolution.md",
-    "llm/modules/mod 4/4.1 Attention Mechanisms - The Core Innovation.md",
-    "llm/modules/mod 4/subsections/sub 4.1/4.1.3 Self-Attention - The Mathematical Foundation.md",
-    "llm/modules/mod 4/4.3 Training Transformers.md",
-    "llm/modules/mod 4/4.2 The Complete Transformer Architecture.md",
-    "llm/modules/mod 4/subsections/sub 4.2/4.2.1 Embedding and Positional Encoding.md",
-    "llm/modules/mod 4/subsections/sub 4.2/4.2.5 Decoder-Only Models.md",
-    "llm/modules/mod 4/subsections/sub 4.2/4.2.4 The Complete Transformer.md",
-    "llm/modules/mod 4/subsections/sub 4.2/4.2.3 Decoder Layer.md",
-    "llm/modules/mod 4/subsections/sub 4.2/4.2.2 Encoder Layer.md",
-    "llm/modules/mod 4/subsections/sub 4.2/4.2.1 Overall Structure.md",
-    "llm/modules/mod 4/subsections/sub 4.1/4.1.6 Implementing Self-Attention in Code.md",
-    "llm/modules/mod 4/subsections/sub 4.1/4.1.5 Multi-Head Attention - Attending from Multiple Perspectives.md",
-    "llm/modules/mod 4/subsections/sub 4.1/4.1.2 The Intuition Behind Attention.md",
-    "llm/modules/mod 4/subsections/sub 4.1/4.1.1 Why We Need a New Approach.md",
-    "llm/modules/mod 4/subsections/sub 4.1/4.1.4 Visual Explanation of Self-Attention.md",
-    "llm/Programming LLMs From Scratch - A Comprehensive Crash Course.md",
-    "llm/CURRENT_OUTLINE_TL;DR.md",
-    "llm/CURRENT_OUTLINE.md",
-    "llm/modules/mod 8/8.2 Safety Challenges with Language Models.md",
-    "llm/modules/mod 7/7.1 Foundations of Prompt Engineering.md",
-    "llm/modules/mod 6/Module 6 - Transfer Learning and Fine-tuning.md",
-    "llm/modules/mod 7/Untitled",
+    "llm - ai gen tutorial test/modules/mod 4/4.1 Attention Mechanisms - The Core Innovation.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.1/4.1.3 Self-Attention - The Mathematical Foundation.md",
+    "llm - ai gen tutorial test/modules/mod 4/4.3 Training Transformers.md",
+    "llm - ai gen tutorial test/modules/mod 4/4.2 The Complete Transformer Architecture.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.2/4.2.1 Embedding and Positional Encoding.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.2/4.2.5 Decoder-Only Models.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.2/4.2.4 The Complete Transformer.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.2/4.2.3 Decoder Layer.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.2/4.2.2 Encoder Layer.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.2/4.2.1 Overall Structure.md",
+    "llm - ai gen tutorial test/modules/mod 4/subsections/sub 4.1/4.1.6 Implementing Self-Attention in Code.md",
     "assets/images/Screenshot 2024-04-09 at 7.50.50 PM.png",
     "assets/images/Screenshot 2024-04-09 at 7.54.16 PM.png",
     "assets/images/Screenshot 2024-04-09 at 7.53.23 PM.png",

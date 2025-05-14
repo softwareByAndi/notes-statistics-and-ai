@@ -10,7 +10,8 @@ python compile-llm-notes.py
 
 these documents are a compilation of notes using Claude from anthropic to develop a course to teach how to build LLMs from scratch
 
-prompt
+# prompt
+
 ``` sonnet-3-7-extended-thinking
 your task is to develop a crash course for programming LLMs from scratch. before writing any content, think deeply about:
 1. effective learning
