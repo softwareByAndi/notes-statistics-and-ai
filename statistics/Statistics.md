@@ -5,6 +5,8 @@ links:
   - "[[README]]"
 ---
 a catch all for stats related notes
+#my-tag 
+
 ```toc
 ```
 

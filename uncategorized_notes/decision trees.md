@@ -30,7 +30,7 @@ basically branches are made based on how the split affects the probability / rat
 - e.g. a binary classification has 2 options: 1:0, T:F, Pass:Fail, and let's pretend that the ratio of T:F in the dataset is `60% True : 40% False`. when we select a feature-value-pair to branch from, we want this ratio to change in a way that most significantly increases that ratio. e.g. --> `90:10` or `10:90`, are both good.
 - i.e. we want to select a branch that has the smallest [[using entropy to learn decision trees|entropy]] or the largest [[information gain|information gain]].
 # pruning:
-pruning is the art of dropping branches that do not improve the performance on the validation set; and it's used to help reduce overfitting in decision trees.
+pruning is the art of dropping branches that do not improve the performance on the validation set; and it's used to help reduce overfitting in decision trees. ^38a307
 
 # referenced notes
 - [[Decision Trees - Great Learning.pdf]]

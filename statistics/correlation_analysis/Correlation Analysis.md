@@ -2,7 +2,7 @@
 
 - [[Chi-Square Test]]
 	- see [[chi_square.ipynb]]
-    - Is a statistical test used to compare observed results with expected results. 
+    - Is a s tatistical test used to compare observed results with expected results. 
     - equation: `chi_square = sum( (observed - expected)^2 / expected )`
 - [[Correlation Coefficient (pearson's product moment coefficient)]]
 	- see: [[correlation_coefficient.ipynb]]
